@@ -6,7 +6,7 @@
     font-family: 'Josefin Sans', sans-serif;
     
 }
-input {
+.form input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -18,7 +18,7 @@ input {
     font-size: 14px;
 }
 
-form {
+.form form {
     width: 100%;
     margin: 0 auto;
     padding: 10px;
@@ -28,7 +28,7 @@ form {
     text-align: center;
 }
 
-button {
+.form button {
     width: 80%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -40,22 +40,22 @@ button {
     font-size: 20px;
     color: #105C9F;
 }
-button:hover {
+.form button:hover {
     background-color: #105C9F;
     color: #ffffff;
 }
 
-a {
+.form a {
     color: #000000;
     font-size: 14px;
 }
-a:hover {
+.form a:hover {
     color: #105C9F;
 }
 
 @media screen and (min-width: 768px) {
 
-    form {
+    .form form {
         width: 50%;
         margin-left: 0%;
     }

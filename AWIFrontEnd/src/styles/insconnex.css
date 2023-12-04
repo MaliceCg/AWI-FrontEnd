@@ -17,20 +17,20 @@
 
 }
 
-.img {
+.corps .img {
     text-align: center;
 }
 
-img {
+.corps img {
     width: 200px;
     height: 133px;
     margin-top:10%;
 }
-h3 {
+.corps h3 {
     margin-left: 0%;
     font-size:20px;
 }
-h2 {
+.corps h2 {
     font-size: 36px;
     margin-bottom: 10%;
     color: white;
@@ -39,25 +39,25 @@ h2 {
     color:#105B9E;
     margin-bottom:2%;
 }
-form {
+.corps form {
     margin-top: 0%;
 }
 @media screen and (min-width: 800px) {
-.img {
+.corps .img {
     margin-top:20%;
     margin-left: 70%;
     width:20%;
 }
-img {
+.corps img {
     width: 400px;
     height: 100%;
 
 }
-.desktop {
+.corps .desktop {
 margin-top:-40%;
     
 }
-form {
+.corps form {
 margin-top: 0%;
 }
 #insc {
@@ -68,12 +68,12 @@ margin-top: 0%;
     border-radius: 0%;
     height: 100vh;
 }
-h2 {
+.corps h2 {
     font-size: 48px;
     color: rgb(255, 255, 255);
     margin-bottom: 10%;
 }
-h3 {
+.corps h3 {
     font-size: 28px;
     color: rgb(255, 255, 255);
 }

@@ -8,13 +8,13 @@ const Bouton = ({titre, url}) => (
 );
 
 const PremierePage = () => (
-    <body>
-    <img src={logo} alt="logo" />
-    <h3>Bienvenue au <span className="txt-special">Festival du Jeu</span> de <span className="txt-color">Montpellier</span></h3>
+    <div className="premierePage">
+    <img id="logo" src={logo} alt="logo" />
+    <h3 id="bienv">Bienvenue au <span className="txt-special">Festival du Jeu</span> de <span className="txt-color">Montpellier</span></h3>
     <p id="pcreacompte"> Pour pouvoir participer à l'organisation et t'inscrire à des postes, crée toi un compte </p>
     <Bouton titre="S'inscrire" url="/register" />
     <Bouton titre="Se connecter" url="/login" />
-    </body>
+    </div>
 );
 
 export default PremierePage;

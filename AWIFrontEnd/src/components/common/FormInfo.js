@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/form.css';
-const Bouton = ({titre, url}) => (
-  <a href={url} className="bouton">
-     {titre}
-  </a>
- );
+
  
 
 const Form = ({ fields, buttonText, onSubmit, clickableText, clickableHref }) => {
@@ -21,6 +17,7 @@ const Form = ({ fields, buttonText, onSubmit, clickableText, clickableHref }) =>
   };
 
   return (
+    <div className="form">
     <form onSubmit={handleSubmit}>
       {fields.map((field) => (
         <div key={field.name}>
@@ -41,6 +38,7 @@ const Form = ({ fields, buttonText, onSubmit, clickableText, clickableHref }) =>
         </p>
       )}
     </form>
+    </div>
   );
 };
 

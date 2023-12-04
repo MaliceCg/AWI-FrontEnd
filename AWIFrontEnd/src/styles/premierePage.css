@@ -7,27 +7,27 @@
     
 }
 
-body {
+.premierePage {
     margin: 0 auto;
     box-sizing: border-box;
     text-align: center;
-    height:auto;
+    height:110vh;
     background: linear-gradient(180deg, #105B9E 0%, #3CCBF4 100%) no-repeat;
    
 }
 
-img {
+#logo {
     width: 200px;
     height: 133px;
     margin-left: 10%;
     margin-top: 0%;
 }
 
-h3 {
+#bienv {
     
     font-size: 24px;
     margin-bottom: 10%;
-    margin-top:10%;
+    margin-top:5%;
     padding: 0 2%;
     color: white;
 }
@@ -66,7 +66,7 @@ h3 {
 }
 @media screen and (min-width: 768px) {
   
-    h3 {
+    #bienv {
     
         font-size: 56px;
         margin-bottom: 10%;
