@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    
+}
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    outline: none;
+    background-color: #D9D9D9;
+    font-size: 14px;
+}
+
+form {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+button {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #105C9F;
+    outline: none;
+    background-color: #d9d9d900;
+    font-size: 20px;
+    color: #105C9F;
+}
+button:hover {
+    background-color: #105C9F;
+    color: #ffffff;
+}
+
+a {
+    color: #000000;
+    font-size: 14px;
+}
+a:hover {
+    color: #105C9F;
+}
+
+@media screen and (min-width: 768px) {
+
+    form {
+        width: 50%;
+        margin-left: 0%;
+    }
+
+    
+}

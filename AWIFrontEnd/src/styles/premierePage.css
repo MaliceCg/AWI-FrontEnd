@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Josefin+Sans&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    
+}
+
+body {
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+    height:auto;
+    background: linear-gradient(180deg, #105B9E 0%, #3CCBF4 100%) no-repeat;
+   
+}
+
+img {
+    width: 200px;
+    height: 133px;
+    margin-left: 10%;
+    margin-top: 0%;
+}
+
+h3 {
+    
+    font-size: 24px;
+    margin-bottom: 10%;
+    margin-top:10%;
+    padding: 0 2%;
+    color: white;
+}
+.txt-special {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 48px;
+}
+.txt-color {
+    color: #002348;
+    font-size: 32px;
+}
+#pcreacompte {
+    font-size: 24px;
+    padding: 0 2%;
+    margin-bottom: 20%;
+    color: white;
+}
+
+.bouton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #105C9F;
+    font-size: 32px;
+    color: #105C9F;
+    padding : 5% 0;
+    border-radius: 10px;
+    text-decoration: none;
+    margin: 5% 5%;
+}
+
+.bouton:hover {
+    background-color: #ffffff;
+    border:#ffffff;
+}
+@media screen and (min-width: 768px) {
+  
+    h3 {
+    
+        font-size: 56px;
+        margin-bottom: 10%;
+        margin-top:0%;
+        padding: 0 2%;
+        color: white;
+    }
+    .txt-special {
+        font-family: 'Architects Daughter', cursive;
+        font-size: 90px;
+    }
+    .txt-color {
+        color: #002348;
+        font-size: 72px;
+    }
+  #pcreacompte {
+        font-size: 32px;
+        padding: 0 2%;
+        margin-bottom: 7%;
+        color: white;
+    }
+    .bouton {
+        display: inline-block;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0);
+        border: 1px solid #105C9F;
+        font-size: 32px;
+        color: #105C9F;
+        padding : 2% 5%;
+        border-radius: 10px;
+        text-decoration: none;
+        margin: 5% 5%;
+    }
+    
+}
