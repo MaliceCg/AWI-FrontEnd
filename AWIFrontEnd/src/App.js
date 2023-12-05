@@ -2,9 +2,9 @@ import React from 'react';
 import ListeBenevole from './pages/accueil/ListeBenevole';
 import EspaceCreation from './pages/admin/AdminCreation';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminListeBenevole from './pages/admin/AdminListeBenevole';
 import AdminNotifications from './pages/admin/AdminNotifications';
 import AdminPlanning from './pages/admin/AdminPlanning';
-import AdminListeBenevole from './pages/admin/ListeBenevoleModif';
 import BenevoleActivites from './pages/bénévole/BenevoleActivites';
 import BenevoleDashboard from './pages/bénévole/BenevoleDashboard';
 import BenevoleInscription from './pages/bénévole/BenevoleInscription';
@@ -34,13 +34,13 @@ function App() {
         <Route path="/benevole-inscription" element={<BenevoleInscription />} roles={['benevole']} />
         <Route path="/benevole-notification" element={<BenevoleNotification/>} roles={['benevole']} />
         <Route path="/benevole-planning" element={<BenevolePlanning/>} roles={['benevole']} />
-        <Route path="/liste-benevole" component={ListeBenevole} roles={['accueil']} />
-        <Route path="/liste-benevole-zone" component={ListeBenevoleZone} roles={['referent']} />
-        <Route path="/admin-dashboard" component={AdminDashboard} roles={['admin']} />
-        <Route path="/espace-creation" component={EspaceCreation} roles={['admin']} />
-        <Route path="/admin-notifications" component={AdminNotifications} roles={['admin']} />
-        <Route path="/admin-planning" component={AdminPlanning} roles={['admin']} />
-        <Route path="/admin-liste-benevole" component={AdminListeBenevole} roles={['admin']} />
+        <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />
+        <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
+        <Route path="/admin-dashboard" element={<AdminDashboard/>} roles={['admin']} />
+        <Route path="/espace-creation" element={<EspaceCreation/>} roles={['admin']} />
+        <Route path="/admin-notifications" element={<AdminNotifications/>} roles={['admin']} />
+        <Route path="/admin-planning" element={<AdminPlanning/>} roles={['admin']} />
+        <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />
       </Routes>
 
     </Router>

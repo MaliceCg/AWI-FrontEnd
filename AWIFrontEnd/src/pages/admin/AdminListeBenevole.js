@@ -3,13 +3,13 @@ import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 
 
-const EspaceCreation = () => {
+const AdminListeBenevole = () => {
   return (
     <div>
-        <Header currentPage="espace-creation" />
+        <Header currentPage="liste-benevole" />
         <NavbarAdmin />
     </div>
   );
 };
 
-export default EspaceCreation;
+export default AdminListeBenevole;

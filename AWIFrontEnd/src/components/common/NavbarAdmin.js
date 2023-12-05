@@ -2,43 +2,45 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Account from '../../img/account.svg';
 import ActivitesIcon from '../../img/icons/activites.svg';
+import CreationIcon from '../../img/icons/creation.svg';
 import HomeIcon from '../../img/icons/home.svg';
 import PlanningIcon from '../../img/icons/planning.svg';
+import SendIcon from '../../img/icons/send.svg';
 import Logo from '../../img/logo.svg';
 import '../../styles/navbar.css';
 
-const Navbar = () => {
+const NavbarAdmin = () => {
   const location = useLocation();
 
   return (
     <nav className="navbar">
       {/* Version mobile */}
       <div className="mobile-nav">
-        <Link to="/benevole-notification" className={`mobile-icon ${location.pathname === '/benevole-notification' ? 'active' : ''}`}>
-          <img src={NotifIcon} alt="notifications" />
+        <Link to="/admin-notifications" className={`mobile-icon ${location.pathname === '/admin-notifications' ? 'active' : ''}`}>
+          <img src={SendIcon} alt="notifications" />
         </Link>
-        <Link to="/benevole-planning" className={`mobile-icon ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>
+        <Link to="/admin-planning" className={`mobile-icon ${location.pathname === '/admin-planning' ? 'active' : ''}`}>
           <img src={PlanningIcon} alt="planning" />
         </Link>
-        <Link to="/benevole-dashboard" className={`mobile-icon ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>
+        <Link to="/admin-dashboard" className={`mobile-icon ${location.pathname === '/admin-dashboard' ? 'active' : ''}`}>
           <img src={HomeIcon} alt="accueil" />
         </Link>
-        <Link to="/benevole-activites" className={`mobile-icon ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>
-          <img src={ActivitesIcon} alt="activites" />
+        <Link to="/admin-liste-benevole" className={`mobile-icon ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>
+          <img src={ActivitesIcon} alt="liste admins" />
         </Link>
-        <Link to="/benevole-inscription" className={`mobile-icon ${location.pathname === '/benevole-inscription' ? 'active' : ''}`}>
-          <img src={InscriptionIcon} alt="inscription" />
+        <Link to="/espace-creation" className={`mobile-icon ${location.pathname === '/espace-creation' ? 'active' : ''}`}>
+          <img src={CreationIcon} alt="espace creation" />
         </Link>
       </div>
 
       {/* Version ordinateur */}
       <div className="desktop-nav">
         <img src={Logo} id="logo" alt="logo" />
-        <Link to="/benevole-dashboard" className={`desktop-item ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>Overview</Link>
-        <Link to="/benevole-planning" className={`desktop-item ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>Planning</Link>
-        <Link to="/benevole-inscription" className={`desktop-item ${location.pathname === '/benevole-inscription' ? 'active' : ''}`}>Inscription</Link>
-        <Link to="/benevole-activites" className={`desktop-item ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>Activités</Link>
-        <Link to="/benevole-notification" className={`desktop-item ${location.pathname === '/benevole-notification' ? 'active' : ''}`}>Notifications</Link>
+        <Link to="/admin-dashboard" className={`desktop-item ${location.pathname === '/admin-dashboard' ? 'active' : ''}`}>Overview</Link>
+        <Link to="/admin-planning" className={`desktop-item ${location.pathname === '/admin-planning' ? 'active' : ''}`}>Planning</Link>
+        <Link to="/espace-creation" className={`desktop-item ${location.pathname === '/espace-creation' ? 'active' : ''}`}>Espace Création</Link>
+        <Link to="/admin-liste-benevole" className={`desktop-item ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>Liste Bénévoles</Link>
+        <Link to="/admin-notifications" className={`desktop-item ${location.pathname === '/admin-notifications' ? 'active' : ''}`}>Notifications</Link>
         <Link to="/compte" className={`account ${location.pathname === '/compte' ? 'active' : ''}`}>
         <img src={Account} alt="compte" />
         </Link>
@@ -48,4 +50,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarAdmin;
