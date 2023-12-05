@@ -27,7 +27,7 @@ function App() {
         <Route path="/login"  element={<Login />}/>
         <Route path="/register"  element={<Register />} />
         <Route path="/"  element={<PremierePage />} />
-        <Route path="/accueil" component={PageAccueil} />
+        <Route path="/accueil" element={<PageAccueil />} />
         <Route path="/compte" component={Compte} />
         <Route path="/benevole-dashboard" component={BenevoleDashboard} roles={['benevole']} />
         <Route path="/benevole-activites" component={BenevoleActivites} roles={['benevole']} />

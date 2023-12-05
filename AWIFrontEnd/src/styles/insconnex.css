@@ -8,8 +8,8 @@
 }
 .corps {
     background: linear-gradient(180deg, #105B9E 0%, #3CCBF4 100%) no-repeat;
-    border-radius: 30px;
-    margin-top: -15%;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
     color: #fff;
     font-size: 20px;
     padding: 20px;
@@ -24,7 +24,6 @@
 .corps img {
     width: 200px;
     height: 133px;
-    margin-top:10%;
 }
 .corps h3 {
     margin-left: 0%;

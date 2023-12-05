@@ -1,0 +1,79 @@
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333; /* Ajoutez votre couleur de fond */
+    border-top-left-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur gauche */
+    border-top-right-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur droit */
+  }
+  
+  .mobile-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px; /* Ajustez la hauteur selon vos besoins */
+    color: #fff; /* Couleur du texte */
+  }
+  
+  .mobile-icon.active{
+   margin-top:-5%;
+  }
+
+  .desktop-nav {
+    display: none; /* Cachez la version ordinateur */
+  }
+
+  
+  /* Styles pour la version ordinateur (min-width: 768px) */
+  @media (min-width: 768px) {
+    .mobile-nav {
+      display: none; /* Cachez la version mobile */
+    }
+    .desktop-nav #logo{
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-bottom: 40%;
+    }
+  
+    .desktop-nav {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width:12%;
+      background-color: #333; /* Ajoutez votre couleur de fond */
+    }
+  
+    .desktop-item {
+    padding: 10px;
+    margin-bottom: 30%;
+    color: #fff; /* Couleur du texte */
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    }
+    .desktop-item:hover {
+        background-color: #DDDD; /* Couleur de fond au survol */
+        color: #333; /* Couleur du texte au survol */
+        border:none;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+      }
+    .desktop-item.active {
+        background-color: #DDDD; /* Couleur de fond au survol */
+        color: #333; /* Couleur du texte au survol */
+        border:none;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+      }
+    .desktop-nav .account{
+    margin : auto;
+      }
+  }
+  
