@@ -3,8 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import Account from '../../img/account.svg';
 import ActivitesIcon from '../../img/icons/activites.svg';
 import HomeIcon from '../../img/icons/home.svg';
-import InscriptionIcon from '../../img/icons/inscription.svg';
-import NotifIcon from '../../img/icons/notif.svg';
 import PlanningIcon from '../../img/icons/planning.svg';
 import Logo from '../../img/logo.svg';
 import '../../styles/navbar.css';

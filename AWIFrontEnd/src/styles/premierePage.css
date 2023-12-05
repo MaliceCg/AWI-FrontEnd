@@ -11,7 +11,7 @@
     margin: 0 auto;
     box-sizing: border-box;
     text-align: center;
-    height:110vh;
+    height:100vh;
     background: linear-gradient(180deg, #105B9E 0%, #3CCBF4 100%) no-repeat;
    
 }
@@ -66,6 +66,9 @@
 }
 @media screen and (min-width: 768px) {
   
+    .premierePage {
+        height:auto;
+    }
     #bienv {
     
         font-size: 56px;
