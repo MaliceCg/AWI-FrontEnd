@@ -9,8 +9,10 @@ import '../../styles/header.css';
 const Header = ({ currentPage, user }) => {
   const getH3Text = () => {
     switch (currentPage) {
-      case 'accueil':
+      case 'dashboard':
         return 'Bienvenue sur votre';
+      case 'accueil':
+        return 'Bienvenue,';
       case 'profile':
         return 'Vous êtes sur votre';
       case 'inscription':
@@ -34,6 +36,8 @@ const Header = ({ currentPage, user }) => {
   const getH1Text = () => {
     switch (currentPage) {
       case 'accueil':
+        return 'getName';
+      case 'dashboard':
         return 'Tableau de bord';
       case 'profile':
         return 'Profil utilisateur';

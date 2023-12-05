@@ -29,11 +29,11 @@ function App() {
         <Route path="/"  element={<PremierePage />} />
         <Route path="/accueil" element={<PageAccueil />} />
         <Route path="/compte" component={Compte} />
-        <Route path="/benevole-dashboard" component={BenevoleDashboard} roles={['benevole']} />
-        <Route path="/benevole-activites" component={BenevoleActivites} roles={['benevole']} />
-        <Route path="/benevole-inscription" component={BenevoleInscription} roles={['benevole']} />
-        <Route path="/benevole-notification" component={BenevoleNotification} roles={['benevole']} />
-        <Route path="/benevole-planning" component={BenevolePlanning} roles={['benevole']} />
+        <Route path="/benevole-dashboard" element={<BenevoleDashboard />} roles={['benevole']} />
+        <Route path="/benevole-activites" element={<BenevoleActivites/>} roles={['benevole']} />
+        <Route path="/benevole-inscription" element={<BenevoleInscription />} roles={['benevole']} />
+        <Route path="/benevole-notification" element={<BenevoleNotification/>} roles={['benevole']} />
+        <Route path="/benevole-planning" element={<BenevolePlanning/>} roles={['benevole']} />
         <Route path="/liste-benevole" component={ListeBenevole} roles={['accueil']} />
         <Route path="/liste-benevole-zone" component={ListeBenevoleZone} roles={['referent']} />
         <Route path="/admin-dashboard" component={AdminDashboard} roles={['admin']} />
