@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Form from '../../components/common/FormInfo';
+import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 
 function PageAccueil() {
   const [user, setUser] = useState(null);
   const [showPopup, setShowPopup] = useState(false); // Modifié pour initialement être caché
   const [festivals, setFestivals] = useState([]);
-  
+
   useEffect(() => {
     const hasShownPopup = localStorage.getItem('hasShownPopup');
     if (!hasShownPopup && user) {
@@ -52,6 +53,7 @@ function PageAccueil() {
   return (
     
     <div>
+    <Header currentPage="accueil" user={user} />
      <Navbar/>
       {showPopup && (
         <Form

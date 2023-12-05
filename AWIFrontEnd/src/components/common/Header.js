@@ -1,13 +1,15 @@
 // src/components/common/Header.js
 
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Account from '../../img/account.svg';
 import '../../styles/header.css';
 
 
 const Header = ({ currentPage, user }) => {
   const getH3Text = () => {
     switch (currentPage) {
-      case 'dashboard':
+      case 'accueil':
         return 'Bienvenue sur votre';
       case 'profile':
         return 'Vous êtes sur votre';
@@ -31,7 +33,7 @@ const Header = ({ currentPage, user }) => {
   }
   const getH1Text = () => {
     switch (currentPage) {
-      case 'dashboard':
+      case 'accueil':
         return 'Tableau de bord';
       case 'profile':
         return 'Profil utilisateur';
@@ -58,7 +60,9 @@ const Header = ({ currentPage, user }) => {
       <div id="header">
         <h3>{getH3Text()}</h3>
         <h1>{getH1Text()}</h1>
-        <img src="../img/account.svg" alt="logo" />
+        <Link to="/compte" className="account">
+        <img src={Account} alt="compte" />
+        </Link>
       </div>
     </header>
   );
