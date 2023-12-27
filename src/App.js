@@ -16,6 +16,7 @@ import PageAccueil from './pages/common/PageAccueil';
 import PremierePage from './pages/common/PremierePage';
 import Register from './pages/common/Register';
 import ListeBenevoleZone from './pages/référent/ListeBenevoleZone';
+import FestivalCreation from './pages/admin/AdminCreationFestival';
 
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -37,7 +38,8 @@ function App() {
         <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />
         <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
         <Route path="/admin-dashboard" element={<AdminDashboard/>} roles={['admin']} />
-        <Route path="/espace-creation" element={<EspaceCreation/>} roles={['admin']} />
+        <Route path="/espace-creation/:idFestival" element={<EspaceCreation/>} roles={['admin']} />
+        <Route path="/admin-creation-festival" element={<FestivalCreation/>} roles={['admin']} />
         <Route path="/admin-notifications" element={<AdminNotifications/>} roles={['admin']} />
         <Route path="/admin-planning" element={<AdminPlanning/>} roles={['admin']} />
         <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />

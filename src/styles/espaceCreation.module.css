@@ -1,0 +1,103 @@
+.wrapper {
+    display: flex;
+    /* Autres styles nécessaires pour le positionnement et la mise en page */
+  }
+
+.creationFestival{
+  margin: 20px;
+  width: 100%;
+}
+  
+
+@media (min-width: 768px) {
+  .navbar {
+    flex: 0 0 12%;
+  }
+}
+
+.componentContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  width: 100%;
+}
+
+.posteContainer{
+  border: 2px solid #838383;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.posteBox{
+  background-color: #3ccbf5;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  width: 80vw;
+
+}
+
+.posteTitle{
+  font-weight: bold;
+  color: white;
+  margin: 5px 20px;
+
+}
+
+.posteButton{
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  align-self: end;
+  margin: 5px;
+}
+
+.importButton{
+  background-color: transparent;
+  border: 2px solid #838383;
+  font-size: larger;
+  border-radius: 10px;
+  color: #838383;
+  padding: 5px 20px;
+  cursor: pointer;
+  margin: 5px;
+  width: 90vw;
+}
+
+/* Ajustement de la taille de l'importButton sur ordinateur */
+@media (min-width: 768px) {
+  .importButton {
+    width: 70vw !important;
+  }
+
+  .posteContainer{
+    width: 70vw !important;
+  }
+
+  .posteBox{
+    width: 60vw !important;
+  }
+}
+
+.addPoste{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: larger;
+  color: #838383;
+  cursor: pointer;
+  margin: 5px;
+}

@@ -11,9 +11,8 @@
     margin: 0 auto;
     box-sizing: border-box;
     text-align: center;
-    height:100vh;
+    height: 100vh;
     background: linear-gradient(180deg, #105B9E 0%, #3CCBF4 100%) no-repeat;
-   
 }
 
 .premierePage #logo {
@@ -24,7 +23,6 @@
 }
 
 #bienv {
-    
     font-size: 24px;
     margin-bottom: 10%;
     margin-top:5%;

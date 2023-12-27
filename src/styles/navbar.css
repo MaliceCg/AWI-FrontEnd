@@ -33,6 +33,7 @@
     .mobile-nav {
       display: none; /* Cachez la version mobile */
     }
+    
     .desktop-nav #logo{
         margin-top: 5%;
         margin-left: 5%;
