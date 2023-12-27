@@ -17,6 +17,7 @@ import PremierePage from './pages/common/PremierePage';
 import Register from './pages/common/Register';
 import ListeBenevoleZone from './pages/référent/ListeBenevoleZone';
 import FestivalCreation from './pages/admin/AdminCreationFestival';
+import AdminFestivals from './pages/admin/AdminFestivals';
 
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -43,6 +44,7 @@ function App() {
         <Route path="/admin-notifications" element={<AdminNotifications/>} roles={['admin']} />
         <Route path="/admin-planning" element={<AdminPlanning/>} roles={['admin']} />
         <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />
+        <Route path="/festivals" element={<AdminFestivals/>} roles={['admin']} />
       </Routes>
 
     </Router>

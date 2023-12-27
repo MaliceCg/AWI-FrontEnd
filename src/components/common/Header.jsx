@@ -27,6 +27,8 @@ const Header = ({ currentPage, user }) => {
         return 'Voici vos';
       case 'espace-creation' :
         return 'Bienvenue sur votre';
+      case 'festivals' :
+          return 'Ici vous pouvez retrouver la'
 
       default:
         return 'Titre par défaut';
@@ -53,6 +55,8 @@ const Header = ({ currentPage, user }) => {
         return 'Activités Choisies';
       case 'espace-creation' :
         return 'Espace de création';
+      case 'festivals' :
+        return 'Liste des Festivals'
 
       default:
         return 'Titre par défaut';
