@@ -1,5 +1,6 @@
 .wrapper {
     display: flex;
+    justify-content: center;
     /* Autres styles nécessaires pour le positionnement et la mise en page */
   }
 
@@ -7,13 +8,37 @@
   margin: 20px;
   width: 100%;
 }
-  
 
-@media (min-width: 768px) {
-  .navbar {
-    flex: 0 0 12%;
-  }
+
+.festivalContainer{
+  border: 2px solid #838383;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.festivalBox{
+  border: #838383 1px solid;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px;
+  padding: 10px;
+  width: 80vw;
+  font-size: larger;
+  color: #838383;
+}
+
+.dateFestival{
+  font-size: smaller;
+  margin-top: 3px;
+}
+
 
 .componentContainer{
   display: flex;
@@ -77,8 +102,17 @@
 
 /* Ajustement de la taille de l'importButton sur ordinateur */
 @media (min-width: 768px) {
+
+  .navbar {
+    flex: 0 0 12%;
+  }
+
   .importButton {
     width: 70vw !important;
+  }
+
+  .importButton:hover{
+    background-color: #e2e2e2;
   }
 
   .posteContainer{
@@ -87,6 +121,19 @@
 
   .posteBox{
     width: 60vw !important;
+  }
+
+  .festivalContainer{
+    margin-top: 50px !important;
+    width: 70vw !important;
+  }
+
+  .festivalBox{
+    width: 60vw !important;
+  }
+
+  .festivalBox:hover{
+    background-color: #e2e2e2;
   }
 }
 

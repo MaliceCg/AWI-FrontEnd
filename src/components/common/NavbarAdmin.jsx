@@ -28,7 +28,7 @@ const NavbarAdmin = () => {
         <Link to="/admin-liste-benevole" className={`mobile-icon ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>
           <img src={ActivitesIcon} alt="liste admins" />
         </Link>
-        <Link to="/festivals" className={`mobile-icon ${location.pathname === '/espace-creation' ? 'active' : ''}`}>
+        <Link to="/festivals" className={`mobile-icon ${location.pathname === 'festivals' ? 'active' : ''}`}>
           <img src={CreationIcon} alt="espace creation" />
         </Link>
       </div>
@@ -38,7 +38,7 @@ const NavbarAdmin = () => {
         <img src={Logo} id="logo" alt="logo" />
         <Link to="/admin-dashboard" className={`desktop-item ${location.pathname === '/admin-dashboard' ? 'active' : ''}`}>Overview</Link>
         <Link to="/admin-planning" className={`desktop-item ${location.pathname === '/admin-planning' ? 'active' : ''}`}>Planning</Link>
-        <Link to="/espace-creation" className={`desktop-item ${location.pathname === '/espace-creation' ? 'active' : ''}`}>Espace Création</Link>
+        <Link to="/festivals" className={`desktop-item ${location.pathname === '/festivals' ? 'active' : ''}`}>Espace Création</Link>
         <Link to="/admin-liste-benevole" className={`desktop-item ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>Liste Bénévoles</Link>
         <Link to="/admin-notifications" className={`desktop-item ${location.pathname === '/admin-notifications' ? 'active' : ''}`}>Notifications</Link>
         <Link to="/compte" className={`account ${location.pathname === '/compte' ? 'active' : ''}`}>

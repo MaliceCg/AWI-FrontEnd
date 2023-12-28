@@ -1,0 +1,55 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    /* Autres styles nécessaires pour le positionnement et la mise en page */
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        flex: 0 0 12%;
+    }
+
+    .benevoleBox{
+        width: 70vw !important;
+    }
+}
+
+.benevoleContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 100%;
+}
+
+.benevoleTitle{
+    margin-bottom: 20px;
+}
+  
+
+.benevoleBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90vw;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.nomBenevole{
+    font-weight: normal;
+}
+
+.nomBenevole > *:not(:last-child) {
+    margin-right: 15px; /* Ajoute une marge à droite sur tous les éléments sauf le dernier */
+}
+
+.iconsBenevole > *:not(:last-child) {
+    margin-right: 15px; /* Ajoute une marge à droite sur tous les éléments sauf le dernier */
+}
