@@ -5,7 +5,7 @@ import Navbar from '../../components/common/Navbar';
 
 function PageAccueil() {
   const [user, setUser] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // Modifié pour initialement être caché
+  const [showPopup, setShowPopup] = useState(false);
   const [festivals, setFestivals] = useState([]);
 
   useEffect(() => {
@@ -19,10 +19,21 @@ function PageAccueil() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simuler une requête HTTP (ajustez l'URL en fonction de votre configuration)
-        const response = await fetch('/api/festivals');
+        const response = await fetch('http://localhost:3000/festival-module',{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Content-Length':'2',
+            'X-Powered-By': 'Express',
+            'Date': Date.now(),
+            'Connection': 'keep-alive',
+            'Keep-Alive': 'timeout=5',
+            'ETag':'W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"'
+          },
+        });
         if (response.ok) {
           const data = await response.json();
+          console.log(data);
           setFestivals(data);
         } else {
           console.error('Erreur lors de la récupération des festivals', response.statusText);

@@ -3,7 +3,7 @@ import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
 
-    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJlbWFpbEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTcwMzY3MTY2OCwiZXhwIjoxNzAzNzU4MDY4fQ.IzaIGhd1c0HrFF57zvrk0k7v9QAJ_iGvg4s-CeQTzsE'; 
+    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbWFpbDJAZXhhbXBsZS5jb20iLCJyb2xlIjoiVXNlciIsImlhdCI6MTcwNDI3ODg0MCwiZXhwIjoxNzA0MzY1MjQwfQ.Ih2T04azjN-DjkhgnyZFRE5i7HH1yy5JJQyt6FnEITo';
 
     const currentDate = new Date().toISOString().split('T')[0];
 

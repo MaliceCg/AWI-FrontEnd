@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom';
 import Account from '../../img/account.svg';
 import '../../styles/header.css';
 
+//recuperer le nom de l'utilisateur connecté dans la bdd en fetch et le mettre dans la variable name
+const name = 'Nom de l\'utilisateur';
+  
+
+
+
 
 const Header = ({ currentPage, user }) => {
   const getH3Text = () => {
@@ -38,7 +44,7 @@ const Header = ({ currentPage, user }) => {
   const getH1Text = () => {
     switch (currentPage) {
       case 'accueil':
-        return 'getName';
+        return name;
       case 'dashboard':
         return 'Tableau de bord';
       case 'profile':
