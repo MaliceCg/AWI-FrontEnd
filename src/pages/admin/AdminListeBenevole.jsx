@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/listeBenevole.module.css';
-import EditIcon from '@mui/icons-material/Edit';
-import EmailIcon from '@mui/icons-material/Email';
+import ListBenevoles from '../../components/AccueilAdmin/admin/ListeAModif';
+
 
 const AdminListeBenevole = () => {
   const [listBenevoles, setListBenevoles] = useState([]);
@@ -36,18 +36,7 @@ const AdminListeBenevole = () => {
         <div className={styles.benevoleContainer}>
           <h1 className={styles.benevoleTitle}>Liste des bénévoles</h1>
           {listBenevoles.map((benevole, index) => (
-            <div className={styles.benevoleBox} key={index}>
-              <div>
-                <div className={styles.nomBenevole}>
-                  {benevole.Nom} {benevole.Prenom}
-                </div>
-                {benevole.Role}
-              </div>
-              <div className={styles.iconsBenevole}>
-                <EditIcon />
-                <EmailIcon />
-              </div>
-            </div>
+            <ListBenevoles benevole={benevole} key={index} />
           ))}
         </div>
       </div>
