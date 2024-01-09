@@ -9,6 +9,11 @@
   width: 100%;
 }
 
+.accueil { color: blue; }
+.buvette { color: green; }
+.animationJeux { color: red; }
+.cuisine { color: orange; }
+
 
 .festivalContainer{
   border: 2px solid #838383;
