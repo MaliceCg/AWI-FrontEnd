@@ -3,7 +3,7 @@ import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
 
-    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJlbWFpbEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTcwMzY3MTY2OCwiZXhwIjoxNzAzNzU4MDY4fQ.IzaIGhd1c0HrFF57zvrk0k7v9QAJ_iGvg4s-CeQTzsE'; 
+    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbWFpbDJAZXhhbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDQ4MDkzNjQsImV4cCI6MTcwNDg5NTc2NH0.44TVE3GGPUIx078dCP8AhyK7eT-kDA_fGG0F5h3b9-M'; 
 
     const currentDate = new Date().toISOString().split('T')[0];
 
@@ -59,48 +59,113 @@ const CreationFestival = () => {
         }
 
         // Création de l'objet contenant les données à envoyer au serveur
+        let festivalId; // Variable pour stocker l'ID du festival
+
         const festivalData = {
           NomFestival: nomFestival,
           DateDebut: startDate,
           DateFin: endDate,
           Ville: ville,
         };
-    
+      
         try {
           const response = await fetch('http://localhost:3000/festival-module', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`, // Ajout du token d'authentification
+              'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify(festivalData),
           });
-    
+      
           if (response.ok) {
+            const festivalResponseData = await response.json(); // Convertir la réponse en JSON
+            console.log(festivalData);
+            console.log(festivalResponseData);
+            festivalId = festivalResponseData.idFestival; // Récupérer l'ID du festival créé
+            console.log(festivalId);
             setIsSuccess(true);
             setIsError(false);
-    
-            // Masquer le bandeau de succès après 3 secondes
-            setTimeout(() => {
-              setIsSuccess(false);
-            }, 3000);
+      
+            setTimeout(async () => {
+              const postesData = [
+                {
+                  nomPoste: 'Accueil',
+                  description: 'Ici vous devez accueillir les participants au festival et les orienter.',
+                  capacite: 5,
+                },
+                {
+                  nomPoste: 'Buvette',
+                  description: 'Ici vous devez gérer la buvette et les participants au festival en leur vendant à boire et à manger.',
+                  capacite: 5,
+                },
+                {
+                  nomPoste: 'Animation Jeux',
+                  description: 'Ici vous devez organiser et animer les jeux pour divertir les participants.',
+                  capacite: 5,
+                },
+                {
+                  nomPoste: 'Cuisine',
+                  description: 'Ici vous devez gérer la cuisine et préparer des repas pour les participants au festival.',
+                  capacite: 5,
+                },
+              ];
+      
+              for (const posteData of postesData) {
+                const posteResponse = await fetch('http://localhost:3000/position-module', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                  },
+                  body: JSON.stringify(posteData),
+                });
+      
+                if (posteResponse.ok) {
+                  const posteResponseData = await posteResponse.json(); // Convertir la réponse en JSON
+                  console.log(posteData);
+                  const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
+                  console.log(posteId);
+                  console.log(festivalId);
+      
+                  // Lier le poste au festival dans la table employer
+                  const employerData = {
+                    idFestival: festivalId,
+                    idPoste: posteId,
+                  };
+      
+                  const employerResponse = await fetch('http://localhost:3000/employer-module', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${accessToken}`,
+                    },
+                    body: JSON.stringify(employerData),
+                  });
+      
+                  if (employerResponse.ok) {
+                    console.log(`Le poste ${posteData.nomPoste} a été lié au festival avec succès !`);
+                  } else {
+                    console.error(`Erreur lors de la liaison du poste ${posteData.nomPoste} au festival.`);
+                  }
+                } else {
+                  console.error(`Erreur lors de la création du poste ${posteData.nomPoste}.`);
+                }
+              }
+            }, 1000);
           } else {
-            // Gestion des erreurs en cas de problème avec la requête
             console.error('Erreur lors de la création du festival.');
-            // Affiche un bandeau rouge d'erreur à l'utilisateur
           }
         } catch (error) {
           setIsError(true);
-        setIsSuccess(false);
-        setErrorMessage('Erreur lors de la création du festival.');
-
-        // Masquer le bandeau d'erreur après 3 secondes
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
+          setIsSuccess(false);
+          setErrorMessage('Erreur lors de la création du festival, des postes, et de la liaison.');
+      
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
         }
       };
-    
 
     return (
         <div className={styles.creationFestivalContainer} onSubmit={handleSubmit}>
