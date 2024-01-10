@@ -1,65 +1,69 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importez useNavigate depuis react-router-dom
 import Form from '../../components/common/FormInfo';
 import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
+
 const Login = () => {
+  const navigate = useNavigate(); // Initialisez la fonction navigate
+
   const loginFields = [
     { label: 'Email', type: 'email', name: 'email' },
     { label: 'Mot de passe', type: 'password', name: 'password' },
   ];
 
-  const handleLoginSubmit = (formData) => {
-    // Traitement spécifique à la page de connexion avec les données du formulaire
+  const handleLoginSubmit = async (formData) => {
     const apiURL ="http://localhost:3000/authentication-module/signin";
-    var idusers = formData.email;
-    var password = formData.password;
-    console.log(idusers);
-    console.log(password);
-    try{
-      fetch(apiURL,{
+    const idusers = formData.email;
+    const password = formData.password;
+
+    try {
+      const response = await fetch(apiURL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          'Content-Length':'208',
-          'X-Powered-By': 'Express',
-          'Date': Date.now(),
-          'Connection': 'keep-alive',
-          'Keep-Alive': 'timeout=5', 
-          'ETag':'W/"d0-ksiszyPX7J6Y3qdwtiOUEUkBGIE"'
         },
-        body: JSON.stringify({"Email": idusers, "Password": password})
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-      })
+        body: JSON.stringify({ "Email": idusers, "Password": password })
+      });
+      console.log('response :', response);
+
+      if (response.ok) {
+        const userData = await response.json();
+        localStorage.setItem('token', userData.token);
+        localStorage.setItem('id', userData.id);
+        localStorage.setItem('role', userData.role);
+        
+
+          navigate('/accueil');
+
+      } else {
+        console.error('Échec de la connexion');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion :', error);
     }
-    catch(error){
-      console.log(error);
-    }
-    console.log('Données du formulaire de connexion :', formData);
-    // Ajoutez votre logique de connexion ici
   };
 
   return (
     <body>
-        <div className="corps">
+      <div className="corps">
         <div className="img">
-        <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <div className='desktop'>
-        <h3>Rebonjour,</h3>
-        <h3> n'hésite pas à regarder les nouvelles</h3>
-        <h2>mises à jour !</h2>
-        <h2 id ="insc">Se connecter</h2>
-        <Form  fields={loginFields}
-        buttonText="Se connecter"
-        onSubmit={handleLoginSubmit }
-        clickableText="S'inscrire"
-        clickableHref="/register"
-      />
+          <h3>Rebonjour,</h3>
+          <h3> n'hésite pas à regarder les nouvelles</h3>
+          <h2>mises à jour !</h2>
+          <h2 id="insc">Se connecter</h2>
+          <Form
+            fields={loginFields}
+            buttonText="Se connecter"
+            onSubmit={handleLoginSubmit}
+            clickableText="S'inscrire"
+            clickableHref="/register"
+          />
+        </div>
       </div>
-       </div>
     </body>
   );
 };

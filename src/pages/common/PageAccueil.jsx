@@ -4,23 +4,22 @@ import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 
 function PageAccueil() {
-  const [user, setUser] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // Modifié pour initialement être caché
+  const [user, setUser] = useState();
+  const [showPopup, setShowPopup] = useState(true);
   const [festivals, setFestivals] = useState([]);
 
   useEffect(() => {
     const hasShownPopup = localStorage.getItem('hasShownPopup');
-    if (!hasShownPopup && user) {
+    if (!hasShownPopup) {
       setShowPopup(true);
       localStorage.setItem('hasShownPopup', 'true');
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Simuler une requête HTTP (ajustez l'URL en fonction de votre configuration)
-        const response = await fetch('/api/festivals');
+        const response = await fetch('http://localhost:3000/festival-module');
         if (response.ok) {
           const data = await response.json();
           setFestivals(data);
@@ -35,26 +34,21 @@ function PageAccueil() {
     fetchData();
   }, []);
 
-  const handleLogin = (userData) => {
-   
-    setUser(userData);
-  };
-
   const handleFillLater = () => {
-    setShowPopup(false); // Fermer la pop-up lorsque l'utilisateur clique sur "Remplir plus tard"
+    console.log('Remplir plus tard');
+    setShowPopup(false);
   };
 
-  const handleFormSubmit = (formData) => {
-    // Logique pour traiter les informations du formulaire
+  const handleConfirm = (formData) => {
     console.log('Données du formulaire soumises :', formData);
-    setShowPopup(false); // Fermer la pop-up après soumission du formulaire
+    setShowPopup(false);
+    // Ajoutez ici toute autre logique nécessaire après la confirmation
   };
 
   return (
-    
     <div>
-    <Header currentPage="accueil" user={user} />
-     <Navbar/>
+      <Header currentPage="accueil" user={user} />
+
       {showPopup && (
         <Form
           fields={[
@@ -63,39 +57,27 @@ function PageAccueil() {
             { type: 'text', name: 'dietaryRestrictions', label: 'Régime alimentaire' },
             { type: 'text', name: 'address', label: 'Adresse' },
           ]}
-          buttonText="Soumettre"
-          onSubmit={handleFormSubmit}
+          buttonText="Confirmer"
+          onSubmit={handleConfirm}
           clickableText="Remplir plus tard"
           clickableHref="/accueil"
-          onClose={handleFillLater} // Passer la fonction de fermeture à FormInfo
+          onClose={handleFillLater}
         />
       )}
 
       {user && (
         <div>
-
-          <header>
-
-          </header>
-          
-
-          <nav>
-
-          </nav>
-
           {festivals.length === 0 ? (
-            // Page sans festival
             <div>
               <h1>Bienvenue sur la page d'accueil</h1>
-
             </div>
           ) : (
-
             <div>
               <h1>Festivals en cours</h1>
               {festivals.map((festival) => (
                 <div key={festival.id}>
-                  <button onClick={() => { window.location.href = `/festivals/${festival.id}` }}>
+                  <button onClick={() => { window.location.href = `/benevole-dashboard/${festival.id}` }}>
+                    Voir le festival {festival.name}
                   </button>
                 </div>
               ))}
