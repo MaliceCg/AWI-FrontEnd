@@ -55,7 +55,7 @@ const AdminFestivals = () => {
             </div>
           ))}
         </div>
-              <Link to="//admin-creation-festival">
+              <Link to="/admin-creation-festival">
                 <button className={styles.creationButton}>Créer un festival</button>
               </Link>
     
