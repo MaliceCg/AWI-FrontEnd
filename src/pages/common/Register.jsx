@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from '../../components/common/FormInfo';
 import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
 
 const Register = () => {
+  const navigate = useNavigate();
   const registerFields = [
     { label: 'Pseudo', type: 'text', name: 'Pseudo' },
     { label: 'Email', type: 'email', name: 'Email' },
@@ -35,6 +37,7 @@ console.log('response :', response);
         const result = await response.json();
         console.log('Inscription réussie :', result);
         // Ajoutez ici la gestion de l'inscription réussie
+        navigate('/login');
       } else {
         const errorData = await response.json();
         console.error('Erreur lors de l\'inscription :', errorData);

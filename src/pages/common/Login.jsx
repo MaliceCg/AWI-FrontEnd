@@ -4,7 +4,10 @@ import Form from '../../components/common/FormInfo';
 import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
 
+
+
 const Login = () => {
+
   const navigate = useNavigate(); // Initialisez la fonction navigate
 
   const loginFields = [
@@ -30,11 +33,15 @@ const Login = () => {
       if (response.ok) {
         const userData = await response.json();
         localStorage.setItem('token', userData.token);
-        localStorage.setItem('id', userData.id);
         localStorage.setItem('role', userData.role);
+        localStorage.setItem('id', userData.id);
+        console.log('role :', userData.role);
+        localStorage.setItem('pseudo', userData.pseudo);
         
-
-          navigate('/accueil');
+        if (userData.role === "Admin"){
+          navigate('/festivals');
+        }
+        else {navigate('/accueil');}
 
       } else {
         console.error('Échec de la connexion');
