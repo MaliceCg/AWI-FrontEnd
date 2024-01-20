@@ -1,0 +1,15 @@
+.btnSend{
+    background-color: transparent;
+    border: 2px solid #838383;
+    font-size: larger;
+    border-radius: 15px;
+    padding: 5px;
+    color: #838383;
+    cursor: pointer;
+    margin : 5px;
+    text-align: center;
+  }
+  .btnSend:hover{
+    background-color: #838383;
+    color:#e2e2e2
+  }
