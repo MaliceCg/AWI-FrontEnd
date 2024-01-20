@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
-
-    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbWFpbDJAZXhhbXBsZS5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDQ4MDkzNjQsImV4cCI6MTcwNDg5NTc2NH0.44TVE3GGPUIx078dCP8AhyK7eT-kDA_fGG0F5h3b9-M'; 
+    const accessToken = localStorage.getItem('token');
 
     const currentDate = new Date().toISOString().split('T')[0];
 

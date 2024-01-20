@@ -32,13 +32,16 @@ const Login = () => {
 
       if (response.ok) {
         const userData = await response.json();
-        localStorage.setItem('token', userData.token);
-        localStorage.setItem('role', userData.role);
-        localStorage.setItem('id', userData.id);
-        console.log('role :', userData.role);
-        localStorage.setItem('pseudo', userData.pseudo);
+        console.log('userData :', userData);
+        console.log('userData.token :', userData.data.token);
+        localStorage.setItem('token', userData.data.token);
+        console.log('token :', userData.data.token);
+        localStorage.setItem('role', userData.data.role);
+        localStorage.setItem('id', userData.data.id);
+        console.log('role :', userData.data.role);
+        localStorage.setItem('pseudo', userData.data.pseudo);
         
-        if (userData.role === "Admin"){
+        if (userData.data.role === "Admin"){
           navigate('/festivals');
         }
         else {navigate('/accueil');}

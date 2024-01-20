@@ -36,9 +36,10 @@ const Header = ({ currentPage, user }) => {
 
   }
   const getH1Text = () => {
+    const name = localStorage.getItem('pseudo');
     switch (currentPage) {
       case 'accueil':
-        return 'getName';
+        return name;
       case 'dashboard':
         return 'Tableau de bord';
       case 'profile':
