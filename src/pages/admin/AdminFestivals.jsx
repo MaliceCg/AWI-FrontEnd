@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
-import { Link } from 'react-router-dom';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from '../../styles/espaceCreation.module.css';
 
 const AdminFestivals = () => {
@@ -55,6 +55,10 @@ const AdminFestivals = () => {
             </div>
           ))}
         </div>
+              <Link to="//admin-creation-festival">
+                <button className={styles.creationButton}>Créer un festival</button>
+              </Link>
+    
       </div>
     </div>
   );

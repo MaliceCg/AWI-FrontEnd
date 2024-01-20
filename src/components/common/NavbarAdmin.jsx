@@ -28,7 +28,7 @@ const NavbarAdmin = () => {
         <Link to="/admin-liste-benevole" className={`mobile-icon ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>
           <img src={ActivitesIcon} alt="liste admins" />
         </Link>
-        <Link to="/festivals" className={`mobile-icon ${location.pathname === 'festivals' ? 'active' : ''}`}>
+        <Link to="/festivals" className={`mobile-icon ${location.pathname === '/festivals' ? 'active' : ''}`}>
           <img src={CreationIcon} alt="espace creation" />
         </Link>
       </div>
