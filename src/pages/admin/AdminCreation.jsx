@@ -5,6 +5,7 @@ import PosteFestival from '../../components/AccueilAdmin/admin/PosteFestival';
 import styles from '../../styles/espaceCreation.module.css';
 import { useParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
+import ImportCsv from '../../components/AccueilAdmin/admin/ImportCsv';
 
 const EspaceCreation = () => {
   const { idFestival } = useParams();
@@ -49,7 +50,7 @@ const EspaceCreation = () => {
           <NavbarAdmin />
         </div>
         <div className={styles.componentContainer}>
-          <button className={styles.importButton}>Importer des jeux (CSV)</button>
+          <ImportCsv />
 
           <div className={styles.posteContainer}>
             <h3>Postes existants pour ce Festival : </h3>

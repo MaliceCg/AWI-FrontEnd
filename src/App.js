@@ -46,7 +46,6 @@ function App() {
         <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />
         <Route path="/festivals" element={<AdminFestivals/>} roles={['admin']} />
       </Routes>
-
     </Router>
   );
 }
