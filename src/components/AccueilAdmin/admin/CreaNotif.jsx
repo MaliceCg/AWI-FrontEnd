@@ -7,7 +7,6 @@ const CreaNotif = ({idFestival}) => {
   const [notificationType, setNotificationType] = useState("");
   const [notificationText, setNotificationText] = useState("");
   const [dateEnvoi, setDateEnvoi] = useState(new Date()); // Initialiser avec la date actuelle
-
   useEffect(() => {
     // Mettre à jour la date de l'envoi lors du montage du composant
     setDateEnvoi(new Date());
@@ -30,13 +29,14 @@ const CreaNotif = ({idFestival}) => {
       return;
     }
     console.log(idFestival);
+    console.log(idFestival.idFestival);
     console.log(dateEnvoi);
 
     // Créer un objet avec les données à envoyer au backend
     const notificationData = {
       Type: notificationType,
       TexteNotification: notificationText,
-      idFestival: idFestival,
+      idFestival: idFestival.idFestival,
       DateEnvoi: dateEnvoi.toISOString(),
     };
     console.log("toIsoString",dateEnvoi.toISOString());
