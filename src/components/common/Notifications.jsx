@@ -10,6 +10,7 @@ useEffect(() => {
         const response = await fetch('http://localhost:3000/notif-module');
         if (response.ok) {
         const data = await response.json();
+        console.log(data);
           setListNotif(data); // Mettre à jour l'état avec les données récupérées
         }   else {
         throw new Error('Erreur lors de la récupération des données');
@@ -29,7 +30,7 @@ return (
         {listNotif.map((notif, index) => (
             <div key={index}>
                 <div>
-                    {notif.NomNotification}
+                    {notif.TexteNotification}
                 </div>
             </div>
         ))}

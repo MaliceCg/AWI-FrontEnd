@@ -1,10 +1,14 @@
 import React from 'react';
 import ListeBenevole from './pages/accueil/ListeBenevole';
 import EspaceCreation from './pages/admin/AdminCreation';
+import FestivalCreation from './pages/admin/AdminCreationFestival';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminFestivals from './pages/admin/AdminFestivals';
 import AdminListeBenevole from './pages/admin/AdminListeBenevole';
+import AdminNotifFestival from './pages/admin/AdminNotifFestival';
 import AdminNotifications from './pages/admin/AdminNotifications';
 import AdminPlanning from './pages/admin/AdminPlanning';
+import AdminSendNotif from './pages/admin/AdminSendNotif';
 import BenevoleActivites from './pages/bénévole/BenevoleActivites';
 import BenevoleDashboard from './pages/bénévole/BenevoleDashboard';
 import BenevoleInscription from './pages/bénévole/BenevoleInscription';
@@ -16,8 +20,6 @@ import PageAccueil from './pages/common/PageAccueil';
 import PremierePage from './pages/common/PremierePage';
 import Register from './pages/common/Register';
 import ListeBenevoleZone from './pages/référent/ListeBenevoleZone';
-import FestivalCreation from './pages/admin/AdminCreationFestival';
-import AdminFestivals from './pages/admin/AdminFestivals';
 
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
@@ -41,10 +43,12 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard/>} roles={['admin']} />
         <Route path="/espace-creation/:idFestival" element={<EspaceCreation/>} roles={['admin']} />
         <Route path="/admin-creation-festival" element={<FestivalCreation/>} roles={['admin']} />
-        <Route path="/admin-notifications" element={<AdminNotifications/>} roles={['admin']} />
+        <Route path="/admin-notifications" element={<AdminNotifFestival/>} roles={['admin']} />
+        <Route path="/admin-notifications/:idFestival" element={<AdminNotifications/>} roles={['admin']} />
         <Route path="/admin-planning" element={<AdminPlanning/>} roles={['admin']} />
         <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />
         <Route path="/festivals" element={<AdminFestivals/>} roles={['admin']} />
+        <Route path="/send-notif/:idFestival" element={<AdminSendNotif/>} roles={['admin']} />
       </Routes>
 
     </Router>
