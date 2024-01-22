@@ -32,7 +32,7 @@ const Notifications = () => {
       <div className={styles.NotificationContainer}>
         {soiréeDécouverteNotifs.length > 0 && (
           <>
-            <h1>Soirée Découverte</h1>
+            <h1 className={styles.h1}>Soirée Découverte</h1>
             {soiréeDécouverteNotifs.map((notif, index) => (
               <div key={index}>
                 <div className={styles.TexteNotification}>{notif.TexteNotification}</div>
@@ -40,7 +40,7 @@ const Notifications = () => {
             ))}
           </>
         )}
-        <h1>Notifications</h1>
+        <h1 className={styles.h1}>Notifications</h1>
         {autresNotifs.length > 0 ? (
           autresNotifs.map((notif, index) => (
             <div key={index}>

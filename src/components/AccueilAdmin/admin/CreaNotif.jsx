@@ -37,8 +37,9 @@ const CreaNotif = ({idFestival}) => {
       Type: notificationType,
       TexteNotification: notificationText,
       idFestival: idFestival,
+      DateEnvoi: dateEnvoi.toISOString(),
     };
-    console.log("toIsoString",new Date());
+    console.log("toIsoString",dateEnvoi.toISOString());
     console.log(notificationData);
 
     try {
@@ -51,7 +52,7 @@ const CreaNotif = ({idFestival}) => {
         },
         body: JSON.stringify(notificationData),
       });
-
+console.log(response);
       if (response.ok) {
         alert("Notification envoyée avec succès !");
       } else {
