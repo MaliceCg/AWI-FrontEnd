@@ -77,6 +77,7 @@ const PosteFestival = (props) => {
             alert(error.message);
         });
         alert('Le poste a bien été modifié');
+        props.fetchPostes();
         // Après la mise à jour, fermer la popup de modification
         closeEditPopup();
     };
@@ -119,6 +120,7 @@ const PosteFestival = (props) => {
             alert(error.message);
         });
         alert('Le poste a bien été supprimé');
+        props.fetchPostes();
         // Après la suppression, fermer la boîte de dialogue
         closeConfirmationDialog();
     };

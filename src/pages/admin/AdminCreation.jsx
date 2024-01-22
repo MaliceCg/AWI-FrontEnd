@@ -11,32 +11,33 @@ const EspaceCreation = () => {
   const { idFestival } = useParams();
   const [postes, setPostes] = useState([]);
 
-  useEffect(() => {
-    const fetchPostes = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
-        if (response.ok) {
-          const datas = await response.json();
-          console.log("data : ", datas);
-          const postePromises = datas.map(async (data) => {
-            const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
-            if (reponsePoste.ok) {
-              return reponsePoste.json();
-            } else {
-              throw new Error('Erreur lors de la récupération des postes');
-            }
-          });
-  
-          const posteData = await Promise.all(postePromises);
-          setPostes(posteData);
-        } else {
-          throw new Error('Erreur lors de la récupération des données');
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchPostes = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+      if (response.ok) {
+        const datas = await response.json();
+        console.log("data : ", datas);
+        const postePromises = datas.map(async (data) => {
+          const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
+          if (reponsePoste.ok) {
+            return reponsePoste.json();
+          } else {
+            throw new Error('Erreur lors de la récupération des postes');
+          }
+        });
+
+        const posteData = await Promise.all(postePromises);
+        setPostes(posteData);
+        return posteData;
+      } else {
+        throw new Error('Erreur lors de la récupération des données');
       }
-    };
-  
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
@@ -97,6 +98,8 @@ console.log(JSON.stringify(newPoste));
                   });
       if (employerResponse.ok) {
         console.log(`Le poste ${newPoste.nomPoste} a été lié au festival avec succès !`);
+        const updatedPostes = await fetchPostes();
+        setPostes(updatedPostes);
         setAddPostePopupOpen(false);
       }
       else {
@@ -135,7 +138,7 @@ const handleNewPosteInputChange = (e) => {
             <h3>Postes existants pour ce Festival : </h3>
             <div>
               {postes.map((poste, index) => (
-                <PosteFestival key={index} poste={poste} />
+                 <PosteFestival key={index} poste={poste} fetchPostes={fetchPostes} />
               ))}
             </div>
 
