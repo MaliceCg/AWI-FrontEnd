@@ -1,27 +1,34 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import LastNotif from '../../components/bénévole/LastNotif';
 import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import styles from '../../styles/benevoleDashboard.module.css';
 
-
 const BenevoleDashboard = () => {
   const { idFestival } = useParams();
   const [selectedFestival, setSelectedFestival] = useState(idFestival);
+  const [userRole, setUserRole] = useState(localStorage.getItem('role'));
 
   const handleFestivalChange = (newFestivalId) => {
     setSelectedFestival(newFestivalId);
   };
 
-
+  useEffect(() => {
+    setUserRole(localStorage.getItem('role'));
+  }, []);
 
   return (
     <div>
       <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
+      {userRole === 'Admin' && (
+          <Link to={`/admin-dashboard/${idFestival}`}>
+            <button className={styles.btnMode}>Passez en mode Admin</button>
+          </Link>
+        )}
         <div className={styles.benevoleCalendar}>
           <Planning idFestival={selectedFestival}/>
         </div>

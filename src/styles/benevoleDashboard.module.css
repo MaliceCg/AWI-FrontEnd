@@ -35,3 +35,14 @@
     background-color: aqua;
     border-radius: 12px;
 }
+
+.btnMode {
+    margin : auto;
+    background-color: #3B3B3B;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
