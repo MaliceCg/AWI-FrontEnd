@@ -1,16 +1,20 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import Planning from '../../components/bénévole/Planning';
 import styles from '../../styles/benevoleDashboard.module.css';
 
 
 const BenevoleDashboard = () => {
+  const { idFestival } = useParams();
+  console.log('Cest lid du festival',idFestival);
+
 
   return (
     <div>
       <Header currentPage="dashboard" />
-      <Navbar />
+      <Navbar idFestival={idFestival}/>
       <div className={styles.dashboardContainer}>
         <h1>Planning</h1>
         <div className={styles.benevoleCalendar}>

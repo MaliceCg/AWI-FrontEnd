@@ -85,7 +85,7 @@ function PageAccueil() {
             </div>
           ) : (
             <div className={styles.festivalContainer}>
-            <h1>Liste des festivals</h1>
+            <h1>Tu peux choisir ton Festival </h1>
             {listFestivals.map((festival, index) => (
               <div key={index}>
                 <Link to={`/benevole-dashboard/${festival.idFestival}`} style={{ textDecoration: 'none', color: 'inherit' }}>

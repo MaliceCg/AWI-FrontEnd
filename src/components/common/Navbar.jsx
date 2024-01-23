@@ -9,20 +9,22 @@ import PlanningIcon from '../../img/icons/planning.svg';
 import Logo from '../../img/logo.svg';
 import '../../styles/navbar.css';
 
-const Navbar = () => {
+const Navbar = ({idFestival}) => {
   const location = useLocation();
+  console.log(idFestival);
+
 
   return (
     <nav className="navbar">
       {/* Version mobile */}
       <div className="mobile-nav">
-        <Link to="/benevole-notification" className={`mobile-icon ${location.pathname === '/benevole-notification' ? 'active' : ''}`}>
+        <Link to={`/benevole-notification/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>
           <img src={NotifIcon} alt="notifications" />
         </Link>
         <Link to="/benevole-planning" className={`mobile-icon ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>
           <img src={PlanningIcon} alt="planning" />
         </Link>
-        <Link to="/benevole-dashboard" className={`mobile-icon ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>
+        <Link to={`/benevole-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>
           <img src={HomeIcon} alt="accueil" />
         </Link>
         <Link to="/benevole-activites" className={`mobile-icon ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>
