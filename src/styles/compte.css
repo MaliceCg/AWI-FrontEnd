@@ -1,11 +1,12 @@
 .CompteInfo {
+
     background-color: #DDD;
     height:110vh;
 }
 .Infosutilisateur{
 padding-top: 5px;
 height:60%;
-margin-top: -10%;
+margin-top: 10%;
 margin-left: 2.5%;
 background-color:white;
 border-radius: 10px;
