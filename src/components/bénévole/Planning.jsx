@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import styles from '../../styles/benevoleDashboard.module.css';
 
-const Planning = () => {
-  const { idFestival } = useParams(); // Récupère l'identifiant du festival depuis l'URL
+const Planning = ({idFestival}) => {
   const [festivalInfo, setFestivalInfo] = useState(null);
   const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
   

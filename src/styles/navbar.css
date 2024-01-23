@@ -27,6 +27,15 @@
     display: none; /* Cachez la version ordinateur */
   }
 
+  .navbar.scrolling {
+    transform: translateY(110%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .navbar.scrollingUp {
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+  }
   
   /* Styles pour la version ordinateur (min-width: 768px) */
   @media (min-width: 768px) {

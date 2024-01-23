@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Account from '../../img/account.svg';
 import ActivitesIcon from '../../img/icons/activites.svg';
@@ -9,13 +9,27 @@ import PlanningIcon from '../../img/icons/planning.svg';
 import Logo from '../../img/logo.svg';
 import '../../styles/navbar.css';
 
-const Navbar = ({idFestival}) => {
+const Navbar = ({ idFestival }) => {
   const location = useLocation();
-  console.log(idFestival);
+  const [scrolling, setScrolling] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
+useEffect(() => {
+  const handleScroll = () => {
+    const currentScrollPos = window.scrollY;
+    setScrolling(currentScrollPos > 60 && currentScrollPos > prevScrollPos);
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [prevScrollPos]);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolling ? 'scrolling' : ''}`}>
       {/* Version mobile */}
       <div className="mobile-nav">
         <Link to={`/benevole-notification/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import LastNotif from '../../components/bénévole/LastNotif';
 import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
@@ -21,12 +22,13 @@ const BenevoleDashboard = () => {
       <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
-        <h1>Planning</h1>
         <div className={styles.benevoleCalendar}>
-          <Planning />
+          <Planning idFestival={selectedFestival}/>
         </div>
+      <div className={styles.benevoleNotifications}>
+        <LastNotif idFestival={selectedFestival}/>
       </div>
-      
+    </div>
     </div>
   );
 };

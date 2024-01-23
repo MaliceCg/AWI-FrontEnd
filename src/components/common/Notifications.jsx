@@ -12,7 +12,8 @@ const Notifications = ({ idFestival }) => {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setListNotif(data); // Mettre à jour l'état avec les données récupérées
+          const sortedNotifs = data.sort((a, b) => new Date(b.DateEnvoi) - new Date(a.DateEnvoi));
+          setListNotif(sortedNotifs);
         } else {
           throw new Error('Erreur lors de la récupération des données');
         }
