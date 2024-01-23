@@ -5,7 +5,6 @@ import FestivalCreation from './pages/admin/AdminCreationFestival';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminFestivals from './pages/admin/AdminFestivals';
 import AdminListeBenevole from './pages/admin/AdminListeBenevole';
-import AdminNotifFestival from './pages/admin/AdminNotifFestival';
 import AdminNotifications from './pages/admin/AdminNotifications';
 import AdminPlanning from './pages/admin/AdminPlanning';
 import AdminSendNotif from './pages/admin/AdminSendNotif';
@@ -40,13 +39,12 @@ function App() {
         <Route path="/benevole-planning/:idFestival" element={<BenevolePlanning/>} roles={['benevole']} />
         <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />
         <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
-        <Route path="/admin-dashboard" element={<AdminDashboard/>} roles={['admin']} />
+        <Route path="/admin-dashboard/:idFestival" element={<AdminDashboard/>} roles={['admin']} />
         <Route path="/espace-creation/:idFestival" element={<EspaceCreation/>} roles={['admin']} />
         <Route path="/admin-creation-festival" element={<FestivalCreation/>} roles={['admin']} />
-        <Route path="/admin-notifications" element={<AdminNotifFestival/>} roles={['admin']} />
         <Route path="/admin-notifications/:idFestival" element={<AdminNotifications/>} roles={['admin']} />
-        <Route path="/admin-planning" element={<AdminPlanning/>} roles={['admin']} />
-        <Route path="/admin-liste-benevole" element={<AdminListeBenevole/>} roles={['admin']} />
+        <Route path="/admin-planning/:idFestival" element={<AdminPlanning/>} roles={['admin']} />
+        <Route path="/admin-liste-benevole/:idFestival" element={<AdminListeBenevole/>} roles={['admin']} />
         <Route path="/festivals" element={<AdminFestivals/>} roles={['admin']} />
         <Route path="/send-notif/:idFestival" element={<AdminSendNotif/>} roles={['admin']} />
       </Routes>

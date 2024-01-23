@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import ListBenevoles from '../../components/AccueilAdmin/admin/ListeAModif';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/listeBenevole.module.css';
-import ListBenevoles from '../../components/AccueilAdmin/admin/ListeAModif';
 
 
 const AdminListeBenevole = () => {
+  const { idFestival } = useParams();
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+
+  const handleFestivalChange = (newFestivalId) => {
+    setSelectedFestival(newFestivalId);
+  };
   const [listBenevoles, setListBenevoles] = useState([]);
 
   useEffect(() => {
@@ -28,10 +35,10 @@ const AdminListeBenevole = () => {
 
   return (
     <div>
-      <Header currentPage="liste-benevole" />
+      <Header currentPage="liste-benevole" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <div className={styles.wrapper}>
         <div className={styles.navbar}>
-          <NavbarAdmin />
+        <NavbarAdmin idFestival={selectedFestival}/>
         </div>
         <div className={styles.benevoleContainer}>
           <h1 className={styles.benevoleTitle}>Liste des bénévoles</h1>
