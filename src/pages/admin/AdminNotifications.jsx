@@ -16,11 +16,14 @@ const AdminNotifications = () => {
   return (
     <div>
         <Header currentPage="notifications" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+        <NavbarAdmin idFestival={selectedFestival}/>
+        <div className={styles.NotifAdmin}>
         <Link to={`/send-notif/${selectedFestival}`}>
         <button className={styles.btnSend}>Envoyez une notification à tous les bénévoles </button>
         </Link>
         <Notifications idFestival={selectedFestival} ></Notifications>
-        <NavbarAdmin idFestival={selectedFestival}/>
+        
+        </div>
     </div>
   );
 };

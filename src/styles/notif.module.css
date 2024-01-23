@@ -4,9 +4,9 @@
     font-size: larger;
     border-radius: 15px;
     padding: 5px;
+    width:80vw;
     color: #838383;
     cursor: pointer;
-    margin : 60px;
     text-align: center;
   }
   .btnSend:hover{
@@ -15,6 +15,11 @@
   }
 
   .NotifBenevole {
+    margin-top:60px;
+  }
+  .NotifAdmin {
+
+    text-align: center;
     margin-top:60px;
   }
   .NotificationContainer {

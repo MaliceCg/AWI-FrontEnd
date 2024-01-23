@@ -38,7 +38,7 @@ useEffect(() => {
         <Link to={`/admin-planning/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-planning/${idFestival}` ? 'active' : ''}`}>
           <img src={PlanningIcon} alt="planning" />
         </Link>
-        <Link to={`/admin-liste-benevole/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-liste-benevole/${idFestival}` ? 'active' : ''}`}>
+        <Link to={`/admin-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-dashboard/${idFestival}` ? 'active' : ''}`}>
           <img src={HomeIcon} alt="accueil" />
         </Link>
         <Link to={`/admin-liste-benevole/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-liste-benevole/${idFestival}` ? 'active' : ''}`}>
