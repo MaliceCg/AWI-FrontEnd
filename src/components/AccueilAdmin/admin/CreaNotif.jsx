@@ -30,14 +30,14 @@ const CreaNotif = ({idFestival}) => {
     }
     console.log(idFestival);
     console.log(idFestival.idFestival);
+    console.log(parseInt(idFestival.idFestival, 10));
     console.log(dateEnvoi);
 
     // Créer un objet avec les données à envoyer au backend
     const notificationData = {
       Type: notificationType,
       TexteNotification: notificationText,
-      idFestival: idFestival.idFestival,
-      DateEnvoi: dateEnvoi.toISOString(),
+      idFestival: parseInt(idFestival.idFestival, 10)
     };
     console.log("toIsoString",dateEnvoi.toISOString());
     console.log(notificationData);
