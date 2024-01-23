@@ -1,12 +1,39 @@
 // src/components/common/Header.js
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Account from '../../img/account.svg';
-import '../../styles/header.css';
+import styles from '../../styles/header.module.css';
 
 
-const Header = ({ currentPage, user, idFestival }) => {
+const Header = ({ currentPage, user, idFestival, onFestivalChange }) => {
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+  const [availableFestivals, setAvailableFestivals] = useState([]);
+
+  const fetchAvailableFestivals = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/festival-module');
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableFestivals(data);
+      } else {
+        throw new Error('Erreur lors de la récupération des festivals');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    setSelectedFestival(idFestival);
+    fetchAvailableFestivals();
+  }, [idFestival]); // Appel une seule fois au chargement du composant
+
+  const handleFestivalChange = (event) => {
+    const newFestivalId = event.target.value;
+    setSelectedFestival(newFestivalId);
+    onFestivalChange(newFestivalId);
+  };
   const getH3Text = () => {
     switch (currentPage) {
       case 'dashboard':
@@ -66,11 +93,20 @@ const Header = ({ currentPage, user, idFestival }) => {
 
   return (
     <header >
-      <div id="header">
-        <h3>{getH3Text()}</h3>
-        <h1>{getH1Text()}</h1>
-        <Link to={`/compte/${idFestival}`} className="account">
-        <img src={Account} alt="compte" />
+      <div className={styles.header}>
+        <h3 className={styles.h3}>{getH3Text()}</h3>
+        <h1 className={styles.h1}>{getH1Text()}</h1>
+        <select value={selectedFestival} onChange={handleFestivalChange} className={styles.liste}>
+          {availableFestivals.map((festival) => (
+            <option key={festival.idFestival} value={festival.idFestival}>
+              {festival.NomFestival}
+            </option>
+          ))}
+        </select>
+        </div>
+        <div className={styles.headerLine}>
+        <Link to={`/compte/${selectedFestival}`}>
+          <img src={Account} alt="compte" className={styles.logoCompte} />
         </Link>
       </div>
     </header>

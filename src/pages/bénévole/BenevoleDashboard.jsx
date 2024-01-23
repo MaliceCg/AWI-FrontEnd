@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
@@ -8,13 +8,18 @@ import styles from '../../styles/benevoleDashboard.module.css';
 
 const BenevoleDashboard = () => {
   const { idFestival } = useParams();
-  console.log('Cest lid du festival',idFestival);
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+
+  const handleFestivalChange = (newFestivalId) => {
+    setSelectedFestival(newFestivalId);
+  };
+
 
 
   return (
     <div>
-      <Header currentPage="dashboard" idFestival={idFestival} />
-      <Navbar idFestival={idFestival}/>
+      <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+      <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
         <h1>Planning</h1>
         <div className={styles.benevoleCalendar}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
@@ -6,11 +6,15 @@ import Navbar from '../../components/common/Navbar';
 
 const BenevoleActivites = () => {
   const { idFestival } = useParams();
-  console.log('Cest lid du festival',idFestival);
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+
+  const handleFestivalChange = (newFestivalId) => {
+    setSelectedFestival(newFestivalId);
+  };
   return (
     <div>
-        <Header currentPage="activites" idFestival={idFestival} />
-        <Navbar idFestival={idFestival}/>
+      <Header currentPage="activites" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+        <Navbar idFestival={selectedFestival}/>
     </div>
   );
 };

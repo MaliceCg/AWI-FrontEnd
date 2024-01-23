@@ -8,7 +8,11 @@ const Compte = () => {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const { idFestival } = useParams();
-  console.log('Cest lid du festival',idFestival);
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+
+  const handleFestivalChange = (newFestivalId) => {
+    setSelectedFestival(newFestivalId);
+  };
   useEffect(() => {
   
     const fetchUserData = async () => {
@@ -32,7 +36,7 @@ const Compte = () => {
 
   return (
     <div className='CompteInfo'>
-      <Header currentPage="profile" idFestival={idFestival}/>
+      <Header currentPage="profile" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <Navbar idFestival={idFestival}/>
       <main>
         {userData ? (

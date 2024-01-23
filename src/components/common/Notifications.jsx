@@ -22,7 +22,8 @@ const Notifications = ({ idFestival }) => {
     };
 
     fetchNotif(); // Appel de la fonction pour récupérer les données au chargement du composant
-  }, []); // Le tableau vide [] signifie que useEffect ne s'exécute qu'une seule fois au montage du composant
+  }, [idFestival]);
+
 
   // Séparer les notifications en deux groupes en fonction du type
   const soiréeDécouverteNotifs = listNotif.filter((notif) => notif.Type === 'Soirée Découverte');
