@@ -9,9 +9,9 @@ const BenevoleNotification = () => {
   const { idFestival } = useParams();
   return (
     <div>
-        <Header currentPage="notifications" />
+        <Header currentPage="notifications" idFestival={idFestival}/>
         <Notifications idFestival={idFestival} />
-        <Navbar />
+        <Navbar idFestival={idFestival}/>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import '../../styles/compte.css';
@@ -6,7 +7,8 @@ import '../../styles/compte.css';
 const Compte = () => {
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
-
+  const { idFestival } = useParams();
+  console.log('Cest lid du festival',idFestival);
   useEffect(() => {
   
     const fetchUserData = async () => {
@@ -30,8 +32,8 @@ const Compte = () => {
 
   return (
     <div className='CompteInfo'>
-      <Header currentPage="profile" />
-      <Navbar />
+      <Header currentPage="profile" idFestival={idFestival}/>
+      <Navbar idFestival={idFestival}/>
       <main>
         {userData ? (
           <div className='Infosutilisateur'>

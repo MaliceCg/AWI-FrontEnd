@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import nofestival from '../../img/nofestival.PNG';
 
 import Form from '../../components/common/FormInfo';
-import Header from '../../components/common/Header';
 import styles from '../../styles/accueil.module.css';
 
 function PageAccueil() {
@@ -57,7 +56,6 @@ function PageAccueil() {
 
   return (
     <div>
-      <Header currentPage="accueil"  />
 
       {showPopup && (
         <Form

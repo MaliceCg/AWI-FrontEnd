@@ -6,7 +6,7 @@ import Account from '../../img/account.svg';
 import '../../styles/header.css';
 
 
-const Header = ({ currentPage, user }) => {
+const Header = ({ currentPage, user, idFestival }) => {
   const getH3Text = () => {
     switch (currentPage) {
       case 'dashboard':
@@ -69,7 +69,7 @@ const Header = ({ currentPage, user }) => {
       <div id="header">
         <h3>{getH3Text()}</h3>
         <h1>{getH1Text()}</h1>
-        <Link to="/compte" className="account">
+        <Link to={`/compte/${idFestival}`} className="account">
         <img src={Account} alt="compte" />
         </Link>
       </div>

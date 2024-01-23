@@ -21,16 +21,16 @@ const Navbar = ({idFestival}) => {
         <Link to={`/benevole-notification/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>
           <img src={NotifIcon} alt="notifications" />
         </Link>
-        <Link to="/benevole-planning" className={`mobile-icon ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>
+        <Link to={`/benevole-planning/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-planning/${idFestival}` ? 'active' : ''}`}>
           <img src={PlanningIcon} alt="planning" />
         </Link>
-        <Link to={`/benevole-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>
+        <Link to={`/benevole-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-dashboard/${idFestival}` ? 'active' : ''}`}>
           <img src={HomeIcon} alt="accueil" />
         </Link>
-        <Link to="/benevole-activites" className={`mobile-icon ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>
+        <Link to={`/benevole-activites/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-activites/${idFestival}` ? 'active' : ''}`}>
           <img src={ActivitesIcon} alt="activites" />
         </Link>
-        <Link to="/benevole-inscription" className={`mobile-icon ${location.pathname === '/benevole-inscription' ? 'active' : ''}`}>
+        <Link to={`/benevole-inscription/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-inscription/${idFestival}` ? 'active' : ''}`}>
           <img src={InscriptionIcon} alt="inscription" />
         </Link>
       </div>

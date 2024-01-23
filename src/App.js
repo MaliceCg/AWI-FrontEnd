@@ -32,12 +32,12 @@ function App() {
         <Route path="/register"  element={<Register />} />
         <Route path="/"  element={<PremierePage />} />
         <Route path="/accueil" element={<PageAccueil />} />
-        <Route path="/compte" element={<Compte/>} />
+        <Route path="/compte/:idFestival" element={<Compte/>} />
         <Route path="/benevole-dashboard/:idFestival" element={<BenevoleDashboard />} roles={['benevole']} />
-        <Route path="/benevole-activites" element={<BenevoleActivites/>} roles={['benevole']} />
-        <Route path="/benevole-inscription" element={<BenevoleInscription />} roles={['benevole']} />
+        <Route path="/benevole-activites/:idFestival" element={<BenevoleActivites/>} roles={['benevole']} />
+        <Route path="/benevole-inscription/:idFestival" element={<BenevoleInscription />} roles={['benevole']} />
         <Route path="/benevole-notification/:idFestival" element={<BenevoleNotification/>} roles={['benevole']} />
-        <Route path="/benevole-planning" element={<BenevolePlanning/>} roles={['benevole']} />
+        <Route path="/benevole-planning/:idFestival" element={<BenevolePlanning/>} roles={['benevole']} />
         <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />
         <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
         <Route path="/admin-dashboard" element={<AdminDashboard/>} roles={['admin']} />

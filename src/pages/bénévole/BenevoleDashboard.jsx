@@ -13,7 +13,7 @@ const BenevoleDashboard = () => {
 
   return (
     <div>
-      <Header currentPage="dashboard" />
+      <Header currentPage="dashboard" idFestival={idFestival} />
       <Navbar idFestival={idFestival}/>
       <div className={styles.dashboardContainer}>
         <h1>Planning</h1>
