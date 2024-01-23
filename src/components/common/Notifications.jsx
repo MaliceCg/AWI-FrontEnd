@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/notif.module.css';
 
-const Notifications = () => {
+const Notifications = ({ idFestival }) => {
   const [listNotif, setListNotif] = useState([]);
+  console.log('idFestival = ',idFestival);
 
   useEffect(() => {
     const fetchNotif = async () => {
       try {
-        const response = await fetch('http://localhost:3000/notif-module');
+        const response = await fetch(`http://localhost:3000/notif-module/${idFestival}`);
         if (response.ok) {
           const data = await response.json();
           console.log(data);
