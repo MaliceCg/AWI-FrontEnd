@@ -8,6 +8,8 @@ import AdminPlanning from './pages/admin/AdminPlanning';
 import BenevoleActivites from './pages/bénévole/BenevoleActivites';
 import BenevoleDashboard from './pages/bénévole/BenevoleDashboard';
 import BenevoleInscription from './pages/bénévole/BenevoleInscription';
+import BenevoleInscriptionZone from './pages/bénévole/BenevoleInscriptionZone';
+import BenevoleInscriptionCreneau from './pages/bénévole/BenevoleInscriptionCreneau';
 import BenevoleNotification from './pages/bénévole/BenevoleNotifications';
 import BenevolePlanning from './pages/bénévole/BenevolePlanning';
 import Compte from './pages/common/Compte';
@@ -33,7 +35,9 @@ function App() {
         <Route path="/compte" element={<Compte/>} />
         <Route path="/benevole-dashboard/:idFestival" element={<BenevoleDashboard />} roles={['benevole']} />
         <Route path="/benevole-activites" element={<BenevoleActivites/>} roles={['benevole']} />
-        <Route path="/benevole-inscription" element={<BenevoleInscription />} roles={['benevole']} />
+        <Route path="/benevole-inscription/:idFestival" element={<BenevoleInscription />} roles={['benevole']} />
+        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<BenevoleInscriptionZone/>} roles={['benevole']} />
+        <Route path="/benevole-inscription-creneaux/:idPoste/:idZone" element={<BenevoleInscriptionCreneau />} roles={['benevole']} />
         <Route path="/benevole-notification" element={<BenevoleNotification/>} roles={['benevole']} />
         <Route path="/benevole-planning" element={<BenevolePlanning/>} roles={['benevole']} />
         <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />

@@ -16,7 +16,6 @@ const EspaceCreation = () => {
         const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
         if (response.ok) {
           const datas = await response.json();
-          console.log("data : ", datas);
           const postePromises = datas.map(async (data) => {
             const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
             if (reponsePoste.ok) {
@@ -39,7 +38,6 @@ const EspaceCreation = () => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
-  console.log("postes : ", postes);
 
   return (
     <div>

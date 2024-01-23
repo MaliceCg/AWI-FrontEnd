@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '../../components/common/FormInfo';
 import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
+
 const Register = () => {
   const registerFields = [
     { label: 'Pseudo', type: 'text', name: 'pseudo' },
@@ -14,6 +15,8 @@ const Register = () => {
     // Traitement spécifique à la page d'inscription avec les données du formulaire
     console.log('Données du formulaire d\'inscription :', formData);
     // Ajoutez votre logique d'inscription ici
+
+
   };
 
   return (

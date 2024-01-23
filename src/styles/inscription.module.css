@@ -1,0 +1,35 @@
+.inscriptionContainer{
+    margin: 20px;
+    text-align: center;
+}
+
+.choosePoste{
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.flexibleText{
+    margin-top: 15px;
+    text-decoration: underline;
+    font-size: larger;
+}
+
+.posteContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.posteBackground{
+    color: white;
+    font-size: larger;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 5px;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+}
