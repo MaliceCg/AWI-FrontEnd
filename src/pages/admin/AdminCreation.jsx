@@ -16,22 +16,27 @@ const EspaceCreation = () => {
     setSelectedFestival(newFestivalId);
   };
   const [postes, setPostes] = useState([]);
-
   const fetchPostes = async () => {
     try {
       const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
       if (response.ok) {
         const datas = await response.json();
-        console.log("data : ", datas);
         const postePromises = datas.map(async (data) => {
           const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
-          if (reponsePoste.ok) {
-            return reponsePoste.json();
+          const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
+          if (reponsePoste.ok && reponseZone.ok) {
+            const posteData = await reponsePoste.json();
+            const zoneData = await reponseZone.json();
+            return {
+              ...posteData,
+              idZoneBenevole: zoneData.idZoneBenevole,
+              nomZoneBenevole: zoneData.nomZoneBenevole,
+            };
           } else {
-            throw new Error('Erreur lors de la récupération des postes');
+            throw new Error('Erreur lors de la récupération des postes ou des zones bénévoles');
           }
         });
-
+  
         const posteData = await Promise.all(postePromises);
         setPostes(posteData);
         return posteData;
@@ -42,6 +47,7 @@ const EspaceCreation = () => {
       console.error(error);
     }
   };
+  
 
   useEffect(() => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
@@ -55,6 +61,8 @@ const EspaceCreation = () => {
       nomPoste: "",
       description: "",
       capacite: 0,
+      nomZoneBenevole:""
+
     });
     setAddPostePopupOpen(true);
   };
@@ -68,6 +76,7 @@ const EspaceCreation = () => {
     nomPoste: "",
     description: "",
     capacite: 0,
+    nomZoneBenevole:""
   });
 
 const addPoste = async () => {

@@ -7,6 +7,8 @@ import NavbarAdmin from '../../components/common/NavbarAdmin';
 const AdminSendNotif = () => {
 const { idFestival } = useParams();
 const [selectedFestival, setSelectedFestival] = useState(idFestival);
+console.log(selectedFestival);
+
 
 const handleFestivalChange = (newFestivalId) => {
     setSelectedFestival(newFestivalId);

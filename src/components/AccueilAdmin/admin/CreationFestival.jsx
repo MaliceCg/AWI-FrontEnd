@@ -59,7 +59,7 @@ const CreationFestival = () => {
 
         // Création de l'objet contenant les données à envoyer au serveur
         let festivalId; // Variable pour stocker l'ID du festival
-
+        console.log(startDate);
         const festivalData = {
           NomFestival: nomFestival,
           DateDebut: startDate,
@@ -122,12 +122,31 @@ const CreationFestival = () => {
       
                 if (posteResponse.ok) {
                   const posteResponseData = await posteResponse.json(); // Convertir la réponse en JSON
-                  console.log(posteData);
                   const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
-                  console.log(posteId);
-                  console.log(festivalId);
-      
-                  // Lier le poste au festival dans la table employer
+                            // Créer une zone avec le nom spécifié
+                  const zoneData = {
+                    idZoneBenevole : posteId,
+                    nomZoneBenevole: `zone-${posteResponseData.nomPoste}`,
+                    capacite:posteResponseData.capacite,  // Ajoutez la capacité que vous souhaitez
+                    idFestival: festivalId,  // Associer la zone au festival créé
+                    idPoste: posteId,  // Associer la zone au poste créé
+                  };
+
+        const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(zoneData),
+        });
+
+        if (zoneResponse.ok) {
+          console.log(`La zone pour le poste ${posteData.nomPoste} a été créée avec succès !`);
+        } else {
+          console.error(`Erreur lors de la création de la zone pour le poste ${posteData.nomPoste}.`);
+        }
+// Lier le poste au festival dans la table employer
                   const employerData = {
                     idFestival: festivalId,
                     idPoste: posteId,
