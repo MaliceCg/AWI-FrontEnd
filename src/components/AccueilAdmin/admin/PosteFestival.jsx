@@ -3,6 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from "../../../styles/espaceCreation.module.css";
+import ListeReferent from "./ListeReferent";
 const PosteFestival = (props) => {
     const { poste } = props;
     const { idFestival } = useParams();
@@ -239,6 +240,7 @@ const PosteFestival = (props) => {
                             value={editedPoste.nomZone}
                             onChange={handleInputChange}
                         />
+                        <ListeReferent idPoste={idPoste}/>
                         <button className={styles.btn2} onClick={updatePoste}>Enregistrer</button>
                         <button className={styles.btn2} onClick={closeEditPopup}>Annuler</button>
                         </div>
