@@ -149,7 +149,6 @@ console.log(JSON.stringify(newPoste));
           console.error(`Erreur lors de la création du poste ${newPoste.nomPoste}.`);
         }
       }
-//////////////////////Gere ka modification d'un poste////////////////////////
 const handleNewPosteInputChange = (e) => {
   const { name, value } = e.target;
   
@@ -161,7 +160,7 @@ const handleNewPosteInputChange = (e) => {
     [name]: numericValue,
   }));
 };
-
+/////////fin ajout poste/////////////////////
   
   return (
     <div>

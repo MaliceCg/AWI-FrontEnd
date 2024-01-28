@@ -1,9 +1,8 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from "../../../styles/espaceCreation.module.css";
-
 const PosteFestival = (props) => {
     const { poste } = props;
     const { idFestival } = useParams();
@@ -11,6 +10,45 @@ const PosteFestival = (props) => {
     const idPoste = poste.idPoste;
     console.log(idPoste);
     console.log(accessToken);
+    const [zoneData, setZoneData] = useState({});
+    const [editedPoste, setEditedPoste] = useState({
+        nomPoste: poste.nomPoste,
+        description: poste.description,
+        capacite: poste.capacite,
+        nomZone: "", // Initialisez avec une chaîne vide, peut être rempli avec le nom initial de la zone bénévole
+    });
+
+    useEffect(() => {
+        const fetchZoneData = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération de la zone bénévole');
+                }
+
+                const zoneData = await response.json();
+                setZoneData(zoneData);
+
+                // Mettez à jour le nom de la zone bénévole dans editedPoste
+                setEditedPoste(prevState => ({
+                    ...prevState,
+                    nomZone: zoneData.nomZoneBenevole,
+                }));
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        fetchZoneData();
+    }, [idPoste, accessToken]);
+
     let backgroundColor = '';
 
     switch (poste.nomPoste.toLowerCase()) {
@@ -36,11 +74,6 @@ const PosteFestival = (props) => {
     };
     const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
     const [isEditPopupOpen, setEditPopupOpen] = useState(false);
-    const [editedPoste, setEditedPoste] = useState({
-        nomPoste: poste.nomPoste,
-        description: poste.description,
-        capacite: poste.capacite,
-    });
 
     const openConfirmationDialog = () => {
         setConfirmationDialogOpen(true);
@@ -57,29 +90,55 @@ const PosteFestival = (props) => {
     const closeEditPopup = () => {
         setEditPopupOpen(false);
     };
-    const updatePoste = () => {
-        fetch(`http://localhost:3000/position-module/${idPoste}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(editedPoste),
-        })
-        .then(response => {
-            if (!response.ok) {
+
+    const updatePoste = async () => {
+        try {
+    
+            // 2. Modifier le nom de la zone bénévole
+            const updatedZone = {
+                ...zoneData,
+                nomZoneBenevole: editedPoste.nomZone,
+                capacite: editedPoste.capacite
+            };
+    
+            const responseUpdateZone = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(updatedZone),
+            });
+    
+            if (!responseUpdateZone.ok) {
+                throw new Error('Erreur lors de la mise à jour de la zone bénévole');
+            }
+    
+            // 3. Mettre à jour le poste
+            const responseUpdatePoste = await fetch(`http://localhost:3000/position-module/${idPoste}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({
+                    nomPoste: editedPoste.nomPoste,
+                    description: editedPoste.description,
+                    capacite: editedPoste.capacite
+                }),
+            });
+    
+            if (!responseUpdatePoste.ok) {
                 throw new Error('Erreur lors de la mise à jour du poste');
             }
-            // Mettre à jour les données du poste dans l'interface utilisateur si nécessaire
-            // Peut-être recharger les données depuis le serveur ou mettre à jour l'état local
-        })
-        .catch(error => {
+    
+            alert('Le poste a bien été modifié');
+            props.fetchPostes();
+            // Après la mise à jour, fermer la popup de modification
+            closeEditPopup();
+        } catch (error) {
             alert(error.message);
-        });
-        alert('Le poste a bien été modifié');
-        props.fetchPostes();
-        // Après la mise à jour, fermer la popup de modification
-        closeEditPopup();
+        }
     };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -89,7 +148,6 @@ const PosteFestival = (props) => {
             [name]: numericValue,
         }));
     };
-
 
 
 
@@ -172,6 +230,13 @@ const PosteFestival = (props) => {
                             type="number"
                             name="capacite"
                             value={editedPoste.capacite}
+                            onChange={handleInputChange}
+                        />
+                        <label className={styles.label}>Nom de la zone bénévole</label>
+                        <input className={styles.editInput}
+                            type="text"
+                            name="nomZone"
+                            value={editedPoste.nomZone}
                             onChange={handleInputChange}
                         />
                         <button className={styles.btn2} onClick={updatePoste}>Enregistrer</button>
