@@ -15,6 +15,8 @@ const EspaceCreation = () => {
   const handleFestivalChange = (newFestivalId) => {
     setSelectedFestival(newFestivalId);
   };
+
+  /////////////////////Recupere les postes du festival////////////////////////
   const [postes, setPostes] = useState([]);
   const fetchPostes = async () => {
     try {
@@ -53,8 +55,7 @@ const EspaceCreation = () => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
-  console.log("postes : ", postes);
-
+//////////////////////Gere la pop up d'ajout de poste////////////////////////
   const openAddPostePopup = () => {
     // Réinitialisez l'état pour un nouveau poste
     setNewPoste({
@@ -97,6 +98,28 @@ console.log(JSON.stringify(newPoste));
       const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
       console.log(posteId);
       console.log(idFestival);
+      const zoneData = {
+        idZoneBenevole : posteId,
+        nomZoneBenevole: newPoste.nomZoneBenevole,
+        capacite:posteResponseData.capacite,  // Ajoutez la capacité que vous souhaitez
+        idFestival: idFestival,  // Associer la zone au festival créé
+        idPoste: posteId,  // Associer la zone au poste créé
+      };
+
+      const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(zoneData),
+      });
+
+      if (zoneResponse.ok) {
+      console.log(`La zone pour le poste ${posteResponseData.nomPoste} a été créée avec succès !`);
+      } else {
+      console.error(`Erreur lors de la création de la zone pour le poste ${posteResponseData.nomPoste}.`);
+      }
       // Lier le poste au festival dans la table employer
       const employerData = {
         idFestival: parseInt(idFestival, 10),
@@ -126,7 +149,7 @@ console.log(JSON.stringify(newPoste));
           console.error(`Erreur lors de la création du poste ${newPoste.nomPoste}.`);
         }
       }
-
+//////////////////////Gere ka modification d'un poste////////////////////////
 const handleNewPosteInputChange = (e) => {
   const { name, value } = e.target;
   
@@ -138,6 +161,7 @@ const handleNewPosteInputChange = (e) => {
     [name]: numericValue,
   }));
 };
+
   
   return (
     <div>
@@ -183,6 +207,13 @@ const handleNewPosteInputChange = (e) => {
                   type="number"
                   name="capacite"
                   value={newPoste.capacite}
+                  onChange={handleNewPosteInputChange}
+                />
+                <label className={styles.label}>Nom de la zone bénévole</label>
+                <input className={styles.editInput}
+                  type="text"
+                  name="nomZoneBenevole"
+                  value={newPoste.nomZoneBenevole}
                   onChange={handleNewPosteInputChange}
                 />
                 <button className={styles.btn2} onClick={addPoste}>Ajouter</button>
