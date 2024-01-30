@@ -4,19 +4,19 @@ import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from "../../../styles/espaceCreation.module.css";
 import ListeReferent from "./ListeReferent";
+
 const PosteFestival = (props) => {
     const { poste } = props;
     const { idFestival } = useParams();
     const accessToken = localStorage.getItem('token');
     const idPoste = poste.idPoste;
-    console.log(idPoste);
-    console.log(accessToken);
+
     const [zoneData, setZoneData] = useState({});
     const [editedPoste, setEditedPoste] = useState({
         nomPoste: poste.nomPoste,
         description: poste.description,
         capacite: poste.capacite,
-        nomZone: "", // Initialisez avec une chaîne vide, peut être rempli avec le nom initial de la zone bénévole
+        nomZone: "",
     });
 
     useEffect(() => {
@@ -37,7 +37,6 @@ const PosteFestival = (props) => {
                 const zoneData = await response.json();
                 setZoneData(zoneData);
 
-                // Mettez à jour le nom de la zone bénévole dans editedPoste
                 setEditedPoste(prevState => ({
                     ...prevState,
                     nomZone: zoneData.nomZoneBenevole,
@@ -73,6 +72,7 @@ const PosteFestival = (props) => {
     const dynamicStyle = {
         backgroundColor: backgroundColor,
     };
+
     const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
     const [isEditPopupOpen, setEditPopupOpen] = useState(false);
 
@@ -94,14 +94,12 @@ const PosteFestival = (props) => {
 
     const updatePoste = async () => {
         try {
-    
-            // 2. Modifier le nom de la zone bénévole
             const updatedZone = {
                 ...zoneData,
                 nomZoneBenevole: editedPoste.nomZone,
                 capacite: editedPoste.capacite
             };
-    
+
             const responseUpdateZone = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
                 method: 'PUT',
                 headers: {
@@ -110,12 +108,11 @@ const PosteFestival = (props) => {
                 },
                 body: JSON.stringify(updatedZone),
             });
-    
+
             if (!responseUpdateZone.ok) {
                 throw new Error('Erreur lors de la mise à jour de la zone bénévole');
             }
-    
-            // 3. Mettre à jour le poste
+
             const responseUpdatePoste = await fetch(`http://localhost:3000/position-module/${idPoste}`, {
                 method: 'PUT',
                 headers: {
@@ -128,19 +125,19 @@ const PosteFestival = (props) => {
                     capacite: editedPoste.capacite
                 }),
             });
-    
+
             if (!responseUpdatePoste.ok) {
                 throw new Error('Erreur lors de la mise à jour du poste');
             }
-    
+
             alert('Le poste a bien été modifié');
             props.fetchPostes();
-            // Après la mise à jour, fermer la popup de modification
             closeEditPopup();
         } catch (error) {
             alert(error.message);
         }
     };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         const numericValue = name === "capacite" ? parseInt(value, 10) : value;
@@ -150,41 +147,34 @@ const PosteFestival = (props) => {
         }));
     };
 
-
-
     const deletePoste = () => {
         fetch(`http://localhost:3000/employer-module/${idFestival}/${idPoste}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
-
-      }).then(response => {
-             if (!response.ok) {
+        }).then(response => {
+            if (!response.ok) {
                 throw new Error('Erreur lors de la suppression de la relation employer');
-           }
-             return fetch(`http://localhost:3000/position-module/${idPoste}`, {
+            }
+            return fetch(`http://localhost:3000/position-module/${idPoste}`, {
                 method: 'DELETE',
                 headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    }
+                    Authorization: `Bearer ${accessToken}`,
+                }
             });
-         }).then(response => {
-             if (!response.ok) {
-               throw new Error('Erreur lors de la suppression du poste');
-           }
-
-       
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la suppression du poste');
+            }
         }).catch(error => {
             alert(error.message);
         });
+
         alert('Le poste a bien été supprimé');
         props.fetchPostes();
-        // Après la suppression, fermer la boîte de dialogue
         closeConfirmationDialog();
     };
-
-
 
     return (
         <div className={`${styles.posteBox}`} style={dynamicStyle}>
@@ -201,17 +191,17 @@ const PosteFestival = (props) => {
                 {isConfirmationDialogOpen && (
                     <div className={styles.confirmationDialog}>
                         <div className={styles.confDialog}>
-                        <p className={styles.TxtConf}>Êtes-vous sûr de vouloir supprimer ce poste ?</p>
-                        <button className={styles.btn2} onClick={deletePoste}>Oui</button>
-                        <button className={styles.btn2} onClick={closeConfirmationDialog}>Annuler</button>
+                            <p className={styles.TxtConf}>Êtes-vous sûr de vouloir supprimer ce poste ?</p>
+                            <button className={styles.btn2} onClick={deletePoste}>Oui</button>
+                            <button className={styles.btn2} onClick={closeConfirmationDialog}>Annuler</button>
                         </div>
                     </div>
                 )}
             </div>
 
-                {isEditPopupOpen && (
-                    <div className={styles.editPopup}>
-                        <div className={styles.editPopupContent}>
+            {isEditPopupOpen && (
+                <div className={styles.editPopup}>
+                    <div className={styles.editPopupContent}>
                         <h1 className={styles.titre}>Modification du poste :</h1>
                         <label className={styles.label}>Nom du poste</label>
                         <input className={styles.editInput}
@@ -233,20 +223,24 @@ const PosteFestival = (props) => {
                             value={editedPoste.capacite}
                             onChange={handleInputChange}
                         />
-                        <label className={styles.label}>Nom de la zone bénévole</label>
-                        <input className={styles.editInput}
-                            type="text"
-                            name="nomZone"
-                            value={editedPoste.nomZone}
-                            onChange={handleInputChange}
-                        />
+                        {poste.nomPoste.toLowerCase() !== 'animation jeux' && (
+                            <div>
+                                <label className={styles.label}>Nom de la zone bénévole</label>
+                                <input className={styles.editInput}
+                                    type="text"
+                                    name="nomZone"
+                                    value={editedPoste.nomZone}
+                                    onChange={handleInputChange}
+                                />
+                            </div>
+                        )}
                         <ListeReferent idPoste={idPoste}/>
                         <button className={styles.btn2} onClick={updatePoste}>Enregistrer</button>
                         <button className={styles.btn2} onClick={closeEditPopup}>Annuler</button>
-                        </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
+        </div>
     );
 };
 

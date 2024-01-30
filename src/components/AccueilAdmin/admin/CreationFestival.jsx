@@ -102,6 +102,7 @@ const CreationFestival = () => {
                   nomPoste: 'Animation Jeux',
                   description: 'Ici vous devez organiser et animer les jeux pour divertir les participants.',
                   capacite: 5,
+                  createZone: false, // Ajout de la propriété pour indiquer de ne pas créer de zone
                 },
                 {
                   nomPoste: 'Cuisine',
@@ -109,7 +110,7 @@ const CreationFestival = () => {
                   capacite: 5,
                 },
               ];
-      
+              
               for (const posteData of postesData) {
                 const posteResponse = await fetch('http://localhost:3000/position-module', {
                   method: 'POST',
@@ -119,10 +120,13 @@ const CreationFestival = () => {
                   },
                   body: JSON.stringify(posteData),
                 });
+              
+                
       
                 if (posteResponse.ok) {
                   const posteResponseData = await posteResponse.json(); // Convertir la réponse en JSON
                   const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
+                  if (posteData.createZone !== false) {
                             // Créer une zone avec le nom spécifié
                   const zoneData = {
                     idZoneBenevole : posteId,
@@ -146,6 +150,7 @@ const CreationFestival = () => {
         } else {
           console.error(`Erreur lors de la création de la zone pour le poste ${posteData.nomPoste}.`);
         }
+      }
 // Lier le poste au festival dans la table employer
                   const employerData = {
                     idFestival: festivalId,
