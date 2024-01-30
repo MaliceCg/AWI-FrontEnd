@@ -1,0 +1,32 @@
+/* VotreComposant.css */
+
+.benevoles-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .benevole-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .checkbox {
+    margin-right: 10px;
+  }
+  
+  .info-container {
+    display: flex;
+    margin-left : 8%
+  }
+  
+  .info {
+    margin: 0;
+  }
+  
+  .mail-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+  
