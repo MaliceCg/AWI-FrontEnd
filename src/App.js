@@ -37,7 +37,7 @@ function App() {
         <Route path="/benevole-inscription/:idFestival" element={<BenevoleInscription />} roles={['benevole']} />
         <Route path="/benevole-notification/:idFestival" element={<BenevoleNotification/>} roles={['benevole']} />
         <Route path="/benevole-planning/:idFestival" element={<BenevolePlanning/>} roles={['benevole']} />
-        <Route path="/liste-benevole" element={<ListeBenevole/>} roles={['accueil']} />
+        <Route path="/liste-benevole/:idFestival" element={<ListeBenevole/>} roles={['accueil']} />
         <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
         <Route path="/admin-dashboard/:idFestival" element={<AdminDashboard/>} roles={['admin']} />
         <Route path="/espace-creation/:idFestival" element={<EspaceCreation/>} roles={['admin']} />

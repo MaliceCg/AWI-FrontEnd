@@ -29,6 +29,12 @@ const BenevoleDashboard = () => {
             <button className={styles.btnMode}>Passez en mode Admin</button>
           </Link>
         )}
+         {userRole === 'Accueil' || userRole ==='Admin'   && (
+          <Link to={`/liste-benevole/${idFestival}`}>
+            <button className={styles.btnMode}>Passez en mode Accueil</button>
+          </Link>
+        )}
+
         <div className={styles.benevoleCalendar}>
           <Planning idFestival={selectedFestival}/>
         </div>

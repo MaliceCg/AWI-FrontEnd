@@ -4,10 +4,6 @@ import ListeACocher from '../../components/AccueilAdmin/accueil/ListeACocher.jsx
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar.jsx';
 import styles from '../../styles/listeBenevole.module.css';
-
-
-
-
 const ListeBenevole = () => {
   const [listBenevoles, setListBenevoles] = useState([]);
 
