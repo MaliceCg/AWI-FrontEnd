@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../../components/common/FormInfo';
 import styles from '../../styles/accueil.module.css';
-import nofestival from '/Users/marinecantaloubegirona/Documents/GitHub/AWI-FrontEnd/src/img/noFestival.PNG';
+import nofestival from '../../img/nofestival.PNG';
 
 function PageAccueil() {
   const [showPopup, setShowPopup] = useState(false);
