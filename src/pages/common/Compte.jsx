@@ -5,6 +5,7 @@ import Navbar from '../../components/common/Navbar';
 import '../../styles/compte.css';
 
 const Compte = () => {
+  const idBenevole = localStorage.getItem('id');
   const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const { idFestival } = useParams();
@@ -18,7 +19,7 @@ const Compte = () => {
     const fetchUserData = async () => {
       try {
 // A REMPLACER
-        const response = await fetch('/api/user');
+        const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
         const data = await response.json();
 
         setUserData(data);
@@ -29,7 +30,7 @@ const Compte = () => {
 
     fetchUserData();
   }, []); // Exécutez une seule fois lors du montage du composant
-
+console.log(userData);
   const handleEditClick = () => {
     setEditMode(!editMode);
   };
@@ -45,16 +46,19 @@ const Compte = () => {
               <span role="img" aria-label="Edit" onClick={handleEditClick}>
                 ✏️
               </span>
-                <p>Nom: {userData.nom}</p>
-                <p>Email: {userData.email}</p>
-                <p>Adresse: {userData.adresse}</p>
-                <p>Email: {userData.email}</p>
-                <p>Telephone: {userData.telephone}</p>
-                <p>Régime Alimentaire: {userData.regime}</p>
-                <p>Taille T-Shirt: {userData.taille}</p>
-                <p>Pseudo: {userData.pseudo}</p>
-                <p>Logement: {userData.logement}</p>
-                <p>Jeu préféré: {userData.jeu}</p>
+              <p>Pseudo: {userData.Pseudo}</p>
+              <p>Prénom: {userData.Prenom}</p>
+              <p>Nom: {userData.Nom}</p>
+              <p>Email: {userData.Email}</p>
+              <p>Adresse: {userData.Adresse}</p>
+              <p>Ville : {userData.Ville}</p>
+              <p>Telephone: {userData.Telephone}</p>
+              <p>Régime Alimentaire: {userData.Regime}</p>
+              <p>Taille T-Shirt: {userData.TailletTShirt}</p>
+              <p>Logement: {userData.StatutHebergement}</p>
+              <p>Jeu préféré: {userData.JeuPrefere}</p>
+              <p>Nombre d'édition précédente : {userData.NombreEditionPrecedente}</p>
+
                 
             
 
