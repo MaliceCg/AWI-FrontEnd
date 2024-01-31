@@ -25,17 +25,28 @@ const EspaceCreation = () => {
         const datas = await response.json();
         const postePromises = datas.map(async (data) => {
           const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
-          const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
-          if (reponsePoste.ok && reponseZone.ok) {
+          if (reponsePoste.ok) {
             const posteData = await reponsePoste.json();
-            const zoneData = await reponseZone.json();
-            return {
-              ...posteData,
-              idZoneBenevole: zoneData.idZoneBenevole,
-              nomZoneBenevole: zoneData.nomZoneBenevole,
-            };
+            
+            // Vérifiez le nom du poste après avoir obtenu les données du poste
+            if (posteData.nomPoste === "Animation Jeux") {
+              return posteData;
+            } else {
+              console.log(posteData.nomPoste);
+              const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
+              if (reponseZone.ok) {
+                const zoneData = await reponseZone.json();
+                return {
+                  ...posteData,
+                  idZoneBenevole: zoneData.idZoneBenevole,
+                  nomZoneBenevole: zoneData.nomZoneBenevole,
+                };
+              } else {
+                throw new Error('Erreur lors de la récupération de la zone bénévole');
+              }
+            }
           } else {
-            throw new Error('Erreur lors de la récupération des postes ou des zones bénévoles');
+            throw new Error('Erreur lors de la récupération des postes');
           }
         });
   

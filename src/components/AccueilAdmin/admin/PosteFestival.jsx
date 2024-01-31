@@ -21,6 +21,9 @@ const PosteFestival = (props) => {
 
     useEffect(() => {
         const fetchZoneData = async () => {
+            if (poste.nomPoste.toLowerCase() === 'animation jeux') {
+                return;
+            }
             try {
                 const response = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
                     method: 'GET',
@@ -94,6 +97,7 @@ const PosteFestival = (props) => {
 
     const updatePoste = async () => {
         try {
+            if (poste.nomPoste.toLowerCase() !== 'animation jeux' && !zoneData.idZoneBenevole) {
             const updatedZone = {
                 ...zoneData,
                 nomZoneBenevole: editedPoste.nomZone,
@@ -112,6 +116,7 @@ const PosteFestival = (props) => {
             if (!responseUpdateZone.ok) {
                 throw new Error('Erreur lors de la mise à jour de la zone bénévole');
             }
+        }
 
             const responseUpdatePoste = await fetch(`http://localhost:3000/position-module/${idPoste}`, {
                 method: 'PUT',

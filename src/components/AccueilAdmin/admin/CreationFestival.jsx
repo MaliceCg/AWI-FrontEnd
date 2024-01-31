@@ -118,7 +118,11 @@ const CreationFestival = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                   },
-                  body: JSON.stringify(posteData),
+                  body: JSON.stringify({
+                    nomPoste: posteData.nomPoste,
+                    description: posteData.description,
+                    capacite: posteData.capacite
+                  }),
                 });
               
                 

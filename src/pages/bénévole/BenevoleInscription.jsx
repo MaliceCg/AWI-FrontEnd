@@ -1,11 +1,8 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import InscriptionPoste from '../../components/bénévole/InscriptionPoste';
-import style from '../../styles/inscription.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const BenevoleInscription = () => {
   const { idFestival } = useParams();
@@ -61,9 +58,8 @@ const BenevoleInscription = () => {
 
   return (
     <div>
-        <Header currentPage="inscription" />
-        <h1>Veuillez choisir le poste où vous souhaitez vous inscrire :</h1>
-        <Navbar />
+        <Header currentPage="inscription" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+        <Navbar idFestival={selectedFestival}/>
     </div>
   );
 };
