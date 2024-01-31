@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../../styles/inscription.module.css";
 
-const InscriptionPoste = ({ poste, onClick, onClickBoolean }) => {
+const InscriptionPoste = ({ poste, onClick}) => {
   let backgroundColor = '';
 
   switch (poste.nomPoste.toLowerCase()) {

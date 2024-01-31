@@ -1,11 +1,13 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import InscriptionPoste from '../../components/bénévole/InscriptionPoste';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
+import style from '../../styles/inscription.module.css';
 
 const BenevoleInscription = () => {
   const { idFestival } = useParams();
+  console.log('idFestival : ', idFestival);
   const [selectedFestival, setSelectedFestival] = useState(idFestival);
 
   const handleFestivalChange = (newFestivalId) => {
@@ -58,7 +60,19 @@ const BenevoleInscription = () => {
 
   return (
     <div>
-        <Header currentPage="inscription" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+      <Header currentPage="inscription" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+      <div className={style.inscriptionContainer}>
+          <h2 className={style.title}>Veuillez choisir le poste où vous souhaitez vous inscrire :</h2>
+          <div>
+              {postes.map((poste, index) => (
+                <InscriptionPoste key={index} poste={poste} onClick={() => {
+                  handlePosteClick(poste.idPoste, poste.nomPoste);
+                }}/>
+              ))}
+          </div>
+
+          <p className={style.flexibleText}>Je suis flexible sur les postes</p>
+        </div>
         <Navbar idFestival={selectedFestival}/>
     </div>
   );

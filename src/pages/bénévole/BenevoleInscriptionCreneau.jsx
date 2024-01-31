@@ -38,6 +38,8 @@ const BenevoleInscriptionCreneau = () => {
                 }
                 const data = await response.json();
 
+                console.log('data : ', data);
+
                 const responsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
                 if (!responsePoste.ok) {
                     throw new Error('Erreur lors de la récupération des données');
@@ -49,8 +51,8 @@ const BenevoleInscriptionCreneau = () => {
             }
         };
 
-        fetchPoste();
         fetchFestivalInfo();
+        fetchPoste();
     }, [idFestival, idZone]);  
     
     if (!festivalInfo || !poste) {
