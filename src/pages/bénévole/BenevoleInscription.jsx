@@ -42,13 +42,15 @@ const BenevoleInscription = () => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
+  console.log('postes : ', postes);
+
   const handlePosteClick = (idPoste, nomPoste) => {
     if (nomPoste === 'Animation Jeux') {
       //redirection vers la page animation jeux
-      navigate('/benevole-animation-jeux/')
+      navigate(`/benevole-animation-jeux/${idFestival}/${idPoste}`);
     } else {
       //redirection vers la page inscription
-      navigate('/benevole-inscription-creneaux/')
+      navigate(`/benevole-inscription-creneaux/${idFestival}/${idPoste}`);
     }
   };
 
@@ -56,7 +58,7 @@ const BenevoleInscription = () => {
     <div >
         <Header currentPage="inscription" />
         <div className={style.inscriptionContainer}>
-          <h2 className={style.choosePoste}>Veuillez choisir le poste où vous souhaitez vous inscrire :</h2>
+          <h2 className={style.title}>Veuillez choisir le poste où vous souhaitez vous inscrire :</h2>
           <div>
               {postes.map((poste, index) => (
                 <InscriptionPoste key={index} poste={poste} onClick={() => {

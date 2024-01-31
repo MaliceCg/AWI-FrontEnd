@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../../styles/inscription.module.css";
 
-const InscriptionPoste = ({ poste, onClick }) => {
+const InscriptionPoste = ({ poste, onClick, onClickBoolean }) => {
   let backgroundColor = '';
 
   switch (poste.nomPoste.toLowerCase()) {
@@ -26,7 +26,7 @@ const InscriptionPoste = ({ poste, onClick }) => {
   };
 
   return (
-    <div className={style.posteContainer} onClick={() => onClick(poste.nomPoste)}>
+    <div className={style.posteContainer} onClick={() => { if (onClick != null) { onClick(poste.nomPoste); } }}>
       <div className={style.posteBackground} style={dynamicStyle}>
         <p>{poste.nomPoste}</p>
       </div>
