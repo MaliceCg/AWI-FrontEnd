@@ -1,0 +1,98 @@
+.inscriptionContainer{
+    margin: 20px;
+    text-align: center;
+}
+
+.title{
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.flexibleText{
+    margin-top: 15px;
+    text-decoration: underline;
+    font-size: larger;
+}
+
+.posteContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.posteBackground{
+    color: white;
+    font-size: larger;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 5px;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+}
+
+.zoneContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.zoneBackground{
+    color: white;
+    font-size: larger;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 5px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #33C481;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+}
+
+.popupHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.popupCloseButton {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.popupChooseButton {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
