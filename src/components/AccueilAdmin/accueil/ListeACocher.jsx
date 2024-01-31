@@ -72,7 +72,7 @@ const ListeACocher = ({ benevole, index }) => {
             <Email />
           </a>
           <Calendar onClick={() => GoCalendar(benevole.idBenevole)} />
-          <input type="checkbox" checked={checkboxChecked} onChange={handleCheckboxChange} />  
+          <input type="checkbox" checked={checkboxChecked} onChange={handleCheckboxChange} style={{ height: '20px', width: '20px' }}/>  
         </div>
       </div>
     </div>
