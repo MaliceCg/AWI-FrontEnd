@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
+import NavbarAdmin from '../../components/common/NavbarAdmin';
 import '../../styles/compte.css';
 import styles from "../../styles/editPopup.module.css";
 
 const Compte = () => {
   const idBenevole = localStorage.getItem('id');
   console.log('ID du bénévole:', idBenevole);
+  const isAdmin = localStorage.getItem('role') === 'Admin';
   
   const [userData, setUserData] = useState();
   const { idFestival } = useParams();
@@ -110,7 +112,11 @@ setEditedInfo({
   return (
     <div className='CompteInfo'>
       <Header currentPage="profile" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
-      <Navbar idFestival={idFestival}/>
+      {isAdmin ? (
+        <NavbarAdmin idFestival={idFestival} />
+      ) : (
+        <Navbar idFestival={idFestival} />
+      )}
       <main>
         {userData ? (
           <div className='Infosutilisateur'>
