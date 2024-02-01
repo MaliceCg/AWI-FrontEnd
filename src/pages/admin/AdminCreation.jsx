@@ -5,6 +5,8 @@ import PosteFestival from '../../components/AccueilAdmin/admin/PosteFestival';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/espaceCreation.module.css';
+import ImportCsv from '../../components/AccueilAdmin/admin/ImportCsv';
+
 
 const EspaceCreation = () => {
 
@@ -181,7 +183,7 @@ const handleNewPosteInputChange = (e) => {
         <NavbarAdmin idFestival={selectedFestival}/>
         </div>
         <div className={styles.componentContainer}>
-          <button className={styles.importButton}>Importer des jeux (CSV)</button>
+          <ImportCsv idFestival={idFestival} />
 
           <div className={styles.posteContainer}>
             <h3>Postes existants pour ce Festival : </h3>

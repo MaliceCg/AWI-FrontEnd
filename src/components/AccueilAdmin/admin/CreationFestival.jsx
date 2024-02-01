@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
+
     const accessToken = localStorage.getItem('token');
     const navigate = useNavigate();
     const currentDate = new Date().toISOString().split('T')[0];

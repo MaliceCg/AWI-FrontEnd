@@ -52,7 +52,6 @@ function App() {
         <Route path="/festivals" element={<AdminFestivals/>} roles={['admin']} />
         <Route path="/send-notif/:idFestival" element={<AdminSendNotif/>} roles={['admin']} />
       </Routes>
-
     </Router>
   );
 }
