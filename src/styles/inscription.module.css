@@ -1,11 +1,12 @@
 .inscriptionContainer{
-    margin: 20px;
+    margin: 60px;
     text-align: center;
 }
 
 .title{
     font-weight: normal;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .flexibleText{
@@ -52,7 +53,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #33C481;
+    background-color: #105C9F;
 }
 
 .popup {
@@ -68,10 +69,13 @@
 }
 
 .popupContent {
-    background: #fff;
+    background:#105C9F;
     padding: 20px;
     border-radius: 8px;
-    width: 400px;
+    width: 90vw;
+    height: 60vh;
+    overflow: auto;
+    text-align: center;
 }
 
 .popupHeader {
@@ -95,4 +99,48 @@
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+}
+.ContainerAllZone{
+margin-top:60px;
+width:100vw;
+}
+.titre {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    align-self: center;
+}
+.popupBody {
+text-align: start;
+margin:20px;
+}
+.popupTitle{
+    color:white;
+}
+.pjeu {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.jeu {
+    font-size: 20px;
+}
+.listeJeux {
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap; /* Enable wrapping */
+    justify-content: space-between; /* Distribute items evenly */
+    margin-top: 10px;
+}
+
+.listeJeux li {
+    width: 48%; /* Set width for each item */
+    margin-bottom: 10px;
+}
+.preferent {
+    color: #fff;
+}
+.info {
+    color:black;
+    font-size: 20px;
 }

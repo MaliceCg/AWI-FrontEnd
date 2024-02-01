@@ -15,8 +15,9 @@ const BenevoleActivites = () => {
   return (
     <div>
       <Header currentPage="activites" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+      <Activite idFestival={selectedFestival}/>
         <Navbar idFestival={selectedFestival}/>
-        <Activite idFestival={selectedFestival}/>
+        
     </div>
   );
 };

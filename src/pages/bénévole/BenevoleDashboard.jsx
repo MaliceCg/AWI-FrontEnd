@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Activite from '../../components/bénévole/Activite';
 import LastNotif from '../../components/bénévole/LastNotif';
 import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
@@ -41,6 +42,9 @@ const BenevoleDashboard = () => {
       <div className={styles.benevoleNotifications}>
         <LastNotif idFestival={selectedFestival}/>
       </div>
+      <div className={styles.dashboardActivitiesContainer}>
+      <Activite idFestival={selectedFestival} displayInline={true} />
+        </div>
     </div>
     </div>
   );

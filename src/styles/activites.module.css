@@ -5,10 +5,12 @@
     padding:20px;
     display: flex;
     flex-direction: column;
-    width: 90vw;
+    width: 95vw;
     background-color : #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius:20px;
+    margin-bottom: 30px;
+    overflow-x: auto;
 }
 .h1 {
     margin:auto;
@@ -33,16 +35,21 @@
 .liste {
     list-style-type: none;
 }
+.activiteContainer .activite {
+    min-width: 250px;
+}
 .activite {
     margin:auto;
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
-    width:70vw;
+    width:70vw
+;
 }
 .h2{
     font-size:20px;
@@ -78,6 +85,19 @@
     width: 50px;
     height: 50px;
 }
-.rien {
-color:red;
+.btn{
+    background: transparent;
+    border: 2px solid #838383;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 4px;
+    color: #838383;
+    cursor: pointer;
+    margin : 5px;
+    text-align: center;
+}
+
+.btn:hover{
+    background-color: #838383;
+    color: #fff;
 }

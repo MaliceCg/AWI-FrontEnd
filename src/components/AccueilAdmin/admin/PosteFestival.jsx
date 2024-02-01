@@ -61,10 +61,10 @@ const PosteFestival = (props) => {
         case 'buvette':
             backgroundColor = '#117F45';
             break;
-        case 'animation jeux':
+        case 'cuisine':
             backgroundColor = '#33C481';
             break;
-        case 'cuisine':
+        case 'animation jeux':
             backgroundColor = '#105C9F';
             break;
         default:

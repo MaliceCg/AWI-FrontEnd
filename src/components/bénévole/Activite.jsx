@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import inscription from "../../img/icons/inscription.svg";
 import styles from "../../styles/activites.module.css";
 
-const Activite = ({idFestival}) => {
+const Activite = ({ idFestival, displayInline }) => {
 const [activites, setActivites] = useState([]);
 const [postes, setPostes] = useState([]);  // Nouvel état pour stocker la liste des postes
 const [selectedPoste, setSelectedPoste] = useState(""); // Nouvel état pour stocker le poste sélectionné
@@ -34,10 +34,6 @@ const fetchPostes = async () => {
     console.error(error);
   }
 };
-
-  useEffect(() => {
-// ...
-
 const fetchActivites = async () => {
 
   try {
@@ -103,7 +99,9 @@ const fetchActivites = async () => {
   }
 };
 
-// ...
+
+  useEffect(() => {
+
 
       fetchPostes();
       fetchActivites();
@@ -126,10 +124,10 @@ const fetchActivites = async () => {
           case 'buvette':
             backgroundColor = '#117F45';
             break;
-          case 'animation jeux':
+          case 'cuisine':
             backgroundColor = '#33C481';
             break;
-          case 'cuisine':
+          case 'animation jeux':
             backgroundColor = '#105C9F';
             break;
           default:
@@ -149,8 +147,39 @@ const filteredActivites = selectedPoste
 ? activites.filter((activite) => activite && activite.poste && activite.poste.nomPoste === selectedPoste)
 : activites;
 
+const handleUnsubscribe = async (inscriptionId, idZoneBenevole, Creneau, Jour) => {
+  try {
+    const response = await fetch(`http://localhost:3000/inscription-module/delete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idBenevole: userId,
+        idPoste: inscriptionId,
+        idZoneBenevole: idZoneBenevole, // Pass the idZoneBenevole parameter
+        Jour: Jour, // Pass the Jour parameter
+        Creneau: Creneau, // Pass the Creneau parameter
+        // Add other necessary parameters
+      }),
+    });
+
+    if (response.ok) {
+      console.log('Unsubscription successful');
+      alert('Désinscription réussie');
+      fetchActivites();
+    } else {
+      console.error('Failed to unsubscribe');
+      alert('Echec de la désinscription');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 return (
-  <div className={styles.activiteContainer}>
+  <div className={styles.activiteContainer} >
     <h1 className={styles.h1}>Mes activités</h1>
 
     <select onChange={handlePosteChange} value={selectedPoste} className={styles.filterSelect}>
@@ -164,11 +193,11 @@ return (
 
     {hasActivities ? (
       // Affichez les activités s'il y en a
-      <ul className={styles.liste}>
+      <ul className={styles.liste} style={displayInline ? { display: "flex", margin: "0",padding: "0" } : {}}>
         {filteredActivites.map((activite, index) => (
           // Ajoutez une vérification pour s'assurer que activite n'est pas nulle
           activite && (
-            <div key={index} className={styles.activite} style={dynamicStyle(activite?.poste?.nomPoste)}>
+            <div key={index} className={styles.activite} style={dynamicStyle(activite?.poste?.nomPoste)} >
               {activite.poste && (
                 <li>
                   <>
@@ -184,6 +213,21 @@ return (
                     <p className={styles.preferent}>
                       <strong className={styles.info}>Référents:</strong>{" "}
                       {activite.referents ? activite.referents.map((referent) => referent.prenomReferent).join(", ") : "Référents non disponibles"}
+                    </p>
+                    <p>
+                    <button
+  className={styles.btn}
+  onClick={() =>
+    handleUnsubscribe(
+      activite.inscription.idPoste,
+      activite.inscription.idZoneBenevole,
+      activite.inscription.Creneau,
+      activite.inscription.Jour
+    )
+  }
+>
+  Se désinscrire
+</button>
                     </p>
                   </>
                 </li>

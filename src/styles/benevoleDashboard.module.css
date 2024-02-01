@@ -73,3 +73,8 @@
     font-size: 16px;
     transition: all 0.3s ease-in-out;
 }
+.dashboardActivitiesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Adjust as needed */
+}
