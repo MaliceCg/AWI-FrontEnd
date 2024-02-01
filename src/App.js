@@ -51,7 +51,7 @@ function App() {
         <Route path="/admin-planning/:idFestival" element={<AdminPlanning />} roles={['admin']} />
         <Route path="/festivals" element={<AdminFestivals />} roles={['admin']} />
         <Route path="/send-notif/:idFestival" element={<AdminSendNotif />} roles={['admin']} />
-        <Route path="/admin-liste-benevole/:idFestival" element={<Verificateur roleAutorise="admin" composant={<AdminListeBenevole />} />}/>
+        <Route path="/admin-liste-benevole/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminListeBenevole />} />}/>
       </Routes>
     </Router>
   );
