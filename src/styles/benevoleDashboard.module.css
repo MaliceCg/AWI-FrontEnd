@@ -9,7 +9,13 @@
 .benevoleCalendar{
     display: flex;
     justify-content: center;
+
     font-size: larger;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius:20px;
+    width:90vw;
+    
 }
 
 .columnCalendar{
@@ -77,4 +83,16 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around; /* Adjust as needed */
+}
+
+@media screen and (min-width: 768px) {
+
+
+        .benevoleCalendar {
+            width: 50vw;
+        }
+
+
+    
+    
 }

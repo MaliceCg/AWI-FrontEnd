@@ -53,3 +53,18 @@
     border-radius: 10px;
     color: black;
   }
+  @media screen and (min-width: 768px) {
+    .btnSend {
+        width: auto; /* ajuster la largeur selon vos besoins */
+    }
+
+    .NotifBenevole,
+    .NotifAdmin {
+        margin-top: 80px; /* ajuster la marge selon vos besoins */
+    }
+
+    .NotificationContainer {
+        width: 80vw; /* ajuster la largeur selon vos besoins */
+        margin-left: 15%;
+    }
+}

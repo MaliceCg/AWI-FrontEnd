@@ -1,3 +1,5 @@
+// BenevoleDashboard.jsx
+
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Activite from '../../components/bénévole/Activite';
@@ -25,27 +27,33 @@ const BenevoleDashboard = () => {
       <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
-      {userRole === 'Admin' && (
+        {userRole === 'Admin' && (
           <Link to={`/admin-dashboard/${idFestival}`}>
             <button className={styles.btnMode}>Passez en mode Admin</button>
           </Link>
         )}
-         {userRole === 'Accueil' || userRole ==='Admin'   && (
+        {(userRole === 'Accueil' || userRole === 'Admin') && (
           <Link to={`/liste-benevole/${idFestival}`}>
             <button className={styles.btnMode}>Passez en mode Accueil</button>
           </Link>
         )}
 
-        <div className={styles.benevoleCalendar}>
-          <Planning idFestival={selectedFestival}/>
+        <div className={styles.desktopColumns}>
+          <div className={styles.column}>
+            <div className={styles.benevoleCalendar}>
+              <Planning idFestival={selectedFestival}/>
+            </div>
+            <div className={styles.benevoleNotifications}>
+              <LastNotif idFestival={selectedFestival}/>
+            </div>
+          </div>
+          <div className={styles.column}>
+            <div className={styles.dashboardActivitiesContainer}>
+              <Activite idFestival={selectedFestival} displayInline={true} />
+            </div>
+          </div>
         </div>
-      <div className={styles.benevoleNotifications}>
-        <LastNotif idFestival={selectedFestival}/>
       </div>
-      <div className={styles.dashboardActivitiesContainer}>
-      <Activite idFestival={selectedFestival} displayInline={true} />
-        </div>
-    </div>
     </div>
   );
 };

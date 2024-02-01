@@ -2,6 +2,14 @@
     margin: 60px;
     text-align: center;
 }
+.titi{
+    padding:0;
+    margin-left:-20%;
+    margin-bottom: 10px;
+    font-size: 22px;
+    width:100vw;
+    
+}
 
 .title{
     font-weight: normal;
@@ -143,4 +151,51 @@ margin:20px;
 .info {
     color:black;
     font-size: 20px;
+}
+.planning {
+margin-left:-12%;
+margin-top:10px;
+}
+
+@media screen and (min-width: 768px) {
+.zoneContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 15%;
+}
+.popupContent {
+    background:#105C9F;
+    padding: 20px;
+    border-radius: 8px;
+    margin-left: 15%;
+    width: 80vw;
+    height: 80vh;
+    overflow: auto;
+    text-align: center;
+}
+.posteContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 15%;
+}
+.title {
+    margin-left: 15%;
+}
+.inscriptionContainer{
+    margin-left: 10%;
+}
+
+.titi {
+    margin-left: 0%;
+}
+.planning{
+    margin-left: 28%;
+}
+ 
 }
