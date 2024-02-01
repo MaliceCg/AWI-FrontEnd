@@ -50,7 +50,7 @@ const EspaceCreation = () => {
           <NavbarAdmin />
         </div>
         <div className={styles.componentContainer}>
-          <ImportCsv />
+          <ImportCsv idFestival={idFestival} />
 
           <div className={styles.posteContainer}>
             <h3>Postes existants pour ce Festival : </h3>
