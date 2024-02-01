@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
+
     const accessToken = localStorage.getItem('token');
 
     const currentDate = new Date().toISOString().split('T')[0];
