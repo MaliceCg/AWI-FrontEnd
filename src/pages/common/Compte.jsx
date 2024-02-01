@@ -221,8 +221,8 @@ setEditedInfo({
                             <option value="sansGluten">Halal</option>
                         </select>
 
-                        <label htmlFor="statutHebergement">Statut Hébergement:</label>
-                          <select
+                        <label className={styles.label}>Statut Hébergement:</label>
+                          <select className={styles.editInput}
                             id="statutHebergement"
                             name="StatutHebergement"
                             value={editedInfo.StatutHebergement}
