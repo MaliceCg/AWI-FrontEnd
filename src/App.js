@@ -11,8 +11,8 @@ import AdminSendNotif from './pages/admin/AdminSendNotif';
 import BenevoleActivites from './pages/bénévole/BenevoleActivites';
 import BenevoleDashboard from './pages/bénévole/BenevoleDashboard';
 import BenevoleInscription from './pages/bénévole/BenevoleInscription';
-import BenevoleInscriptionZone from './pages/bénévole/BenevoleInscriptionZone';
 import BenevoleInscriptionCreneau from './pages/bénévole/BenevoleInscriptionCreneau';
+import BenevoleInscriptionZone from './pages/bénévole/BenevoleInscriptionZone';
 import BenevoleNotification from './pages/bénévole/BenevoleNotifications';
 import BenevolePlanning from './pages/bénévole/BenevolePlanning';
 import Compte from './pages/common/Compte';
@@ -45,7 +45,7 @@ function App() {
         <Route path="/liste-benevole-zone" element={<ListeBenevoleZone/>} roles={['referent']} />
         <Route path="/admin-dashboard/:idFestival" element={<AdminDashboard/>} roles={['admin']} />
         <Route path="/espace-creation/:idFestival" element={<EspaceCreation/>} roles={['admin']} />
-        <Route path="/admin-creation-festival" element={<FestivalCreation/>} roles={['admin']} />
+        <Route path="/admin-creation-festival/:idFestival" element={<FestivalCreation/>} roles={['admin']} />
         <Route path="/admin-notifications/:idFestival" element={<AdminNotifications/>} roles={['admin']} />
         <Route path="/admin-planning/:idFestival" element={<AdminPlanning/>} roles={['admin']} />
         <Route path="/admin-liste-benevole/:idFestival" element={<AdminListeBenevole/>} roles={['admin']} />

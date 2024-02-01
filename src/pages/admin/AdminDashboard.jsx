@@ -22,7 +22,7 @@ const AdminDashboard = () => {
             </Link>
           </div>
           <div>
-            <Link to="/admin-creation-festival">
+            <Link to={`/admin-creation-festival/${idFestival}`}>
                   <button className={styles.creationButton}>Créer un festival</button>
             </Link>
           </div>
