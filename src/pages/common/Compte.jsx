@@ -115,7 +115,7 @@ setEditedInfo({
         {userData ? (
           <div className='Infosutilisateur'>
             <h2>Mes Informations</h2>
-            <IconButton onClick={openEditPopup} color="primary">
+            <IconButton onClick={openEditPopup} color="primary" className='IconButton'>
               <EditIcon />
             </IconButton>
               <p>Pseudo: {userData.Pseudo}</p>

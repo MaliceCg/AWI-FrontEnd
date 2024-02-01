@@ -16,9 +16,16 @@ const AdminDashboard = () => {
     <div>
         <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
         <div className={styles.adminDashboard}>
-        <Link to={`/benevole-dashboard/${idFestival}`}>
-          <button className={styles.btnMode}>Passez en mode bénévole</button>
-        </Link>
+          <div>
+            <Link to={`/benevole-dashboard/${idFestival}`}>
+              <button className={styles.btnMode}>Passez en mode bénévole</button>
+            </Link>
+          </div>
+          <div>
+            <Link to="/admin-creation-festival">
+                  <button className={styles.creationButton}>Créer un festival</button>
+            </Link>
+          </div>
         </div>
         <NavbarAdmin idFestival={selectedFestival}/>
     </div>
