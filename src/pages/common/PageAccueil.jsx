@@ -1,60 +1,61 @@
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Form from '../../components/common/FormInfo';
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
+import nofestival from '../../img/noFestival.svg';
+import styles from '../../styles/accueil.module.css';
 
 function PageAccueil() {
-  const [user, setUser] = useState(null);
-  const [showPopup, setShowPopup] = useState(false); // Modifié pour initialement être caché
-  const [festivals, setFestivals] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [listFestivals, setListFestivals] = useState([]);
 
   useEffect(() => {
     const hasShownPopup = localStorage.getItem('hasShownPopup');
-    if (!hasShownPopup && user) {
+    if (!hasShownPopup) {
       setShowPopup(true);
       localStorage.setItem('hasShownPopup', 'true');
     }
-  }, [user]);
+  }, []);
+
+  
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchFestivals = async () => {
       try {
-        // Simuler une requête HTTP (ajustez l'URL en fonction de votre configuration)
-        const response = await fetch('/api/festivals');
+        const response = await fetch('http://localhost:3000/festival-module');
         if (response.ok) {
           const data = await response.json();
-          setFestivals(data);
+          setListFestivals(data); // Mettre à jour l'état avec les données récupérées
         } else {
-          console.error('Erreur lors de la récupération des festivals', response.statusText);
+          throw new Error('Erreur lors de la récupération des données');
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des festivals', error);
+        console.error(error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchFestivals(); // Appel de la fonction pour récupérer les données au chargement du composant
+  }, []); // Le tableau vide [] signifie que useEffect ne s'exécute qu'une seule fois au montage du composant
 
-  const handleLogin = (userData) => {
-   
-    setUser(userData);
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('fr-FR', options);
   };
 
   const handleFillLater = () => {
-    setShowPopup(false); // Fermer la pop-up lorsque l'utilisateur clique sur "Remplir plus tard"
+    console.log('Remplir plus tard');
+    setShowPopup(false);
   };
 
-  const handleFormSubmit = (formData) => {
-    // Logique pour traiter les informations du formulaire
+  const handleConfirm = (formData) => {
     console.log('Données du formulaire soumises :', formData);
-    setShowPopup(false); // Fermer la pop-up après soumission du formulaire
+    setShowPopup(false);
+    // Ajoutez ici toute autre logique nécessaire après la confirmation
   };
 
   return (
-    
     <div>
-    <Header currentPage="accueil" user={user} />
-     <Navbar/>
+
       {showPopup && (
         <Form
           fields={[
@@ -63,43 +64,39 @@ function PageAccueil() {
             { type: 'text', name: 'dietaryRestrictions', label: 'Régime alimentaire' },
             { type: 'text', name: 'address', label: 'Adresse' },
           ]}
-          buttonText="Soumettre"
-          onSubmit={handleFormSubmit}
+          buttonText="Confirmer"
+          onSubmit={handleConfirm}
           clickableText="Remplir plus tard"
           clickableHref="/accueil"
-          onClose={handleFillLater} // Passer la fonction de fermeture à FormInfo
+          onClose={handleFillLater}
         />
       )}
 
-      {user && (
+      {(
         <div>
-
-          <header>
-
-          </header>
-          
-
-          <nav>
-
-          </nav>
-
-          {festivals.length === 0 ? (
-            // Page sans festival
-            <div>
-              <h1>Bienvenue sur la page d'accueil</h1>
-
+          {listFestivals.length === 0 ? (
+            <div className={styles.DivNoFestival}>
+              <img src={nofestival} alt="no festival" className={styles.nofestival} />
+              <h3>Il n’y a pas de festival prévu pour le moment,</h3>
+              <h1>Reviens plus tard</h1>
             </div>
           ) : (
-
-            <div>
-              <h1>Festivals en cours</h1>
-              {festivals.map((festival) => (
-                <div key={festival.id}>
-                  <button onClick={() => { window.location.href = `/festivals/${festival.id}` }}>
-                  </button>
-                </div>
-              ))}
-            </div>
+            <div className={styles.festivalContainer}>
+            <h1>Tu peux choisir ton Festival </h1>
+            {listFestivals.map((festival, index) => (
+              <div key={index}>
+                <Link to={`/benevole-dashboard/${festival.idFestival}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div className={styles.festivalBox}>
+                    <div>
+                      {festival.NomFestival}
+                      <p className={styles.dateFestival}>Du {formatDate(festival.DateDebut)} au {formatDate(festival.DateFin)}</p>
+                    </div>
+                    <ArrowForwardIosIcon />
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
           )}
         </div>
       )}

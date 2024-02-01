@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import LastNotif from '../../components/bénévole/LastNotif';
+import Planning from '../../components/bénévole/Planning';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import Planning from '../../components/bénévole/Planning';
 import styles from '../../styles/benevoleDashboard.module.css';
 
-
 const BenevoleDashboard = () => {
+  const { idFestival } = useParams();
+  const [selectedFestival, setSelectedFestival] = useState(idFestival);
+  const [userRole, setUserRole] = useState(localStorage.getItem('role'));
+
+  const handleFestivalChange = (newFestivalId) => {
+    setSelectedFestival(newFestivalId);
+  };
+
+  useEffect(() => {
+    setUserRole(localStorage.getItem('role'));
+  }, []);
 
   return (
     <div>
-      <Header currentPage="dashboard" />
-      <Navbar />
+      <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+      <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
-        <h1>Planning</h1>
+      {userRole === 'Admin' && (
+          <Link to={`/admin-dashboard/${idFestival}`}>
+            <button className={styles.btnMode}>Passez en mode Admin</button>
+          </Link>
+        )}
+         {userRole === 'Accueil' || userRole ==='Admin'   && (
+          <Link to={`/liste-benevole/${idFestival}`}>
+            <button className={styles.btnMode}>Passez en mode Accueil</button>
+          </Link>
+        )}
+
         <div className={styles.benevoleCalendar}>
-          <Planning />
+          <Planning idFestival={selectedFestival}/>
         </div>
+      <div className={styles.benevoleNotifications}>
+        <LastNotif idFestival={selectedFestival}/>
       </div>
-      
+    </div>
     </div>
   );
 };

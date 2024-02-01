@@ -3,8 +3,8 @@ import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
 
-    const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJlbWFpbEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTcwMzY3MTY2OCwiZXhwIjoxNzAzNzU4MDY4fQ.IzaIGhd1c0HrFF57zvrk0k7v9QAJ_iGvg4s-CeQTzsE';
-    
+    const accessToken = localStorage.getItem('token');
+
     const currentDate = new Date().toISOString().split('T')[0];
 
     const [startDate, setStartDate] = useState('');
@@ -59,48 +59,141 @@ const CreationFestival = () => {
         }
 
         // Création de l'objet contenant les données à envoyer au serveur
+        let festivalId; // Variable pour stocker l'ID du festival
+        console.log(startDate);
         const festivalData = {
           NomFestival: nomFestival,
           DateDebut: startDate,
           DateFin: endDate,
           Ville: ville,
         };
-    
+      
         try {
           const response = await fetch('http://localhost:3000/festival-module', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`, // Ajout du token d'authentification
+              'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify(festivalData),
           });
-    
+      
           if (response.ok) {
+            const festivalResponseData = await response.json(); // Convertir la réponse en JSON
+            console.log(festivalData);
+            console.log(festivalResponseData);
+            festivalId = festivalResponseData.idFestival; // Récupérer l'ID du festival créé
+            console.log(festivalId);
             setIsSuccess(true);
             setIsError(false);
-    
-            // Masquer le bandeau de succès après 3 secondes
-            setTimeout(() => {
-              setIsSuccess(false);
-            }, 3000);
+      
+            setTimeout(async () => {
+              const postesData = [
+                {
+                  nomPoste: 'Accueil',
+                  description: 'Ici vous devez accueillir les participants au festival et les orienter.',
+                  capacite: 5,
+                },
+                {
+                  nomPoste: 'Buvette',
+                  description: 'Ici vous devez gérer la buvette et les participants au festival en leur vendant à boire et à manger.',
+                  capacite: 5,
+                },
+                {
+                  nomPoste: 'Animation Jeux',
+                  description: 'Ici vous devez organiser et animer les jeux pour divertir les participants.',
+                  capacite: 5,
+                  createZone: false, // Ajout de la propriété pour indiquer de ne pas créer de zone
+                },
+                {
+                  nomPoste: 'Cuisine',
+                  description: 'Ici vous devez gérer la cuisine et préparer des repas pour les participants au festival.',
+                  capacite: 5,
+                },
+              ];
+              
+              for (const posteData of postesData) {
+                const posteResponse = await fetch('http://localhost:3000/position-module', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                  },
+                  body: JSON.stringify({
+                    nomPoste: posteData.nomPoste,
+                    description: posteData.description,
+                    capacite: posteData.capacite
+                  }),
+                });
+              
+                
+      
+                if (posteResponse.ok) {
+                  const posteResponseData = await posteResponse.json(); // Convertir la réponse en JSON
+                  const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
+                  if (posteData.createZone !== false) {
+                            // Créer une zone avec le nom spécifié
+                  const zoneData = {
+                    idZoneBenevole : posteId,
+                    nomZoneBenevole: `zone-${posteResponseData.nomPoste}`,
+                    capacite:posteResponseData.capacite,  // Ajoutez la capacité que vous souhaitez
+                    idFestival: festivalId,  // Associer la zone au festival créé
+                    idPoste: posteId,  // Associer la zone au poste créé
+                  };
+
+        const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(zoneData),
+        });
+
+        if (zoneResponse.ok) {
+          console.log(`La zone pour le poste ${posteData.nomPoste} a été créée avec succès !`);
+        } else {
+          console.error(`Erreur lors de la création de la zone pour le poste ${posteData.nomPoste}.`);
+        }
+      }
+// Lier le poste au festival dans la table employer
+                  const employerData = {
+                    idFestival: festivalId,
+                    idPoste: posteId,
+                  };
+      
+                  const employerResponse = await fetch('http://localhost:3000/employer-module', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${accessToken}`,
+                    },
+                    body: JSON.stringify(employerData),
+                  });
+      
+                  if (employerResponse.ok) {
+                    console.log(`Le poste ${posteData.nomPoste} a été lié au festival avec succès !`);
+                  } else {
+                    console.error(`Erreur lors de la liaison du poste ${posteData.nomPoste} au festival.`);
+                  }
+                } else {
+                  console.error(`Erreur lors de la création du poste ${posteData.nomPoste}.`);
+                }
+              }
+            }, 1000);
           } else {
-            // Gestion des erreurs en cas de problème avec la requête
             console.error('Erreur lors de la création du festival.');
-            // Affiche un bandeau rouge d'erreur à l'utilisateur
           }
         } catch (error) {
           setIsError(true);
-        setIsSuccess(false);
-        setErrorMessage('Erreur lors de la création du festival.');
-
-        // Masquer le bandeau d'erreur après 3 secondes
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
+          setIsSuccess(false);
+          setErrorMessage('Erreur lors de la création du festival, des postes, et de la liaison.');
+      
+          setTimeout(() => {
+            setIsError(false);
+          }, 3000);
         }
       };
-    
 
     return (
         <div className={styles.creationFestivalContainer} onSubmit={handleSubmit}>

@@ -1,6 +1,10 @@
 .wrapper {
-    display: flex;
+    display: block;
     justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top:60px;
+
     /* Autres styles nécessaires pour le positionnement et la mise en page */
   }
 
@@ -9,35 +13,12 @@
   width: 100%;
 }
 
+.accueil { color: blue; }
+.buvette { color: green; }
+.animationJeux { color: red; }
+.cuisine { color: orange; }
 
-.festivalContainer{
-  border: 2px solid #838383;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 20px;
-  width: 90vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.festivalBox{
-  border: #838383 1px solid;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px;
-  padding: 10px;
-  width: 80vw;
-  font-size: larger;
-  color: #838383;
-}
-
-.dateFestival{
-  font-size: smaller;
-  margin-top: 3px;
-}
 
 
 .componentContainer{
@@ -45,7 +26,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 20px;
   width: 100%;
 }
 
@@ -100,6 +80,7 @@
   width: 90vw;
 }
 
+/* Loading message */
 .loading {
   position: fixed;
   top: 50%;
@@ -111,6 +92,7 @@
   text-align: center;
 }
 
+/* Loader rond effet */
 .loaderContainer {
   position: fixed;
   top: 50%;
@@ -155,6 +137,133 @@
   100% {
     stroke-dashoffset: -125px;
   }
+/* Fin Loader rond effet */
+  
+.creationButton {
+  background-color: transparent;
+  border: 2px solid #838383;
+  font-size: larger;
+  border-radius: 5px;
+  padding: 5px;
+  color: #838383;
+  cursor: pointer;
+  margin : 5px;
+  text-align: center;
+}
+.creationButton:hover{
+  background-color: #838383;
+  color:#e2e2e2
+}
+.confirmationDialog {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'effet de flou */
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Mettez un z-index élevé pour être au-dessus de tout */
+  color: white; /* Choisissez la couleur de texte appropriée */
+}
+.confDialog {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  width: 90vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+}
+.btn2 {
+  background-color:#FFFF;
+  border: 2px solid #838383;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 4px;
+  color: #838383;
+  cursor: pointer;
+  margin : 5px;
+  text-align: center;
+}
+.btn2:hover{
+  background-color: #838383;
+  color:#e2e2e2
+}
+.TxtConf {
+  font-size: 16px;
+  color: #ff0000;
+  margin : 5px;
+  text-align: center;
+}
+
+.editPopup {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'effet de flou */
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Mettez un z-index élevé pour être au-dessus de tout */
+  color: white; /* Choisissez la couleur de texte appropriée */
+}
+.editPopupContent {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 10px;
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.titre {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+  color: #838383;
+}
+.editInput {
+  padding: 5px;
+  border: 0.5px solid #838383;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.editInput:focus {
+  outline: none;
+  border: 2px solid #838383;
+}
+
+.editInput::placeholder {
+  color: #838383;
+}
+.label {
+  margin: 3px;
+  color: #838383;
+}
+.editText {
+  padding: 5px;
+  height:100%;
+  border: 0.5px solid #838383;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+.editText:focus {
+  outline: none;
+  border: 2px solid #838383;
+}
+.editText::placeholder {
+  color: #838383;
 }
 
 /* Ajustement de la taille de l'importButton sur ordinateur */

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Account from '../../img/account.svg';
 import ActivitesIcon from '../../img/icons/activites.svg';
@@ -9,26 +9,42 @@ import PlanningIcon from '../../img/icons/planning.svg';
 import Logo from '../../img/logo.svg';
 import '../../styles/navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ idFestival }) => {
   const location = useLocation();
+  const [scrolling, setScrolling] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+useEffect(() => {
+  const handleScroll = () => {
+    const currentScrollPos = window.scrollY;
+    setScrolling(currentScrollPos > 60 && currentScrollPos > prevScrollPos);
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, [prevScrollPos]);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolling ? 'scrolling' : ''}`}>
       {/* Version mobile */}
       <div className="mobile-nav">
-        <Link to="/benevole-notification" className={`mobile-icon ${location.pathname === '/benevole-notification' ? 'active' : ''}`}>
+        <Link to={`/benevole-notification/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>
           <img src={NotifIcon} alt="notifications" />
         </Link>
-        <Link to="/benevole-planning" className={`mobile-icon ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>
+        <Link to={`/benevole-planning/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-planning/${idFestival}` ? 'active' : ''}`}>
           <img src={PlanningIcon} alt="planning" />
         </Link>
-        <Link to="/benevole-dashboard" className={`mobile-icon ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>
+        <Link to={`/benevole-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-dashboard/${idFestival}` ? 'active' : ''}`}>
           <img src={HomeIcon} alt="accueil" />
         </Link>
-        <Link to="/benevole-activites" className={`mobile-icon ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>
+        <Link to={`/benevole-activites/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-activites/${idFestival}` ? 'active' : ''}`}>
           <img src={ActivitesIcon} alt="activites" />
         </Link>
-        <Link to="/benevole-inscription" className={`mobile-icon ${location.pathname === '/benevole-inscription' ? 'active' : ''}`}>
+        <Link to={`/benevole-inscription/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-inscription/${idFestival}` ? 'active' : ''}`}>
           <img src={InscriptionIcon} alt="inscription" />
         </Link>
       </div>
