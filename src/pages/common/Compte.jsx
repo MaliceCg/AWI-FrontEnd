@@ -105,7 +105,51 @@ setEditedInfo({
     ...editedInfo,
     [name]: value,
 });
+
 };
+
+// deconnexion 
+const deconnexion = () => {
+  localStorage.clear();
+  window.location.href = '/';
+}
+
+// suppression
+const suppression = () => {
+  if (window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) {
+    // suppression des inscriptions de l'utilisateur
+    fetch(`http://localhost:3000/authentication-module/${idBenevole}/delete-inscriptions`, {
+      method: 'DELETE',
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression des inscriptions');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    
+    // suppression du compte
+    fetch(`http://localhost:3000/authentication-module/${idBenevole}/delete-account`, {
+      method: 'DELETE',
+    })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression du compte');
+      }
+      alert('Votre compte a été supprimé avec succès !');
+      localStorage.clear();
+      window.location.href = '/';
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+  else {
+    alert('Votre compte n\'a pas été supprimé');
+  }
+}
 
   return (
     <div className='CompteInfo'>
@@ -148,8 +192,8 @@ setEditedInfo({
             </div>
         )}
 
-        <button onClick={() => console.log('Déconnexion')}>Me Déconnecter</button>
-        <p id="supp"onClick={() => console.log('Supprimer mon Compte')}>Supprimer mon Compte</p>
+        <button onClick={deconnexion}>Me Déconnecter</button>
+        <button id="supp" onClick={suppression}>Supprimer mon Compte</button>
 
         {isEditPopupOpen && userData && (
                 <div className={styles.editPopup}>
