@@ -21,6 +21,11 @@
     margin-top: 15px;
     text-decoration: underline;
     font-size: larger;
+
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .posteContainer{
@@ -197,5 +202,6 @@ margin-top:10px;
 .planning{
     margin-left: 28%;
 }
+
  
 }

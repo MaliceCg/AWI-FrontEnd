@@ -22,8 +22,9 @@ import PremierePage from './pages/common/PremierePage';
 import Register from './pages/common/Register';
 import ListeBenevoleZone from './pages/référent/ListeBenevoleZone';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import PrivateRoute from './utils/PrivateRoute';
+
 import Verificateur from './utils/Verificateur';
+import BenevoleFlexiblePoste from './pages/bénévole/BenevoleFlexiblePoste';
 
 
 
@@ -41,6 +42,8 @@ function App() {
         <Route path="/compte/:idFestival" element={<Compte />} />
         <Route path="/benevole-dashboard/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleDashboard />} />} />
         <Route path="/benevole-activites/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleActivites />}  />} />
+        <Route path="/benevole-flexible/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleFlexiblePoste />}  />} />
+        <Route path="/benevole-inscriptionCreneau/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscriptionCreneau />}  />} />
         <Route path="/benevole-inscription/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscription />}  />} />
         <Route path="/benevole-notification/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleNotification />} />}/>
         <Route path="/benevole-planning/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevolePlanning />}  />} />
