@@ -4,6 +4,7 @@
     text-align: center;
     align-items: center;
     margin-top:60px;
+    overflow: hidden;
 
     /* Autres styles nécessaires pour le positionnement et la mise en page */
   }
@@ -12,12 +13,6 @@
   margin: 20px;
   width: 100%;
 }
-
-.accueil { color: blue; }
-.buvette { color: green; }
-.animationJeux { color: red; }
-.cuisine { color: orange; }
-
 
 
 
@@ -30,14 +25,16 @@
 }
 
 .posteContainer{
-  border: 2px solid #838383;
-  border-radius: 15px;
-  padding: 10px;
+  padding: 15px;
   margin-top: 20px;
   width: 90vw;
   display: flex;
   flex-direction: column;
+  margin-bottom: 60px;
   align-items: center;
+  background-color : #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:20px;
 }
 
 .posteBox{
@@ -226,6 +223,7 @@
   height: 80vh;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .titre {
   font-size: 20px;
@@ -266,9 +264,23 @@
 .editText::placeholder {
   color: #838383;
 }
+.listeReferent {
+  list-style-type: none;
+  color: #838383;
+}
+.boutonAjout {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
 
 /* Ajustement de la taille de l'importButton sur ordinateur */
 @media (min-width: 768px) {
+
+  .editPopupContent {
+    height: 80vh;
+    width: 50vw;
+  }
 
   .navbar {
     flex: 0 0 12%;
@@ -301,6 +313,10 @@
 
   .festivalBox:hover{
     background-color: #e2e2e2;
+  }
+  .componentContainer{
+    margin-left: 5%;
+  
   }
 }
 

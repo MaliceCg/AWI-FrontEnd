@@ -55,6 +55,13 @@ box-shadow: 0px 0px 5px 0px #00000040;
     font-size: 20px;
     color: #838383;
 }
+.CompteInfo .IconButton {
+    margin-top: -15%;
+    margin-left: 85%;
+    height:50px;
+    width:50px;
+    padding: 0;
+}
 
 @media screen and (min-width: 768px) {
 

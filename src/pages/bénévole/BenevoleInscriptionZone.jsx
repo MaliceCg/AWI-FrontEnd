@@ -1,20 +1,25 @@
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import ZoneFestival from '../../components/AccueilAdmin/admin/ZoneFestival';
 import PopUpZone from '../../components/bénévole/PopUpZone';
+import Header from '../../components/common/Header';
+import Navbar from '../../components/common/Navbar';
 import styles from '../../styles/inscription.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const BenevoleInscriptionZone = () => {
+    const { idFestival, idPoste } = useParams();
+    const [selectedFestival, setSelectedFestival] = useState(idFestival);
+  
+    const handleFestivalChange = (newFestivalId) => {
+      setSelectedFestival(newFestivalId);
+    };
 
     const navigate = useNavigate();
 
     const [listAreas, setListAreas] = useState([]);
     const [selectedZone, setSelectedZone] = useState(null);
 
-    const { idFestival, idPoste } = useParams();
+
 
     useEffect(() => {
         const fetchAreas = async () => {
@@ -48,8 +53,8 @@ const BenevoleInscriptionZone = () => {
 
     return (
         <div>
-            <Header currentPage="inscription" />
-            <div>
+             <Header currentPage="inscription" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+            <div className={styles.ContainerAllZone}>
                 <h2 className={styles.title}>Choisissez la zone où vous souhaitez vous inscrire</h2>
 
                 {listAreas.map((area) => (
@@ -65,7 +70,7 @@ const BenevoleInscriptionZone = () => {
                     />
                 )}
             </div>
-            <Navbar />
+            <Navbar idFestival={selectedFestival}/>
         </div>
     );
 };

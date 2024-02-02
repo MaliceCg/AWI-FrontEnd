@@ -4,7 +4,9 @@ import styles from '../../styles/benevoleDashboard.module.css';
 const Planning = ({idFestival}) => {
   const [festivalInfo, setFestivalInfo] = useState(null);
   const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+  const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
   
+  const idBenevole = parseInt(localStorage.getItem('id'));
 
   useEffect(() => {
     const fetchFestivalInfo = async () => {
@@ -37,7 +39,7 @@ const Planning = ({idFestival}) => {
 
         // Récupérer les inscriptions de l'utilisateur pour chaque poste
         const userPromises = positionsData.map(async (position) => {
-          const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}/volunteer/2`);
+          const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
 
           if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des inscriptions pour le poste ${position.idPoste}`);
@@ -56,8 +58,24 @@ const Planning = ({idFestival}) => {
       }
     };
 
+    const fetchAllPositions = async () => {
+      try {
+        const positionsResponse = await fetch(`http://localhost:3000/position-module`);
+
+        if (!positionsResponse.ok) {
+          throw new Error('Erreur lors de la récupération des postes');
+        }
+
+        const positionsData = await positionsResponse.json();
+        setAllPositions(positionsData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchFestivalInfo();
     fetchPositions();
+    fetchAllPositions();
   }, [idFestival]);
 
 
@@ -77,15 +95,45 @@ const Planning = ({idFestival}) => {
   
     const days = [];
     for (let i = 0; i <= daysDifference; i++) {
-      const timeSlots = ['9-11', '11-14', '14-17', '17-20', '20-22'];
+      const timeSlots = ['09-11', '11-14', '14-17', '17-20', '20-22'];
       days.push(
         <div className={styles.columnCalendar} key={i}>
-          <h3>Jour {i + 1}</h3>
+          <h3 className={styles.dayLabel}>Jour {i + 1}</h3>
           <ul className={styles.cellColumnCalendar}>
             {timeSlots.map((slot, index) => {
               let isUserRegistered = false;
+              let dynamicStyle = {};
   
               for (const position of festivalPositions) {
+
+                let backgroundColor = '';
+
+                //get nomPoste from AllPositions with position.idPoste
+
+                const positionData = AllPositions.find((positionData) => positionData.idPoste === position.idPoste);
+
+                switch (positionData.nomPoste.toLowerCase()) {
+                    case 'accueil':
+                        backgroundColor = '#3CCBF4';
+                        break;
+                    case 'buvette':
+                        backgroundColor = '#117F45';
+                        break;
+                    case 'animation jeux':
+                        backgroundColor = '#33C481';
+                        break;
+                    case 'cuisine':
+                        backgroundColor = '#105C9F';
+                        break;
+                    default:
+                        backgroundColor = '#F4B740';
+                        break;
+                }
+            
+                dynamicStyle = {
+                    backgroundColor: backgroundColor,
+                };
+
                 for (const inscription of position.userInscriptions) {
                   const inscriptionDate = new Date(inscription.Jour);  
                   if (
@@ -102,10 +150,10 @@ const Planning = ({idFestival}) => {
                 }
               }
   
-              const slotClassName = isUserRegistered ? `${styles.cellCalendar} ${styles.inscription}` : styles.cellCalendar;
+              const slotClassName = isUserRegistered ? `${styles.cellCalendar} ${styles.inscription} ` : styles.cellCalendar;
   
               return (
-                <li className={slotClassName} key={index}>
+                <li className={slotClassName} style={isUserRegistered ? dynamicStyle : null} key={index}>
                   {slot}
                 </li>
               );
@@ -120,10 +168,45 @@ const Planning = ({idFestival}) => {
   
 
   return (
-    <div>
+
         <div className={styles.benevoleCalendar}>
           {/* Afficher les colonnes de jours avec leurs créneaux horaires */}
           {renderTimeSlots()}
+          <div className={styles.calendarLegend}>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
+          <p>Accueil</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
+          <p>Buvette</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+          <p>Animation jeux</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+          <p>Cuisine</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
+          <p>Autre</p>
+
+        </div>
+        <div className={styles.calendarLegend}>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
+          <p>Accueil</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
+          <p>Buvette</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+          <p>Animation jeux</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+          <p>Cuisine</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
+          <p>Autre</p>
+
         </div>
     </div>
   );

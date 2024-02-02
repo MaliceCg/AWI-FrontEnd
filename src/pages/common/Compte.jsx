@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
+import NavbarAdmin from '../../components/common/NavbarAdmin';
 import '../../styles/compte.css';
 import styles from "../../styles/editPopup.module.css";
 
 const Compte = () => {
   const idBenevole = localStorage.getItem('id');
   console.log('ID du bénévole:', idBenevole);
+  const isAdmin = localStorage.getItem('role') === 'Admin';
   
   const [userData, setUserData] = useState();
   const { idFestival } = useParams();
@@ -23,7 +25,6 @@ const Compte = () => {
     try {
       const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
       const data = await response.json();
-      console.log("data:", data);
       setUserData(data);
 
       // Initialize editedInfo here after userData is updated
@@ -51,7 +52,6 @@ const Compte = () => {
     fetchUserData();
   }, [idBenevole]);
 
-console.log("userData",userData);
 const [editedInfo, setEditedInfo] = useState({
   Pseudo: userData?.Pseudo || '', // Utilisation de l'opérateur de coalescence nullish
   Prenom: userData?.Prenom || '',
@@ -154,12 +154,16 @@ const suppression = () => {
   return (
     <div className='CompteInfo'>
       <Header currentPage="profile" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
-      <Navbar idFestival={idFestival}/>
+      {isAdmin ? (
+        <NavbarAdmin idFestival={idFestival} />
+      ) : (
+        <Navbar idFestival={idFestival} />
+      )}
       <main>
         {userData ? (
           <div className='Infosutilisateur'>
             <h2>Mes Informations</h2>
-            <IconButton onClick={openEditPopup} color="primary">
+            <IconButton onClick={openEditPopup} color="primary" className='IconButton'>
               <EditIcon />
             </IconButton>
               <p>Pseudo: {userData.Pseudo}</p>
@@ -259,8 +263,8 @@ const suppression = () => {
                             <option value="sansGluten">Halal</option>
                         </select>
 
-                        <label htmlFor="statutHebergement">Statut Hébergement:</label>
-                          <select
+                        <label className={styles.label}>Statut Hébergement:</label>
+                          <select className={styles.editInput}
                             id="statutHebergement"
                             name="StatutHebergement"
                             value={editedInfo.StatutHebergement}

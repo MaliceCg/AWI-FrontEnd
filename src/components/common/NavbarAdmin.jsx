@@ -52,12 +52,12 @@ useEffect(() => {
       {/* Version ordinateur */}
       <div className="desktop-nav">
         <img src={Logo} id="logo" alt="logo" />
-        <Link to="/admin-dashboard" className={`desktop-item ${location.pathname === '/admin-dashboard' ? 'active' : ''}`}>Overview</Link>
-        <Link to="/admin-planning" className={`desktop-item ${location.pathname === '/admin-planning' ? 'active' : ''}`}>Planning</Link>
-        <Link to="/festivals" className={`desktop-item ${location.pathname === '/festivals' ? 'active' : ''}`}>Espace Création</Link>
-        <Link to="/admin-liste-benevole" className={`desktop-item ${location.pathname === '/admin-liste-benevole' ? 'active' : ''}`}>Liste Bénévoles</Link>
-        <Link to="/admin-notifications" className={`desktop-item ${location.pathname === '/admin-notifications' ? 'active' : ''}`}>Notifications</Link>
-        <Link to="/compte" className={`account ${location.pathname === '/compte' ? 'active' : ''}`}>
+        <Link to={`/admin-dashboard/${idFestival}`} className={`desktop-item ${location.pathname === `/admin-dashboard/${idFestival}` ? 'active' : ''}`}>Overview</Link>
+        <Link to={`/admin-planning/${idFestival}`} className={`desktop-item  ${location.pathname === `/admin-planning/${idFestival}` ? 'active' : ''}`}>Planning</Link>
+        <Link to={`/espace-creation/${idFestival}`} className={`desktop-item ${location.pathname === `/espace-creation/${idFestival}` ? 'active' : ''}`}>Espace Création</Link>
+        <Link to={`/admin-liste-benevole/${idFestival}`} className={`desktop-item ${location.pathname === `/admin-liste-benevole/${idFestival}` ? 'active' : ''}`}>Liste Bénévoles</Link>
+        <Link to={`/admin-notifications/${idFestival}`} className={`desktop-item ${location.pathname === `/admin-notifications/${idFestival}` ? 'active' : ''}`}>Notifications</Link>
+        <Link to={`/compte/${idFestival}`} className={`account ${location.pathname === `/compte/${idFestival}` ? 'active' : ''}`}>
         <img src={Account} alt="compte" />
         </Link>
 

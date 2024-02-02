@@ -59,3 +59,19 @@
     padding-left: 10px;
     cursor: pointer;
 }
+
+@media (min-width: 768px) {
+    .container {
+        width: 70vw;
+        margin-left: 20%;
+    }
+    .textarea {
+        width: 60vw;
+    }
+    .select {
+        width: 10%;
+        margin-right: 75%;
+    }
+    
+    
+}
