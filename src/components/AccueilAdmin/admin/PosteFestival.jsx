@@ -1,6 +1,6 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from 'react-router-dom';
 import styles from "../../../styles/espaceCreation.module.css";
 import ListeReferent from "./ListeReferent";
@@ -94,6 +94,41 @@ const PosteFestival = (props) => {
     const closeEditPopup = () => {
         setEditPopupOpen(false);
     };
+
+    const [shouldCloseEditPopup, setShouldCloseEditPopup] = useState(false);
+
+    // Référence à la popup de modification pour vérifier si un clic est en dehors d'elle
+    const editPopupRef = useRef(null);
+  
+    // Effet pour ajouter l'écouteur d'événements lors de l'ouverture de la popup de modification
+    useEffect(() => {
+      const handleClickOutsideEditPopup = (event) => {
+        if (editPopupRef.current && !editPopupRef.current.contains(event.target)) {
+          // Clic en dehors de la popup de modification, fermer la popup
+          setShouldCloseEditPopup(true);
+        }
+      };
+  
+      if (isEditPopupOpen) {
+        // Ajouter l'écouteur d'événements lorsque la popup de modification est ouverte
+        document.addEventListener('mousedown', handleClickOutsideEditPopup);
+      }
+  
+      // Retirer l'écouteur d'événements lorsque la popup de modification est fermée
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutsideEditPopup);
+      };
+    }, [isEditPopupOpen]);
+  
+    // Effet pour fermer la popup de modification lorsque shouldCloseEditPopup est vrai
+    useEffect(() => {
+      if (shouldCloseEditPopup) {
+        closeEditPopup();
+        setShouldCloseEditPopup(false);
+      }
+    }, [shouldCloseEditPopup]);
+
+
 
     const updatePoste = async () => {
         try {
@@ -206,7 +241,7 @@ const PosteFestival = (props) => {
 
             {isEditPopupOpen && (
                 <div className={styles.editPopup}>
-                    <div className={styles.editPopupContent}>
+                    <div ref={editPopupRef} className={styles.editPopupContent}>
                         <h1 className={styles.titre}>Modification du poste :</h1>
                         <label className={styles.label}>Nom du poste</label>
                         <input className={styles.editInput}

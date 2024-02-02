@@ -1,12 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ImportCsv from '../../components/AccueilAdmin/admin/ImportCsv';
 import PosteFestival from '../../components/AccueilAdmin/admin/PosteFestival';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/espaceCreation.module.css';
-
 
 const EspaceCreation = () => {
 
@@ -18,6 +17,8 @@ const EspaceCreation = () => {
     setSelectedFestival(newFestivalId);
   };
 
+  
+  
   /////////////////////Recupere les postes du festival////////////////////////
   const [postes, setPostes] = useState([]);
   const fetchPostes = async () => {
@@ -86,6 +87,40 @@ const EspaceCreation = () => {
   };
 
   const [isAddPostePopupOpen, setAddPostePopupOpen] = useState(false);
+
+  const [shouldClosePopup, setShouldClosePopup] = useState(false);
+
+  // Référence à la popup pour vérifier si un clic est en dehors d'elle
+  const popupRef = useRef(null);
+  // Effet pour ajouter l'écouteur d'événements lors de l'ouverture de la popup
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        // Clic en dehors de la popup, fermer la popup
+        setShouldClosePopup(true);
+      }
+    };
+
+    if (isAddPostePopupOpen) {
+      // Ajouter l'écouteur d'événements lorsque la popup est ouverte
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Retirer l'écouteur d'événements lorsque la popup est fermée
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAddPostePopupOpen]);
+
+  // Effet pour fermer la popup lorsque shouldClosePopup est vrai
+  useEffect(() => {
+    if (shouldClosePopup) {
+      closeAddPostePopup();
+      setShouldClosePopup(false);
+    }
+  }, [shouldClosePopup]);
+
+  
   const [newPoste, setNewPoste] = useState({
     nomPoste: "",
     description: "",
@@ -199,7 +234,7 @@ const handleNewPosteInputChange = (e) => {
 
             {isAddPostePopupOpen && (
               <div className={styles.editPopup}>
-              <div className={styles.editPopupContent}>
+              <div ref={popupRef} className={styles.editPopupContent}>
                 <h1 className={styles.titre}>Ajouter un poste :</h1>
                 <label className={styles.label} >Nom du poste</label>
                 <input className={styles.editInput}
@@ -209,7 +244,7 @@ const handleNewPosteInputChange = (e) => {
                   onChange={handleNewPosteInputChange}
                 />
                 <label className={styles.label}>Description</label>
-                <textarea
+                <textarea className={styles.editInput}
                   name="description"
                   value={newPoste.description}
                   onChange={handleNewPosteInputChange}
@@ -228,8 +263,10 @@ const handleNewPosteInputChange = (e) => {
                   value={newPoste.nomZoneBenevole}
                   onChange={handleNewPosteInputChange}
                 />
+                <div className={styles.boutonAjout}>
                 <button className={styles.btn2} onClick={addPoste}>Ajouter</button>
                 <button className={styles.btn2} onClick={closeAddPostePopup}>Annuler</button>
+                </div>
               </div>
             </div>
             )}
