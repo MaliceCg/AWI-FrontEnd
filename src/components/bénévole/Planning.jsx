@@ -120,12 +120,12 @@ const Planning = ({idFestival}) => {
   
 
   return (
-    <div>
+
         <div className={styles.benevoleCalendar}>
           {/* Afficher les colonnes de jours avec leurs créneaux horaires */}
           {renderTimeSlots()}
         </div>
-    </div>
+
   );
 };
 

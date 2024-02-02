@@ -27,6 +27,7 @@ const BenevoleDashboard = () => {
       <Header currentPage="dashboard" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <Navbar idFestival={selectedFestival}/>
       <div className={styles.dashboardContainer}>
+        <div className={styles.dashboardButtons}>
         {userRole === 'Admin' && (
           <Link to={`/admin-dashboard/${idFestival}`}>
             <button className={styles.btnMode}>Passez en mode Admin</button>
@@ -37,24 +38,27 @@ const BenevoleDashboard = () => {
             <button className={styles.btnMode}>Passez en mode Accueil</button>
           </Link>
         )}
+        </div>
+        <div className={styles.firstColumn}>
 
-        <div className={styles.desktopColumns}>
-          <div className={styles.column}>
-            <div className={styles.benevoleCalendar}>
+          <div className={styles.benevolePlanning}>
               <Planning idFestival={selectedFestival}/>
             </div>
+
             <div className={styles.benevoleNotifications}>
               <LastNotif idFestival={selectedFestival}/>
             </div>
-          </div>
-          <div className={styles.column}>
+        </div>
+
+        <div className={styles.secondColumn}>
             <div className={styles.dashboardActivitiesContainer}>
               <Activite idFestival={selectedFestival} displayInline={true} />
             </div>
-          </div>
+        </div>
+
         </div>
       </div>
-    </div>
+
   );
 };
 
