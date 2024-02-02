@@ -79,7 +79,12 @@ console.log(idPoste);
 
     return (
         <div>
-            <label className={styles.label}>Référent</label>
+            <label className={styles.label}>Référents actuels : </label>
+            <ul>
+                {referents.map((referent) => (
+                    <li key={referent.idBenevole} className={styles.listeReferent}>{referent.Pseudo}</li>
+                ))}
+            </ul>
             <select
                 className={styles.editInput}
                 name="referent"

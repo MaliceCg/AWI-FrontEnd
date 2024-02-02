@@ -1,6 +1,11 @@
 .creationFestivalContainer {
-  margin-left: -20px;
+  margin-left:0;
   text-align: center; /* Centrer le contenu */
+  width:90vw;
+  background-color : #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:20px;
+  padding:10px;
 }
 
 .title {
@@ -50,6 +55,7 @@ input[type='date'] {
   padding: 10px 15px;
   border-radius: 10px;
   margin-top: 15px;
+  margin-bottom: 20px;
 }
 
 .errorBanner{
@@ -58,4 +64,12 @@ input[type='date'] {
   padding: 10px 15px;
   border-radius: 10px;
   margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+.creationFestivalContainer {
+  width: 50vw; 
+  margin-left: 30vw;
+}
 }

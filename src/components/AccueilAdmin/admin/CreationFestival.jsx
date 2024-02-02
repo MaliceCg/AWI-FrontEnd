@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../../../styles/creationFestival.module.css';
 
 const CreationFestival = () => {
-    const accessToken = localStorage.getItem('token');
 
+    const accessToken = localStorage.getItem('token');
+    const navigate = useNavigate();
     const currentDate = new Date().toISOString().split('T')[0];
 
     const [startDate, setStartDate] = useState('');
@@ -40,6 +42,7 @@ const CreationFestival = () => {
       const handleVilleChange = (event) => {
         setVille(event.target.value);
       };
+      let festivalId;
     
       const handleSubmit = async (event) => {
         event.preventDefault();
@@ -58,7 +61,7 @@ const CreationFestival = () => {
         }
 
         // Création de l'objet contenant les données à envoyer au serveur
-        let festivalId; // Variable pour stocker l'ID du festival
+        // Variable pour stocker l'ID du festival
         console.log(startDate);
         const festivalData = {
           NomFestival: nomFestival,
@@ -83,8 +86,6 @@ const CreationFestival = () => {
             console.log(festivalResponseData);
             festivalId = festivalResponseData.idFestival; // Récupérer l'ID du festival créé
             console.log(festivalId);
-            setIsSuccess(true);
-            setIsError(false);
       
             setTimeout(async () => {
               const postesData = [
@@ -183,6 +184,9 @@ const CreationFestival = () => {
           } else {
             console.error('Erreur lors de la création du festival.');
           }
+          setIsSuccess(true);
+            setIsError(false);
+            navigate(`/admin-creation-festival/${festivalId}`);
         } catch (error) {
           setIsError(true);
           setIsSuccess(false);

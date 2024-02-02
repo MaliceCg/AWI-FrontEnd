@@ -52,12 +52,12 @@ useEffect(() => {
       {/* Version ordinateur */}
       <div className="desktop-nav">
         <img src={Logo} id="logo" alt="logo" />
-        <Link to="/benevole-dashboard" className={`desktop-item ${location.pathname === '/benevole-dashboard' ? 'active' : ''}`}>Overview</Link>
-        <Link to="/benevole-planning" className={`desktop-item ${location.pathname === '/benevole-planning' ? 'active' : ''}`}>Planning</Link>
-        <Link to="/benevole-inscription" className={`desktop-item ${location.pathname === '/benevole-inscription' ? 'active' : ''}`}>Inscription</Link>
-        <Link to="/benevole-activites" className={`desktop-item ${location.pathname === '/benevole-activites' ? 'active' : ''}`}>Activités</Link>
-        <Link to="/benevole-notification" className={`desktop-item ${location.pathname === '/benevole-notification' ? 'active' : ''}`}>Notifications</Link>
-        <Link to="/compte" className={`account ${location.pathname === '/compte' ? 'active' : ''}`}>
+        <Link to={`/benevole-dashboard/${idFestival}`} className={`desktop-item ${location.pathname === `/benevole-dashboard/${idFestival}` ? 'active' : ''}`}>Overview</Link>
+        <Link to={`/benevole-planning/${idFestival}`} className={`desktop-item ${location.pathname === `/benevole-planning/${idFestival}` ? 'active' : ''}`}>Planning</Link>
+        <Link to={`/benevole-inscription/${idFestival}`} className={`desktop-item ${location.pathname === `/benevole-inscription/${idFestival}` ? 'active' : ''}`}>Inscription</Link>
+        <Link to={`/benevole-activites/${idFestival}`} className={`desktop-item ${location.pathname === `/benevole-activites/${idFestival}` ? 'active' : ''}`}>Activités</Link>
+        <Link to={`/benevole-notification/${idFestival}`} className={`desktop-item ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>Notifications</Link>
+        <Link to={`/compte/${idFestival}`} className={`account ${location.pathname === `/compte/${idFestival}` ? 'active' : ''}`}>
         <img src={Account} alt="compte" />
         </Link>
 

@@ -17,7 +17,7 @@ const AdminFestivals = () => {
       <Header currentPage="festivals" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
       <div className={styles.wrapper}>
         <ListeFestivals linkPath="/espace-creation" />
-              <Link to="/admin-creation-festival">
+              <Link to={`/admin-creation-festival/${idFestival}`}>
                 <button className={styles.creationButton}>Créer un festival</button>
               </Link>
     

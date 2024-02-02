@@ -9,14 +9,13 @@
 .benevoleCalendar{
     display: flex;
     justify-content: center;
-    font-size: larger;
-    background-color: white;
-    margin: 10px;
-    border-radius: 30px;
-}
 
-.dayLabel{
-    font-size: smaller;
+    font-size: larger;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 30px;
+    width:95vw;
+    
 }
 
 .columnCalendar{
@@ -96,4 +95,66 @@
     margin-right: 2px;
     margin-left: 8px;
     border-radius: 50%;
+}
+
+.dashboardActivitiesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; /* Adjust as needed */
+    margin-top: -60px;
+}
+.dashboardButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+@media screen and (min-width: 768px) {
+
+
+        .benevoleCalendar {
+            width: 40vw;
+            margin-top: 20px;
+            margin-left: 40px;
+        }
+        .dashboardContainer{
+            margin-left: 10%;
+            margin-top:20px;
+        }
+        .dashboardButtons {
+            flex-direction: row;
+        }
+        .btnMode {
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+        .firstColumn {
+
+            margin-left: -50%;
+            width:45vw;
+            height: 100%;
+        }
+        .secondColumn {
+
+            margin-top: -42.5%;
+            margin-left: 50%;
+            width:45vw;
+            height: 100%;
+        }
+        .benevoleNotifications {
+            margin-top: 20px;
+        width:40vw;
+        margin-left: 40px;
+        }
+        .dashboardActivitiesContainer {
+            margin-top:-7.5%;
+            margin-right:30px;
+            margin-left: -60px;
+        }
+    
+
+
+    
+    
 }

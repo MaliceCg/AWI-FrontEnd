@@ -39,7 +39,7 @@ const LastNotif = ({ idFestival }) => {
 
   return (
     <div>
-      <div className={styles.NotificationContainer}>
+      <div className={styles.LastNotificationContainer}>
         <h1 className={styles.h1}>Notifications</h1>
         {listNotif.length > 0 ? (
           listNotif.map((notif, index) => (

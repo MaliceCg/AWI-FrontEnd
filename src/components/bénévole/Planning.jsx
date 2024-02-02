@@ -168,10 +168,27 @@ const Planning = ({idFestival}) => {
   
 
   return (
-    <div>
+
         <div className={styles.benevoleCalendar}>
           {/* Afficher les colonnes de jours avec leurs créneaux horaires */}
           {renderTimeSlots()}
+          <div className={styles.calendarLegend}>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
+          <p>Accueil</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
+          <p>Buvette</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+          <p>Animation jeux</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+          <p>Cuisine</p>
+
+          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
+          <p>Autre</p>
+
         </div>
         <div className={styles.calendarLegend}>
 
