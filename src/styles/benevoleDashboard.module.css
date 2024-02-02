@@ -10,6 +10,13 @@
     display: flex;
     justify-content: center;
     font-size: larger;
+    background-color: white;
+    margin: 10px;
+    border-radius: 30px;
+}
+
+.dayLabel{
+    font-size: smaller;
 }
 
 .columnCalendar{
@@ -26,9 +33,10 @@
 }
 
 .cellCalendar{
-    padding: 10px;
+    padding: 9px;
     margin-top: 20px;
     list-style: none;
+    font-size: smaller;
 }
 
 .disabledSlot{
@@ -45,7 +53,6 @@
 }
 
 .inscription{
-    background-color: aqua;
     border-radius: 12px;
 }
 
@@ -61,7 +68,7 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-  }
+}
 
 .btnMode {
     margin : auto;
@@ -72,4 +79,21 @@
     border: none;
     font-size: 16px;
     transition: all 0.3s ease-in-out;
+}
+
+.calendarLegend{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    margin-top: 20px;
+    color: #838383;
+}
+
+.legendColor{
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+    margin-left: 8px;
+    border-radius: 50%;
 }

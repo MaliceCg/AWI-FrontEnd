@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/adminDashboard.module.css';
-
+import AdminPlanning from '../../components/AccueilAdmin/admin/AdminPlanning';
 
 const AdminDashboard = () => {
   const { idFestival } = useParams();
@@ -20,7 +20,13 @@ const AdminDashboard = () => {
           <button className={styles.btnMode}>Passez en mode bénévole</button>
         </Link>
         </div>
+
+        <div>
+          <AdminPlanning idFestival={selectedFestival}/>
+        </div>
+
         <NavbarAdmin idFestival={selectedFestival}/>
+
     </div>
   );
 };

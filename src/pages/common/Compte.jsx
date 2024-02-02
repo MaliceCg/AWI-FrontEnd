@@ -9,7 +9,6 @@ import styles from "../../styles/editPopup.module.css";
 
 const Compte = () => {
   const idBenevole = localStorage.getItem('id');
-  console.log('ID du bénévole:', idBenevole);
   
   const [userData, setUserData] = useState();
   const { idFestival } = useParams();
@@ -23,7 +22,6 @@ const Compte = () => {
     try {
       const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
       const data = await response.json();
-      console.log("data:", data);
       setUserData(data);
 
       // Initialize editedInfo here after userData is updated
@@ -51,7 +49,6 @@ const Compte = () => {
     fetchUserData();
   }, [idBenevole]);
 
-console.log("userData",userData);
 const [editedInfo, setEditedInfo] = useState({
   Pseudo: userData?.Pseudo || '', // Utilisation de l'opérateur de coalescence nullish
   Prenom: userData?.Prenom || '',

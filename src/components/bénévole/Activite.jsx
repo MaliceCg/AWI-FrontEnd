@@ -53,7 +53,7 @@ const fetchActivites = async () => {
       const employerResponse = await fetch(`http://localhost:3000/employer-module/position/${postId}`);
       const employerData = await employerResponse.json();
 
-      if (employerData.some(data => data.idFestival == idFestival)) {
+      if (employerData.some(data => data.idFestival === idFestival)) {
         console.log("idFestival", idFestival);
         console.log("employerData.idFestival", employerData.idFestival);
 

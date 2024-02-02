@@ -117,7 +117,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
     const days = [];
 
     for (let i = 0; i <= daysDifference; i++) {
-      const timeSlots = ['9-11', '11-14', '14-17', '17-20', '20-22'];
+      const timeSlots = ['09-11', '11-14', '14-17', '17-20', '20-22'];
 
       days.push(
         <div className={styles.columnCalendar} key={i}>
