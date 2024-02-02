@@ -1,26 +1,46 @@
 // PrivateRoute.js
 import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
-import { useAuth } from '../services/auth';
+import { Route } from 'react-router-dom';
+import Login from '../pages/common/Login';
 
-const PrivateRoute = ({ children, roles, ...rest }) => {
-  const { user } = useAuth();
+const Authorization = (roles,token) => async (element) => {
+  if(token){
+    try{
+      const reponse = await fetch('http://localhost:3000/api/auth/role', {
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
+    const data = await reponse.json();
+    return data.role;
+  }catch(e){
+    console.log(e);
+  }
+  if (roles.includes(element)) {
+    return true;
+  }
+  return false;
+}
+else{
+  return false;
+ }
+}
 
-  const isAuthorized = () => {
-    if (!roles || roles.length === 0) {
-      // Aucune restriction de rôle
-      return true;
+
+function PrivateRoute({ element, roles }) {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const role = Authorization(roles,token);
+    if (role) {
+      return element;
     }
-
-    return roles.includes(user?.role);
-  };
-
-  return (
-    <Route
-      {...rest}
-      element={isAuthorized() ? children : <Navigate to="/login" replace />}
-    />
-  );
-};
+    return <Route element={element} />;;
+  }
+  return <Route element={<Login />} />;
+  
+  
+  
+}
 
 export default PrivateRoute;
