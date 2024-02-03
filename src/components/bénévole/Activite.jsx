@@ -15,7 +15,7 @@ const fetchPostes = async () => {
   try {
     const PostesResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
     const Postesdata = await PostesResponse.json();
-    console.log("Postesdata",Postesdata);
+
 
     const poste = Postesdata.map(async (poste) => {
       const idPoste = poste.idPoste;
@@ -40,37 +40,36 @@ const fetchActivites = async () => {
     // Récupérez les inscriptions de l'utilisateur
     const inscriptionResponse = await fetch(`http://localhost:3000/inscription-module/volunteer/${userId}`);
     const inscriptionData = await inscriptionResponse.json();
-    console.log("inscription data", inscriptionData);
+
 
     // Utilisez les données des inscriptions pour récupérer les informations des postes
     const activitesPromises = inscriptionData.map(async (inscription) => {
-      console.log("inscription", inscription);
+
       const postId = inscription.idPoste;
       const employerResponse = await fetch(`http://localhost:3000/employer-module/position/${postId}`);
       const employerData = await employerResponse.json();
 
       if (employerData.some(data => data.idFestival === idFestival)) {
-        console.log("idFestival", idFestival);
-        console.log("employerData.idFestival", employerData.idFestival);
+
 
         // Récupérez les données du poste
         const posteResponse = await fetch(`http://localhost:3000/position-module/${postId}`);
         const posteData = await posteResponse.json();
-        console.log(posteData);
+
 
         // Récupérez le nom de la zone bénévole
         const zoneResponse = await fetch(`http://localhost:3000/volunteer-area-module/${inscription.idZoneBenevole}`);
         const zoneData = await zoneResponse.json();
-        console.log(zoneData);
+  
 
         // Récupérez les référents du poste
         const referentsResponse = await fetch(`http://localhost:3000/referent-module/position/${postId}`);
         const referentsData = await referentsResponse.json();
-        console.log(referentsData);
+
 
         // Pour chaque référent, récupérez son prénom à partir de son ID
         const referentsDetails = await Promise.all(referentsData.map(async (referent) => {
-          console.log(referent);
+  
           const referentResponse = await fetch(`http://localhost:3000/authentication-module/${referent.idBenevole}`);
           const referentData = await referentResponse.json();
           return {
@@ -114,7 +113,7 @@ const fetchActivites = async () => {
     const dynamicStyle = (nomPoste) => {
       let backgroundColor = '';
     
-      console.log("Nom du poste", nomPoste);
+
     
       if (nomPoste && typeof nomPoste === 'string') {
         switch (nomPoste.toLowerCase()) {

@@ -7,7 +7,7 @@ import style from '../../styles/inscription.module.css';
 
 const BenevoleInscription = () => {
   const { idFestival } = useParams();
-  console.log('idFestival : ', idFestival);
+
   const [selectedFestival, setSelectedFestival] = useState(idFestival);
 
   const handleFestivalChange = (newFestivalId) => {
@@ -46,7 +46,7 @@ const BenevoleInscription = () => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
-  console.log('postes : ', postes);
+
 
   const handlePosteClick = (idPoste, nomPoste) => {
     if (nomPoste === 'Animation Jeux') {

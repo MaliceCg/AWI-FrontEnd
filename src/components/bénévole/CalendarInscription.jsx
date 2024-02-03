@@ -1,9 +1,8 @@
-import React from "react";
-import styles from "../../styles/benevoleDashboard.module.css";
-import { useNavigate } from 'react-router-dom';
-import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
-import { useState, useEffect } from 'react';
+import LinearProgress from '@mui/material/LinearProgress';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import styles from "../../styles/benevoleDashboard.module.css";
 
 const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
@@ -95,7 +94,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
                 throw new Error('Erreur lors de la création de l\'inscription');
             }
             const data = await response.json();
-            console.log(data);
+  
         } catch (error) {
             console.error(error);
         }

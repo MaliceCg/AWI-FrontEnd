@@ -12,7 +12,7 @@ const AdminPlanning = ({idFestival}) => {
     let inscriptions = {};
     
     const handleSlotClick = (day, slot, popupBgColor) => {
-        console.log(`Créneau cliqué : Jour ${day + 1} - ${slot}`);
+
         // Mettre à jour l'état selectedSlot avec les informations du créneau cliqué
         setSelectedSlot({ day, slot });
         setPopupBgColor(popupBgColor); // Mettre à jour l'état avec la couleur de fond du popup

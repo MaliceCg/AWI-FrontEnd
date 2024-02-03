@@ -10,7 +10,7 @@ import styles from "../../styles/editPopup.module.css";
 
 const Compte = () => {
   const idBenevole = localStorage.getItem('id');
-  console.log('ID du bénévole:', idBenevole);
+
   const isAdmin = localStorage.getItem('role') === 'Admin';
   
   const [userData, setUserData] = useState();
@@ -82,7 +82,7 @@ try {
     },
     body: JSON.stringify(editedInfo),
   });
-  console.log("editedInfo",editedInfo);
+
 
   if (!response.ok) {
     throw new Error('Erreur lors de la modification des données utilisateur');

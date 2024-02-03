@@ -16,7 +16,7 @@ const ListBenevoles = ({ benevole, index }) => {
   };
 
   const handleSaveClick = async () => {
-    console.log("changement de rôle ")
+
     try{
         const response = await fetch(`http://localhost:3000/authentication-module/update-role`, {
           method: 'PUT',

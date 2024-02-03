@@ -50,8 +50,7 @@ const ListeReferent = ({ idPoste }) => {
     const handleReferentChange = (e) => {
         setSelectedReferent(e.target.value);
     };
-console.log(selectedReferent);
-console.log(idPoste);
+
     const assignReferent = async () => {
         try {
             // Envoi de la requête pour assigner le référent au poste

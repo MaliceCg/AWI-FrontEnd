@@ -3,7 +3,7 @@ import styles from '../../styles/notif.module.css';
 
 const LastNotif = ({ idFestival }) => {
   const [listNotif, setListNotif] = useState([]);
-  console.log('idFestival = ', idFestival);
+
 
   useEffect(() => {
     const fetchNotif = async () => {

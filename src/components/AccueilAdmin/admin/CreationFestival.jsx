@@ -82,10 +82,9 @@ const CreationFestival = () => {
       
           if (response.ok) {
             const festivalResponseData = await response.json(); // Convertir la réponse en JSON
-            console.log(festivalData);
-            console.log(festivalResponseData);
+     
             festivalId = festivalResponseData.idFestival; // Récupérer l'ID du festival créé
-            console.log(festivalId);
+  
       
             setTimeout(async () => {
               const postesData = [

@@ -43,12 +43,12 @@ function PageAccueil() {
   };
 
   const handleFillLater = () => {
-    console.log('Remplir plus tard');
+
     setShowPopup(false);
   };
 
   const handleConfirm = (formData) => {
-    console.log('Données du formulaire soumises :', formData);
+
     setShowPopup(false);
     // Ajoutez ici toute autre logique nécessaire après la confirmation
   };

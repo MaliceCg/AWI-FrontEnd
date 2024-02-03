@@ -35,7 +35,7 @@ const EspaceCreation = () => {
             if (posteData.nomPoste === "Animation Jeux") {
               return posteData;
             } else {
-              console.log(posteData.nomPoste);
+     
               const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
               if (reponseZone.ok) {
                 const zoneData = await reponseZone.json();
@@ -129,8 +129,7 @@ const EspaceCreation = () => {
   });
 
 const addPoste = async () => {
-console.log("newPoste : ", newPoste);
-console.log(JSON.stringify(newPoste));
+
     const response = await fetch('http://localhost:3000/position-module', {
       method: 'POST',
       headers: {
@@ -142,10 +141,10 @@ console.log(JSON.stringify(newPoste));
 
     if (response.ok) {
       const posteResponseData = await response.json(); // Convertir la réponse en JSON
-      console.log(posteResponseData);
+
       const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
-      console.log(posteId);
-      console.log(idFestival);
+
+
       const zoneData = {
         idZoneBenevole : posteId,
         nomZoneBenevole: newPoste.nomZoneBenevole,
@@ -173,7 +172,7 @@ console.log(JSON.stringify(newPoste));
         idFestival: parseInt(idFestival, 10),
         idPoste: posteId,
       };
-      console.log(employerData);
+
       const employerResponse = await fetch('http://localhost:3000/employer-module', {
                     method: 'POST',
                     headers: {
@@ -193,7 +192,7 @@ console.log(JSON.stringify(newPoste));
       }
         }
         else {
-          console.log(response);
+
           console.error(`Erreur lors de la création du poste ${newPoste.nomPoste}.`);
         }
       }

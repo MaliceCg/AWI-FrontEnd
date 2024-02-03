@@ -39,7 +39,7 @@ const BenevoleInscriptionZone = () => {
 
     const openPopup = (zone) => {
         setSelectedZone(zone);
-        console.log('zone : ', zone);
+
     };
 
     const closePopup = () => {
