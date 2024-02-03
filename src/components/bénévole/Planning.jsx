@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/benevoleDashboard.module.css';
+import styles from '../../styles/planning.module.css';
 
 const Planning = ({idFestival}) => {
   const [festivalInfo, setFestivalInfo] = useState(null);
@@ -100,6 +100,7 @@ const Planning = ({idFestival}) => {
         <div className={styles.columnCalendar} key={i}>
           <h3 className={styles.dayLabel}>Jour {i + 1}</h3>
           <ul className={styles.cellColumnCalendar}>
+          
             {timeSlots.map((slot, index) => {
               let isUserRegistered = false;
               let dynamicStyle = {};
@@ -160,6 +161,7 @@ const Planning = ({idFestival}) => {
             })}
           </ul>
         </div>
+
       );
     }
   
@@ -170,26 +172,10 @@ const Planning = ({idFestival}) => {
   return (
 
         <div className={styles.benevoleCalendar}>
-          {/* Afficher les colonnes de jours avec leurs créneaux horaires */}
+          <h2 className={styles.titre}>Planning</h2>
+          <div className={styles.Calendar}>
           {renderTimeSlots()}
-          <div className={styles.calendarLegend}>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
-          <p>Accueil</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
-          <p>Buvette</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
-          <p>Animation jeux</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
-          <p>Cuisine</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
-          <p>Autre</p>
-
-        </div>
+          </div>
         <div className={styles.calendarLegend}>
 
           <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>

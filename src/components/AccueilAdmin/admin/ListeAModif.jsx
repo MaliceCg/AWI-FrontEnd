@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
+import React, { useState } from "react";
 import styles from '../../../styles/listeBenevole.module.css';
 
 const ListBenevoles = ({ benevole, index }) => {
@@ -49,7 +49,7 @@ const ListBenevoles = ({ benevole, index }) => {
           {!isEditing ? (
             benevole.Role
           ) : (
-            <select value={selectedRole} onChange={handleRoleChange}>
+            <select value={selectedRole} onChange={handleRoleChange} className={styles.editInput}>
               <option value="User">User</option>
               <option value="Admin">Admin</option>
               <option value="Referent">Referent</option>
@@ -60,7 +60,7 @@ const ListBenevoles = ({ benevole, index }) => {
         <div className={styles.iconsBenevole}>
           <EditIcon onClick={handleEditClick} />
           <EmailIcon />
-          {isEditing && <button onClick={handleSaveClick}>Save</button>}
+          {isEditing && <button onClick={handleSaveClick} className={styles.btn}>Save</button>}
         </div>
       </div>
     </div>
