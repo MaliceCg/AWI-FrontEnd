@@ -52,6 +52,8 @@ const CreaNotif = ({idFestival}) => {
 
       if (response.ok) {
         alert("Notification envoyée avec succès !");
+        //redirige vers la page /admin-notification
+        window.location.href = `/admin-notifications/${idFestival}`;
       } else {
         alert("Erreur lors de l'envoi de la notification");
       }
