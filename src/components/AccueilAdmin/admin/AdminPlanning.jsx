@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../../styles/adminDashboard.module.css';
+import styles from '../../../styles/planning.module.css';
 
 const AdminPlanning = ({idFestival}) => {
     const [festivalInfo, setFestivalInfo] = useState(null);
@@ -191,9 +191,9 @@ const AdminPlanning = ({idFestival}) => {
       
     
       return (
-        <div>
             <div className={styles.benevoleCalendar}>
-              {/* Afficher les colonnes de jours avec leurs créneaux horaires */}
+            <h2 className={styles.titre}>Planning</h2>
+            <div className={styles.Calendar}>
               {renderTimeSlots()}
             </div>
             <div className={styles.calendarLegend}>
