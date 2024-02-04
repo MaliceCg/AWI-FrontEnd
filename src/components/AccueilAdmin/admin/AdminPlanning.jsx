@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/planning.module.css';
+import Loader from './Loader';
 
 const AdminPlanning = ({idFestival}) => {
     const [festivalInfo, setFestivalInfo] = useState(null);
@@ -7,6 +8,7 @@ const AdminPlanning = ({idFestival}) => {
     const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [loading, setLoading] = useState(true)
 
     // Créer un dictionnaire pour stocker les inscriptions
     let inscriptions = {};
@@ -17,8 +19,24 @@ const AdminPlanning = ({idFestival}) => {
         setSelectedSlot({ day, slot });
         setPopupBgColor(popupBgColor); // Mettre à jour l'état avec la couleur de fond du popup
       };
+      useEffect(() => {
+        const fetchData = async () => {
+          setLoading(true);
+    
+          try {
+            await fetchFestivalInfo();
+            await fetchPositions();
+            await fetchAllPositions();
+          } catch (error) {
+            console.error(error);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, [idFestival]);
 
-    useEffect(() => {
         const fetchFestivalInfo = async () => {
         try {
             // Envoyer une requête GET au backend pour récupérer les informations du festival
@@ -84,10 +102,7 @@ const AdminPlanning = ({idFestival}) => {
             }
         };
 
-        fetchFestivalInfo();
-        fetchPositions();
-        fetchAllPositions();
-    }, [idFestival]);
+       
 
 
     // Fonction pour calculer le nombre de jours entre deux dates
@@ -193,9 +208,15 @@ const AdminPlanning = ({idFestival}) => {
       return (
             <div className={styles.benevoleCalendar}>
             <h2 className={styles.titre}>Planning</h2>
+            {loading ? (
+            <div className={styles.loaderContainer}>
+        <Loader />
+        </div>
+      ) : (
             <div className={styles.Calendar}>
               {renderTimeSlots()}
             </div>
+            )}
             <div className={styles.calendarLegend}>
     
               <div className={styles.legendColor} style={{ backgroundColor: '#FD4F4F' }}></div>
