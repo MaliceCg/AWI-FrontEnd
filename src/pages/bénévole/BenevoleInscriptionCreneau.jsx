@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/AccueilAdmin/admin/Loader';
 import CalendarInscription from '../../components/bénévole/CalendarInscription';
 import InscriptionPoste from '../../components/bénévole/InscriptionPoste';
 import Header from '../../components/common/Header';
@@ -61,7 +62,12 @@ const BenevoleInscriptionCreneau = () => {
     }, [idFestival, idZone]);  
     
     if (!festivalInfo || !poste) {
-        return <p>Chargement en cours...</p>;
+        return <div>
+        <Header currentPage="inscription" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />
+        <div className={style.loaderContainer}><Loader/></div>;
+        <Navbar idFestival={selectedFestival}/>
+        </div>
+       
     }
 
     //get all areas of a festival where jeux is not empty
