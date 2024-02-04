@@ -105,7 +105,62 @@ setEditedInfo({
     ...editedInfo,
     [name]: value,
 });
+
 };
+
+// deconnexion 
+const deconnexion = () => {
+  localStorage.clear();
+  window.location.href = '/';
+}
+
+const suppression = async () => {
+  // Demander le mot de passe à l'utilisateur
+  const Password = prompt("Entrez votre mot de passe :");
+
+  if (Password !== null) {
+    try {
+      if (window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) {
+        const idBenevole = localStorage.getItem('id');
+        const token = localStorage.getItem('token');
+
+        // Suppression de toutes les inscriptions associées à l'idBenevole
+        const deleteInscriptionsResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/delete/${idBenevole}`, {
+          method: 'DELETE',
+        });
+
+        if (!deleteInscriptionsResponse.ok) {
+          throw new Error('Erreur lors de la suppression des inscriptions');
+        }
+
+        // Suppression du compte
+        const deleteAccountResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/delete-account`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ Password }), // Envoyer le mot de passe dans le corps de la requête
+        });
+
+        if (!deleteAccountResponse.ok) {
+          throw new Error('Erreur lors de la suppression du compte');
+        }
+
+        alert('Votre compte a été supprimé avec succès !');
+        localStorage.clear();
+        window.location.href = '/';
+      } else {
+        alert('Votre compte n\'a pas été supprimé');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Une erreur s\'est produite lors de la suppression du compte.');
+    }
+  }
+};
+
+
 
   return (
     <div className='CompteInfo'>
@@ -152,8 +207,8 @@ setEditedInfo({
             </div>
         )}
 
-        <button onClick={() => console.log('Déconnexion')}>Me Déconnecter</button>
-        <p id="supp"onClick={() => console.log('Supprimer mon Compte')}>Supprimer mon Compte</p>
+        <button onClick={deconnexion}>Me Déconnecter</button>
+        <button id="supp" onClick={suppression}>Supprimer mon Compte</button>
 
         {isEditPopupOpen && userData && (
                 <div className={styles.editPopup}>
