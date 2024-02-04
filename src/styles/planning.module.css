@@ -19,6 +19,8 @@
 .inscriptionCalendar{
     margin-top: 10px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     font-size: larger;
     background-color : #fff;
@@ -165,5 +167,10 @@
         margin: auto;
 
     }
+    .inscriptionCalendar {
+        width: 45vw;
+        margin-left:-10%;
+    }
+
     
 }
