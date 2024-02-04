@@ -4,12 +4,14 @@ const accessToken = localStorage.getItem('token');
 
 const Verificateur = ({ roleAutorise, composant }) => {
   const [authorize, setAuthorize] = useState("");
+  console.log(roleAutorise);
+  console.log(accessToken);
   const roleAutoriseSplit = roleAutorise.split(',');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://awi-api-2.onrender.com/authentication-module/authorized',{
+        const response = await fetch('http://localhost:3000/authentication-module/authorized',{
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -18,6 +20,7 @@ const Verificateur = ({ roleAutorise, composant }) => {
         });
         if (response.ok) {
           const data = await response.json();
+          console.log("data",data)
           setAuthorize(data); // Mettez à jour l'autorisation
         } else {
           throw new Error('Erreur lors de la vérification du token ');
@@ -28,7 +31,8 @@ const Verificateur = ({ roleAutorise, composant }) => {
     };
     fetchData();
   }, [roleAutorise]);
-  if (roleAutoriseSplit.includes(authorize))  {
+  console.log(authorize);
+  if (roleAutoriseSplit.includes(authorize)) {
     composant = composant;
   }else{
     composant = <Unauthorized />;
