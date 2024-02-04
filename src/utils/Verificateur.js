@@ -4,6 +4,7 @@ const accessToken = localStorage.getItem('token');
 
 const Verificateur = ({ roleAutorise, composant }) => {
   const [authorize, setAuthorize] = useState(false);
+  console.log(authorize);
   console.log(roleAutorise);
   console.log(accessToken);
 
@@ -34,7 +35,7 @@ const Verificateur = ({ roleAutorise, composant }) => {
     fetchData();
   }, [roleAutorise]);
 
-  if (authorize) {
+  if (!authorize) {
     composant = <Unauthorized />;
   }
   return composant;
