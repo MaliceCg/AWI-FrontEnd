@@ -114,42 +114,47 @@ const deconnexion = () => {
   window.location.href = '/';
 }
 
-// suppression
-const suppression = () => {
+const suppression = async () => {
   if (window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) {
-    // suppression des inscriptions de l'utilisateur
-    fetch(`http://localhost:3000/authentication-module/${idBenevole}/delete-inscriptions`, {
-      method: 'DELETE',
-    })
-    .then((response) => {
-      if (!response.ok) {
+    try {
+      const idBenevole = localStorage.getItem('id');
+      const token = localStorage.getItem('token');
+      console.log('token', token);
+
+      // Suppression de toutes les inscriptions associées à l'idBenevole
+      const deleteInscriptionsResponse = await fetch(`http://localhost:3000/inscription-module/delete/${idBenevole}`, {
+        method: 'DELETE',
+      });
+
+      if (!deleteInscriptionsResponse.ok) {
         throw new Error('Erreur lors de la suppression des inscriptions');
       }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-    
-    // suppression du compte
-    fetch(`http://localhost:3000/authentication-module/${idBenevole}/delete-account`, {
-      method: 'DELETE',
-    })
-    .then((response) => {
-      if (!response.ok) {
+
+      // Suppression du compte
+      const deleteAccountResponse = await fetch(`http://localhost:3000/authentication-module/delete-account`, {
+        method: 'DELETE',
+        // envoi du token pour authentifier la requête
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!deleteAccountResponse.ok) {
         throw new Error('Erreur lors de la suppression du compte');
       }
+
       alert('Votre compte a été supprimé avec succès !');
       localStorage.clear();
       window.location.href = '/';
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error(error);
-    });
-  }
-  else {
+      alert('Une erreur s\'est produite lors de la suppression du compte.');
+    }
+  } else {
     alert('Votre compte n\'a pas été supprimé');
   }
-}
+};
+
 
   return (
     <div className='CompteInfo'>
