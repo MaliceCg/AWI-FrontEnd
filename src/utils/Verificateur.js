@@ -35,7 +35,7 @@ const Verificateur = ({ roleAutorise, composant }) => {
     fetchData();
   }, [roleAutorise]);
 
-  if (!authorize) {
+  if (authorize) {
     composant = <Unauthorized />;
   }
   return composant;
