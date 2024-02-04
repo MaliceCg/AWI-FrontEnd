@@ -215,7 +215,9 @@ return (
     </select>
 
     {loading ? (
-        <Loader /> // Display Loader component while data is being fetched
+      <div className={styles.loaderContainer}>
+        <Loader />
+        </div> // Display Loader component while data is being fetched
       ) : hasActivities ? (
       // Affichez les activités s'il y en a
       <ul className={styles.liste} style={displayInline ? { display: "flex", margin: "0",padding: "0" } : {}}>
