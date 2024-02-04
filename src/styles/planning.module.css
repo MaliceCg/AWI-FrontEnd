@@ -19,7 +19,9 @@
 .inscriptionCalendar{
     margin-top: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     font-size: larger;
     background-color : #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

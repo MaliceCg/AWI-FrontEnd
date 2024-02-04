@@ -5,7 +5,6 @@ import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
 
 
-
 const Login = () => {
 
   const navigate = useNavigate(); // Initialisez la fonction navigate
@@ -32,6 +31,8 @@ const Login = () => {
 
       if (response.ok) {
         const userData = await response.json();
+
+        const token = userData.data.token;
        
         localStorage.setItem('token', userData.data.token);
         

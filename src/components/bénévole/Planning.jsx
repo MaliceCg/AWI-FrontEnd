@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/planning.module.css';
 
-const Planning = ({idFestival}) => {
+const Planning = ({idFestival, idBenevole}) => {
   const [festivalInfo, setFestivalInfo] = useState(null);
   const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
   const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
   
-  const idBenevole = parseInt(localStorage.getItem('id'));
+  if (!idBenevole) {
+    const idBenevole = parseInt(localStorage.getItem('id'));
+  }
 
   useEffect(() => {
     const fetchFestivalInfo = async () => {

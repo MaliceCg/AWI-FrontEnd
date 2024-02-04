@@ -2,10 +2,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import React, { useState } from "react";
 import styles from '../../../styles/listeBenevole.module.css';
+import Planning from '../../bénévole/Planning';
 
-const ListBenevoles = ({ benevole, index }) => {
+const ListBenevoles = ({ idFestival, benevole, index }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedRole, setSelectedRole] = useState(benevole.Role);
+  const [openPlanningBenevole, setOpenPlanningBenevole] = useState(-1);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -13,6 +15,14 @@ const ListBenevoles = ({ benevole, index }) => {
 
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
+  };
+
+  const handleBenevoleClick = () => {
+    setOpenPlanningBenevole(benevole.idBenevole);
+  };
+
+  const onClose = () => {
+    setOpenPlanningBenevole(-1);
   };
 
   const handleSaveClick = async () => {
@@ -41,10 +51,10 @@ const ListBenevoles = ({ benevole, index }) => {
 
   return (
     <div>
-      <div className={styles.benevoleBox} key={index}>
+      <div className={styles.benevoleBox} key={index} onClick={handleBenevoleClick}>
         <div>
           <div className={styles.nomBenevole}>
-            {benevole.Nom} {benevole.Prenom}
+            {benevole.Pseudo}
           </div>
           {!isEditing ? (
             benevole.Role
@@ -63,6 +73,19 @@ const ListBenevoles = ({ benevole, index }) => {
           {isEditing && <button onClick={handleSaveClick} className={styles.btn}>Save</button>}
         </div>
       </div>
+
+      {/* Conditionally render the Popup component */}
+      {openPlanningBenevole !== -1 && (
+        <div className={styles.popup}>
+          <div className={styles.popupHeader}>
+            <button className={styles.closeButton} onClick={onClose}>
+              &#10006; {/* Unicode character for 'X' */}
+            </button>
+          </div>
+          <p>Popup content for benevole ID: {benevole.idBenevole}</p>
+          <Planning idFestival={idFestival} idBenevole={benevole.idBenevole} />
+        </div>
+      )}
     </div>
   );
 }
