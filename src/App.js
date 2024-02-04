@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import ListeBenevole from './pages/accueil/ListeBenevole';
 import EspaceCreation from './pages/admin/AdminCreation';
 import FestivalCreation from './pages/admin/AdminCreationFestival';
@@ -21,8 +22,6 @@ import PageAccueil from './pages/common/PageAccueil';
 import PremierePage from './pages/common/PremierePage';
 import Register from './pages/common/Register';
 import ListeBenevoleZone from './pages/référent/ListeBenevoleZone';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import PrivateRoute from './utils/PrivateRoute';
 import Verificateur from './utils/Verificateur';
 
 
@@ -44,10 +43,10 @@ function App() {
         <Route path="/benevole-inscription/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscription />}  />} />
         <Route path="/benevole-notification/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleNotification />} />}/>
         <Route path="/benevole-planning/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevolePlanning />}  />} />
-
+        <Route path="/benevole-inscription-creneaux/:idFestival/:idZone" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscriptionCreneau />}  />} />
         <Route path="/liste-benevole/:idFestival" element={<Verificateur roleAutorise="Accueil,Admin" composant={<ListeBenevole />}  />}/>
-
-        <Route path="/liste-benevole-zone/:idFestival" element={<Verificateur roleAutorise="Referent,Admin" composant={<ListeBenevoleZone />}  />} />
+        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscriptionZone />}  />} />
+        <Route path="/liste-benevole-zone/:idFestival/:idPoste" element={<Verificateur roleAutorise="Referent,Admin" composant={<ListeBenevoleZone />}  />} />
 
         <Route path="/admin-dashboard/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminDashboard />}  />} />
         <Route path="/espace-creation/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<EspaceCreation />}  />} />

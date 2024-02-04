@@ -2,7 +2,7 @@ import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import styles from "../../styles/benevoleDashboard.module.css";
+import styles from "../../styles/planning.module.css";
 
 const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
@@ -172,8 +172,10 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
   return (
     <div>
         <div className={styles.benevoleCalendar}>
+          <h2 className={styles.titre}>Planning</h2>
+          <div className={styles.Calendar}>
           {renderTimeSlots()}
-        </div>
+          </div>
 
         {showAlert && (
         <div className={styles.bottomAlertContainer}>
@@ -182,6 +184,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
           </Alert>
         </div>
         )}
+        </div>
     </div>
   );
 };
