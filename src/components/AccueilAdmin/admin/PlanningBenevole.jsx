@@ -1,15 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/planning.module.css';
+import styles from '../../../styles/planning.module.css';
+import AttributionPoste from './AttributionPoste';
 
-const Planning = ({idFestival, idBenevole}) => {
-  const [festivalInfo, setFestivalInfo] = useState(null);
-  const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
-  const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
-  
+const PlanningBenevole = ({idFestival, idBenevole}) => {
+    const [festivalInfo, setFestivalInfo] = useState(null);
+    const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [openAttributionPosition, setOpenAttributionPosition] = useState(false);
+    const [selectedCreneau, setSelectedCreneau] = useState(null);
+    const [selectedJour, setSelectedJour] = useState(null);
+    
 
-  if (!idBenevole) {
-    idBenevole = parseInt(localStorage.getItem('id'));
-  }
+    if (!idBenevole) {
+        idBenevole = parseInt(localStorage.getItem('id'));
+    }
+
+    const handleFlexible = (creneau, jour) => {
+        setOpenAttributionPosition(true); 
+
+        //get dateDebut and add jour
+        let dateDebut = new Date(festivalInfo.DateDebut);
+        dateDebut.setDate(dateDebut.getDate() + jour - 1);
+
+        setSelectedCreneau(creneau);
+        setSelectedJour(dateDebut.toLocaleDateString());
+    };
+
+    const onClose = () => {
+        setOpenAttributionPosition(false);
+    };
 
   useEffect(() => {
     const fetchFestivalInfo = async () => {
@@ -106,6 +125,7 @@ const Planning = ({idFestival, idBenevole}) => {
           
             {timeSlots.map((slot, index) => {
               let isUserRegistered = false;
+              let isUserFlexible = false;
               let dynamicStyle = {};
   
               for (const position of festivalPositions) {
@@ -140,23 +160,24 @@ const Planning = ({idFestival, idBenevole}) => {
 
                 for (const inscription of position.userInscriptions) {
 
-                  if(inscription.idZoneBenevole === null){
-                    backgroundColor = '#f06767';
-
-                    dynamicStyle = {
-                      backgroundColor: backgroundColor,
-                    };
-                  }
-
                   const inscriptionDate = new Date(inscription.Jour);  
                   if (
                     inscriptionDate.getDate() === dateDebut.getDate() + i &&
                     slot === inscription.Creneau 
                   ) {
                     isUserRegistered = true;
+                    if(isUserRegistered && inscription.idZoneBenevole === null){
+                        backgroundColor = '#f06767';
+                        isUserFlexible = true;
+    
+                        dynamicStyle = {
+                          backgroundColor: backgroundColor,
+                        };
+                    }
                     break;
                   }
                 }
+
   
                 if (isUserRegistered) {
                   break;
@@ -166,7 +187,7 @@ const Planning = ({idFestival, idBenevole}) => {
               const slotClassName = isUserRegistered ? `${styles.cellCalendar} ${styles.inscription} ` : styles.cellCalendar;
   
               return (
-                <li className={slotClassName} style={isUserRegistered ? dynamicStyle : null} key={index}>
+                <li className={slotClassName} style={isUserRegistered ? dynamicStyle : null} onClick={() => isUserFlexible && handleFlexible(slot, i + 1)} key={index}>
                   {slot}
                 </li>
               );
@@ -183,31 +204,52 @@ const Planning = ({idFestival, idBenevole}) => {
 
   return (
 
+    <div>
         <div className={styles.benevoleCalendar}>
-          <h2 className={styles.titre}>Planning</h2>
-          <div className={styles.Calendar}>
-          {renderTimeSlots()}
-          </div>
-        <div className={styles.calendarLegend}>
+            <h2 className={styles.titre}>Planning</h2>
+            <div className={styles.Calendar}>
+            {renderTimeSlots()}
+            </div>
+            
+            <div className={styles.calendarLegend}>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
-          <p>Accueil</p>
+                <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
+                <p>Accueil</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
-          <p>Buvette</p>
+                <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
+                <p>Buvette</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
-          <p>Animation jeux</p>
+                <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+                <p>Animation jeux</p>
+            </div>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
-          <p>Cuisine</p>
+            <div className={styles.calendarLegend}>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
-          <p>Autre</p>
+                <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+                <p>Cuisine</p>
 
+                <div className={styles.legendColor} style={{ backgroundColor: '#f06767' }}></div>
+                <p>Flexible</p>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
+                <p>Autre</p>
+
+            </div>
         </div>
+
+        {/* Conditionally render the Popup component */}
+        {openAttributionPosition && (
+            <div className={styles.popup}>
+                <div className={styles.popupHeader}>
+                    <button className={styles.closeButtonPopupAttributionPoste} onClick={onClose}>
+                        &#10006; {/* Unicode character for 'X' */}
+                    </button>
+                </div>
+                <AttributionPoste idFestival={idFestival} idBenevole={idBenevole} creneau={selectedCreneau} jour={selectedJour} />
+            </div>
+        )}
     </div>
   );
 };
 
-export default Planning;
+export default PlanningBenevole;

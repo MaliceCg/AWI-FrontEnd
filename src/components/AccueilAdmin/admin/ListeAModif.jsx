@@ -2,7 +2,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import React, { useState } from "react";
 import styles from '../../../styles/listeBenevole.module.css';
-import Planning from '../../bénévole/Planning';
+import PlanningBenevole from '../../AccueilAdmin/admin/PlanningBenevole';
 
 const ListBenevoles = ({ idFestival, benevole, index }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -82,8 +82,8 @@ const ListBenevoles = ({ idFestival, benevole, index }) => {
               &#10006; {/* Unicode character for 'X' */}
             </button>
           </div>
-          <p>Popup content for benevole ID: {benevole.idBenevole}</p>
-          <Planning idFestival={idFestival} idBenevole={benevole.idBenevole} />
+          <p>Planning du bénévole :  {benevole.Pseudo}</p>
+          <PlanningBenevole idFestival={idFestival} idBenevole={benevole.idBenevole} />
         </div>
       )}
     </div>

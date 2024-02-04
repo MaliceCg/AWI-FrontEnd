@@ -129,6 +129,19 @@
     border-radius: 30px;
 }
 
+.popupHeader {
+    display: flex;
+    justify-content: flex-end;
+}
+  
+.closeButtonPopupAttributionPoste {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
 .closeButtonPopup {
     position: absolute;
     top: 10px;

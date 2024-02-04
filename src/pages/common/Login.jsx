@@ -31,8 +31,6 @@ const Login = () => {
 
       if (response.ok) {
         const userData = await response.json();
-
-        const token = userData.data.token;
        
         localStorage.setItem('token', userData.data.token);
         

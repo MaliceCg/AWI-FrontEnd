@@ -101,7 +101,7 @@ font-size: 20px;
     justify-content: flex-end;
 }
   
-.closeButton {
+.closeButtonPopup {
     background: none;
     border: none;
     cursor: pointer;
