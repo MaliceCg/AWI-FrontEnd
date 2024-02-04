@@ -6,7 +6,7 @@ import Loader from './Loader';
 const ImportCSV = ({ idFestival }) => {
   const apiEndpointGame = 'https://awi-api-2.onrender.com/game-module';
   const apiEndpointZone = 'https://awi-api-2.onrender.com/volunteer-area-module';
-  const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYXJpbmVAbWFpbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDY3OTMyMDEsImV4cCI6MTcwNjg3OTYwMX0.eMMvkfgSFqoVBX3da40BNLuZRVFxZSw5DhiWBj_IULs'; //'localStorage.getItem('token')';
+  const accessToken = localStorage.getItem('token');
   const [errorDiv, setErrorDiv] = useState(null);
   const [csvContent, setCSVContent] = useState('');
   const [loading, setLoading] = useState(false);
