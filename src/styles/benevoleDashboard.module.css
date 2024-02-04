@@ -64,6 +64,7 @@
         .dashboardContainer{
             margin-left: 10%;
             margin-top:20px;
+            height: 100vh;
         }
         .dashboardButtons {
             flex-direction: row;
@@ -92,7 +93,7 @@
         margin-bottom: 30px;
         }
         .dashboardActivitiesContainer {
-            margin-top:-19%;
+           
             margin-right:30px;
             margin-left: -60px;
         }

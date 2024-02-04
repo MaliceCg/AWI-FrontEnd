@@ -172,8 +172,10 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
   return (
     <div>
         <div className={styles.inscriptionCalendar}>
+          <h2 className={styles.titre}>Planning</h2>
+          <div className={styles.Calendar}>
           {renderTimeSlots()}
-        </div>
+          </div>
 
         {showAlert && (
         <div className={styles.bottomAlertContainer}>
@@ -182,6 +184,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
           </Alert>
         </div>
         )}
+        </div>
     </div>
   );
 };
