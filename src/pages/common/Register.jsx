@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       // Envoi de la requête au serveur
-      const response = await fetch('http://localhost:3000/authentication-module/signup', {
+      const response = await fetch('https://awi-api-2.onrender.com/authentication-module/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

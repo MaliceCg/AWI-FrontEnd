@@ -13,13 +13,13 @@ const userId = localStorage.getItem("id");
 //On recupere les postes du festival
 const fetchPostes = async () => {
   try {
-    const PostesResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+    const PostesResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
     const Postesdata = await PostesResponse.json();
 
 
     const poste = Postesdata.map(async (poste) => {
       const idPoste = poste.idPoste;
-      const nomPoste = await fetch(`http://localhost:3000/position-module/${idPoste}`);
+      const nomPoste = await fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`);
       const nomPosteData = await nomPoste.json();
       return {
         idPoste: idPoste,
@@ -38,7 +38,7 @@ const fetchActivites = async () => {
 
   try {
     // Récupérez les inscriptions de l'utilisateur
-    const inscriptionResponse = await fetch(`http://localhost:3000/inscription-module/volunteer/${userId}`);
+    const inscriptionResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${userId}`);
     const inscriptionData = await inscriptionResponse.json();
 
 
@@ -46,31 +46,31 @@ const fetchActivites = async () => {
     const activitesPromises = inscriptionData.map(async (inscription) => {
 
       const postId = inscription.idPoste;
-      const employerResponse = await fetch(`http://localhost:3000/employer-module/position/${postId}`);
+      const employerResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/position/${postId}`);
       const employerData = await employerResponse.json();
 
       if (employerData.some(data => data.idFestival === idFestival)) {
 
 
         // Récupérez les données du poste
-        const posteResponse = await fetch(`http://localhost:3000/position-module/${postId}`);
+        const posteResponse = await fetch(`https://awi-api-2.onrender.com/position-module/${postId}`);
         const posteData = await posteResponse.json();
 
 
         // Récupérez le nom de la zone bénévole
-        const zoneResponse = await fetch(`http://localhost:3000/volunteer-area-module/${inscription.idZoneBenevole}`);
+        const zoneResponse = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${inscription.idZoneBenevole}`);
         const zoneData = await zoneResponse.json();
   
 
         // Récupérez les référents du poste
-        const referentsResponse = await fetch(`http://localhost:3000/referent-module/position/${postId}`);
+        const referentsResponse = await fetch(`https://awi-api-2.onrender.com/referent-module/position/${postId}`);
         const referentsData = await referentsResponse.json();
 
 
         // Pour chaque référent, récupérez son prénom à partir de son ID
         const referentsDetails = await Promise.all(referentsData.map(async (referent) => {
   
-          const referentResponse = await fetch(`http://localhost:3000/authentication-module/${referent.idBenevole}`);
+          const referentResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/${referent.idBenevole}`);
           const referentData = await referentResponse.json();
           return {
             idReferent: referent.idBenevole,
@@ -148,7 +148,7 @@ const filteredActivites = selectedPoste
 
 const handleUnsubscribe = async (inscriptionId, idZoneBenevole, Creneau, Jour) => {
   try {
-    const response = await fetch(`http://localhost:3000/inscription-module/delete`, {
+    const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

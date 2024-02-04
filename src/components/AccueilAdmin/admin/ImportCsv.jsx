@@ -4,8 +4,8 @@ import styles from '../../../styles/espaceCreation.module.css';
 import Loader from './Loader';
 
 const ImportCSV = ({ idFestival }) => {
-  const apiEndpointGame = 'http://localhost:3000/game-module';
-  const apiEndpointZone = 'http://localhost:3000/volunteer-area-module';
+  const apiEndpointGame = 'https://awi-api-2.onrender.com/game-module';
+  const apiEndpointZone = 'https://awi-api-2.onrender.com/volunteer-area-module';
   const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYXJpbmVAbWFpbC5jb20iLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MDY3OTMyMDEsImV4cCI6MTcwNjg3OTYwMX0.eMMvkfgSFqoVBX3da40BNLuZRVFxZSw5DhiWBj_IULs'; //'localStorage.getItem('token')';
   const [errorDiv, setErrorDiv] = useState(null);
   const [csvContent, setCSVContent] = useState('');
@@ -210,11 +210,11 @@ const ImportCSV = ({ idFestival }) => {
   
     const fetchPoste = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
         if (response.ok) {
           const data = await response.json();
           const postePromises = data.map(async (data) => {
-            const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
+            const reponsePoste = await fetch(`https://awi-api-2.onrender.com/position-module/${data.idPoste}`);
             if (reponsePoste.ok) {
               return reponsePoste.json();
             } else {

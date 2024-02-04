@@ -23,11 +23,11 @@ const EspaceCreation = () => {
   const [postes, setPostes] = useState([]);
   const fetchPostes = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
       if (response.ok) {
         const datas = await response.json();
         const postePromises = datas.map(async (data) => {
-          const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
+          const reponsePoste = await fetch(`https://awi-api-2.onrender.com/position-module/${data.idPoste}`);
           if (reponsePoste.ok) {
             const posteData = await reponsePoste.json();
             
@@ -36,7 +36,7 @@ const EspaceCreation = () => {
               return posteData;
             } else {
      
-              const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
+              const reponseZone = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${data.idPoste}`);
               if (reponseZone.ok) {
                 const zoneData = await reponseZone.json();
                 return {
@@ -130,7 +130,7 @@ const EspaceCreation = () => {
 
 const addPoste = async () => {
 
-    const response = await fetch('http://localhost:3000/position-module', {
+    const response = await fetch('https://awi-api-2.onrender.com/position-module', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const addPoste = async () => {
         idPoste: posteId,  // Associer la zone au poste créé
       };
 
-      const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+      const zoneResponse = await fetch('https://awi-api-2.onrender.com/volunteer-area-module', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ const addPoste = async () => {
         idPoste: posteId,
       };
 
-      const employerResponse = await fetch('http://localhost:3000/employer-module', {
+      const employerResponse = await fetch('https://awi-api-2.onrender.com/employer-module', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const ListBenevoles = ({ benevole, index }) => {
   const handleSaveClick = async () => {
 
     try{
-        const response = await fetch(`http://localhost:3000/authentication-module/update-role`, {
+        const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/update-role`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

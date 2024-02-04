@@ -11,7 +11,7 @@ const ListeReferent = ({ idPoste }) => {
         const fetchReferents = async () => {
             try {
                 // Récupérer tous les bénévoles avec le rôle "Referent"
-                const responseAll = await fetch("http://localhost:3000/authentication-module");
+                const responseAll = await fetch("https://awi-api-2.onrender.com/authentication-module");
 
                 if (!responseAll.ok) {
                     throw new Error("Erreur lors de la récupération des bénévoles");
@@ -20,7 +20,7 @@ const ListeReferent = ({ idPoste }) => {
                 const allVolunteers = await responseAll.json();
 
                 // Récupérer les référents déjà assignés à ce poste
-                const responseAssigned = await fetch(`http://localhost:3000/referent-module/position/${idPoste}`, {
+                const responseAssigned = await fetch(`https://awi-api-2.onrender.com/referent-module/position/${idPoste}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -54,7 +54,7 @@ const ListeReferent = ({ idPoste }) => {
     const assignReferent = async () => {
         try {
             // Envoi de la requête pour assigner le référent au poste
-            const response = await fetch("http://localhost:3000/referent-module", {
+            const response = await fetch("https://awi-api-2.onrender.com/referent-module", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

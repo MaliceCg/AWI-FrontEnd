@@ -11,7 +11,7 @@ const Notifications = ({ idFestival }) => {
   }
   const fetchNotif = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/notif-module/${idFestival}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/notif-module/${idFestival}`);
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -32,12 +32,12 @@ const Notifications = ({ idFestival }) => {
 
   const handleDeleteNotification = async (notificationId) => {
     try {
-      const response = await fetch(`http://localhost:3000/notif-module/delete/${notificationId}/${idFestival}`, {
+      const response = await fetch(`https://awi-api-2.onrender.com/notif-module/delete/${notificationId}/${idFestival}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        // Mettre à jour l'état local après la suppression
+
        fetchNotif();
       } else {
         throw new Error('Erreur lors de la suppression de la notification');

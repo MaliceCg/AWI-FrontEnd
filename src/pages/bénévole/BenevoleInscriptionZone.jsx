@@ -24,7 +24,7 @@ const BenevoleInscriptionZone = () => {
     useEffect(() => {
         const fetchAreas = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/volunteer-area-module/${idFestival}/${idPoste}`);
+                const response = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idFestival}/${idPoste}`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération des données');
                 }

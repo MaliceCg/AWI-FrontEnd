@@ -41,7 +41,7 @@ const CreaNotif = ({idFestival}) => {
 
     try {
       // Effectuer la requête POST vers le backend
-      const response = await fetch("http://localhost:3000/notif-module", {
+      const response = await fetch("https://awi-api-2.onrender.com/notif-module", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

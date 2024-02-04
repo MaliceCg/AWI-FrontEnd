@@ -23,7 +23,7 @@ const Compte = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}`);
       const data = await response.json();
       setUserData(data);
 
@@ -75,7 +75,7 @@ setEditPopupOpen(false);
 };
 const updateInfo = async () => {
 try {
-  const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}/update-account`, {
+  const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}/update-account`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

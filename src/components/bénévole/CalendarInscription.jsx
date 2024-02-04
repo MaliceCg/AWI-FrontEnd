@@ -20,7 +20,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
   useEffect(() => {
     const fetchInscriptions = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/zone/${idZone}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/zone/${idZone}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -33,7 +33,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const fetchInscriptionsByUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/volunteer/${benevoleId}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${benevoleId}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -83,7 +83,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const postInscription = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/inscription-module`, {
+            const response = await fetch(`https://awi-api-2.onrender.com/inscription-module`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
