@@ -23,7 +23,7 @@ const Compte = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}`);
       const data = await response.json();
       setUserData(data);
 
@@ -75,7 +75,7 @@ setEditPopupOpen(false);
 };
 const updateInfo = async () => {
 try {
-  const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}/update-account`, {
+  const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}/update-account`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -115,45 +115,51 @@ const deconnexion = () => {
 }
 
 const suppression = async () => {
-  if (window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) {
+  // Demander le mot de passe à l'utilisateur
+  const Password = prompt("Entrez votre mot de passe :");
+
+  if (Password !== null) {
     try {
-      const idBenevole = localStorage.getItem('id');
-      const token = localStorage.getItem('token');
-      console.log('token', token);
+      if (window.confirm("Etes-vous sûr de vouloir supprimer votre compte ?")) {
+        const idBenevole = localStorage.getItem('id');
+        const token = localStorage.getItem('token');
 
-      // Suppression de toutes les inscriptions associées à l'idBenevole
-      const deleteInscriptionsResponse = await fetch(`http://localhost:3000/inscription-module/delete/${idBenevole}`, {
-        method: 'DELETE',
-      });
+        // Suppression de toutes les inscriptions associées à l'idBenevole
+        const deleteInscriptionsResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/delete/${idBenevole}`, {
+          method: 'DELETE',
+        });
 
-      if (!deleteInscriptionsResponse.ok) {
-        throw new Error('Erreur lors de la suppression des inscriptions');
+        if (!deleteInscriptionsResponse.ok) {
+          throw new Error('Erreur lors de la suppression des inscriptions');
+        }
+
+        // Suppression du compte
+        const deleteAccountResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/delete-account`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ Password }), // Envoyer le mot de passe dans le corps de la requête
+        });
+
+        if (!deleteAccountResponse.ok) {
+          throw new Error('Erreur lors de la suppression du compte');
+        }
+
+        alert('Votre compte a été supprimé avec succès !');
+        localStorage.clear();
+        window.location.href = '/';
+      } else {
+        alert('Votre compte n\'a pas été supprimé');
       }
-
-      // Suppression du compte
-      const deleteAccountResponse = await fetch(`http://localhost:3000/authentication-module/delete-account`, {
-        method: 'DELETE',
-        // envoi du token pour authentifier la requête
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!deleteAccountResponse.ok) {
-        throw new Error('Erreur lors de la suppression du compte');
-      }
-
-      alert('Votre compte a été supprimé avec succès !');
-      localStorage.clear();
-      window.location.href = '/';
     } catch (error) {
       console.error(error);
       alert('Une erreur s\'est produite lors de la suppression du compte.');
     }
-  } else {
-    alert('Votre compte n\'a pas été supprimé');
   }
 };
+
 
 
   return (
