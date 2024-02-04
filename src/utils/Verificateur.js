@@ -28,7 +28,7 @@ const Verificateur = ({ roleAutorise, composant }) => {
     };
     fetchData();
   }, [roleAutorise]);
-  if (authorize in roleAutoriseSplit) {
+  if (roleAutoriseSplit.includes(authorize))  {
     composant = composant;
   }else{
     composant = <Unauthorized />;
