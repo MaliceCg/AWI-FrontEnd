@@ -39,7 +39,7 @@ function App() {
         <Route path="/accueil" element={<PageAccueil />} />
         <Route path="/compte/:idFestival" element={<Compte />} />
         <Route path="/benevole-dashboard/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleDashboard />} />} />
-        <Route path="/benevole-activites/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleActivites />}  />} />
+        <Route path="/benevole-activites/:idFestival" element={<BenevoleActivites /> } />
         <Route path="/benevole-inscription/:idFestival" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscription />}  />} />
 
         <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<Verificateur roleAutorise="Benevole,Accueil,Referent,Admin" composant={<BenevoleInscriptionZone />} />} />

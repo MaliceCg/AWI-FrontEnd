@@ -14,6 +14,9 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
   const [listInscriptionsByUser, setListInscriptionsByUser] = useState([]);
 
+  const [reloadPage, setReloadPage] = useState(false);
+
+
   //const benevoleId = parseInt(localStorage.getItem('idBenevole'));
   const benevoleId = 1;
 
@@ -46,7 +49,13 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     fetchInscriptions();
     fetchInscriptionsByUser();
-  }, [idZone, benevoleId]);
+  }, [idZone, benevoleId,reloadPage]);
+
+  useEffect(() => {
+    if (reloadPage) {
+      setReloadPage(false);
+    }
+  }, [reloadPage]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -94,6 +103,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
                 throw new Error('Erreur lors de la création de l\'inscription');
             }
             const data = await response.json();
+            alert('Inscription réussie');
+            setReloadPage(true);
   
         } catch (error) {
             console.error(error);
@@ -102,7 +113,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     postInscription();
 
-    navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
+    //navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
   };
 
   const renderTimeSlots = () => {

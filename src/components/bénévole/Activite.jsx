@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import inscription from "../../img/icons/inscription.svg";
 import styles from "../../styles/activites.module.css";
+import Loader from "../AccueilAdmin/admin/Loader";
 
 const Activite = ({ idFestival, displayInline }) => {
 const [activites, setActivites] = useState([]);
@@ -9,18 +10,21 @@ const [postes, setPostes] = useState([]);  // Nouvel état pour stocker la liste
 const [selectedPoste, setSelectedPoste] = useState(""); // Nouvel état pour stocker le poste sélectionné
 const [hasActivities, setHasActivities] = useState(false);
 const userId = localStorage.getItem("id");
+const [loading, setLoading] = useState(true);
 
 //On recupere les postes du festival
 const fetchPostes = async () => {
   try {
+    console.log("fetching postes");
     const PostesResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
     const Postesdata = await PostesResponse.json();
 
-
+    console.log(Postesdata);
     const poste = Postesdata.map(async (poste) => {
       const idPoste = poste.idPoste;
       const nomPoste = await fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`);
       const nomPosteData = await nomPoste.json();
+      console.log(nomPosteData);
       return {
         idPoste: idPoste,
         nomPoste: nomPosteData.nomPoste,
@@ -29,6 +33,7 @@ const fetchPostes = async () => {
     });
     
     const PostData = await Promise.all(poste);
+    console.log(PostData);
     setPostes(PostData);
   } catch (error) {
     console.error(error);
@@ -37,19 +42,26 @@ const fetchPostes = async () => {
 const fetchActivites = async () => {
 
   try {
+    console.log("fetching activites");
     // Récupérez les inscriptions de l'utilisateur
     const inscriptionResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${userId}`);
     const inscriptionData = await inscriptionResponse.json();
-
+console.log(inscriptionData);
 
     // Utilisez les données des inscriptions pour récupérer les informations des postes
     const activitesPromises = inscriptionData.map(async (inscription) => {
-
+console.log(inscription);
       const postId = inscription.idPoste;
       const employerResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/position/${postId}`);
       const employerData = await employerResponse.json();
+      console.log(employerData);
+      console.log(idFestival);
+console.log(employerData[0].idFestival); // Affichez la valeur de idFestival dans l'élément unique
+console.log(employerData[0].idFestival === idFestival);
 
-      if (employerData.some(data => data.idFestival === idFestival)) {
+      console.log(employerData.map(data => data.idFestival));
+
+      if (employerData.some(data => data.idFestival === parseInt(idFestival,10))) {
 
 
         // Récupérez les données du poste
@@ -77,6 +89,8 @@ const fetchActivites = async () => {
             prenomReferent: referentData.Pseudo, // Assurez-vous que votre API renvoie le prénom correctement
           };
         }));
+        console.log(referentsDetails);
+        console.log(inscription);
 
         // Retournez un objet avec les données d'inscription, de poste, de zone et de référents combinées
         return {
@@ -99,13 +113,23 @@ const fetchActivites = async () => {
 };
 
 
-  useEffect(() => {
+useEffect(() => {
+  const fetchData = async () => {
+    setLoading(true); // Set loading to true before fetching data
 
+    try {
+      // Fetch postes and activites data
+      await fetchPostes();
+      await fetchActivites();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false); // Set loading to false after data is fetched or in case of an error
+    }
+  };
 
-      fetchPostes();
-      fetchActivites();
-  
-    }, [idFestival, userId]);
+  fetchData();
+}, [idFestival, userId]);
   
     const handlePosteChange = (event) => {
       setSelectedPoste(event.target.value);
@@ -190,7 +214,9 @@ return (
       ))}
     </select>
 
-    {hasActivities ? (
+    {loading ? (
+        <Loader /> // Display Loader component while data is being fetched
+      ) : hasActivities ? (
       // Affichez les activités s'il y en a
       <ul className={styles.liste} style={displayInline ? { display: "flex", margin: "0",padding: "0" } : {}}>
         {filteredActivites.map((activite, index) => (
