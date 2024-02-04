@@ -2,7 +2,7 @@ import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import styles from "../../styles/benevoleDashboard.module.css";
+import styles from "../../styles/planning.module.css";
 
 const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
@@ -120,7 +120,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
       days.push(
         <div className={styles.columnCalendar} key={i}>
-          <h3>Jour {i + 1}</h3>
+          <h3 className={styles.dayTitle}>Jour {i + 1}</h3>
           <ul className={styles.cellColumnCalendar}>
             {timeSlots.map((slot, index) => {  
 
@@ -171,7 +171,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
   return (
     <div>
-        <div className={styles.benevoleCalendar}>
+        <div className={styles.inscriptionCalendar}>
           {renderTimeSlots()}
         </div>
 

@@ -7,14 +7,30 @@
     background-color : #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 30px;
-    width:95vw;
-    overflow-x: auto;
-    
+    width: 95vw;    
 }
+
+
+.dayTitle{
+    font-size: 20px;
+}
+
+
+.inscriptionCalendar{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 30px;
+    width: 90vw;  
+}
+
 .Calendar {
     display: flex;
     align-items: center;
-
+    overflow-x: auto;
 }
 
 .columnCalendar{
@@ -140,13 +156,12 @@
 
 @media screen and (min-width: 768px) {
     .benevoleCalendar {
-        width: 40vw;
+        width: auto;
         margin-top: 20px;
         margin-left: 40px;
     }
     .Calendar {
         display: flex;
-        
         margin: auto;
 
     }

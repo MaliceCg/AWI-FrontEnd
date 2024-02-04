@@ -2,6 +2,34 @@
     margin-top:60px;
     text-align: center;
 }
+.btnMode {
+    margin : auto;
+    background-color: #3B3B3B;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+.creationButton {
+  background-color: transparent;
+  border: 2px solid #838383;
+  font-size: larger;
+  border-radius: 5px;
+  padding: 5px;
+  color: #838383;
+  cursor: pointer;
+  margin : 5px;
+  text-align: center;
+}
+.creationButton:hover{
+  background-color: #838383;
+  color:#e2e2e2
+}.adminDashboard {
+    margin-top:60px;
+    text-align: center;
+}
 
 .btnMode {
     margin : auto;
@@ -157,4 +185,3 @@
 .popupListe{
     margin: 8px;
 }
-

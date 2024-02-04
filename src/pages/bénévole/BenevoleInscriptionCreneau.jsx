@@ -73,7 +73,7 @@ const BenevoleInscriptionCreneau = () => {
                 <div>
                     <InscriptionPoste poste={poste} />
                     <div className={style.planning}>
-                    <CalendarInscription festivalInfo={festivalInfo} poste={poste} idZone={idZone} />
+                        <CalendarInscription festivalInfo={festivalInfo} poste={poste} idZone={idZone} />
                     </div>
                 </div>
             </div>
