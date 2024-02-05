@@ -34,8 +34,8 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
     const fetchFestivalInfo = async () => {
       try {
         // Envoyer une requête GET au backend pour récupérer les informations du festival
-        const response = await fetch(`http://localhost:3000/festival-module/${idFestival}`);
-
+        const response = await fetch(`https://awi-api-2.onrender.com/festival-module/${idFestival}`);
+        console.log(response);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des informations du festival');
         }
@@ -51,7 +51,7 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
     const fetchPositions = async () => {
       try {
         // Récupérer tous les postes pour le festival spécifique
-        const positionsResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes du festival');
@@ -61,7 +61,7 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
 
         // Récupérer les inscriptions de l'utilisateur pour chaque poste
         const userPromises = positionsData.map(async (position) => {
-          const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
+          const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
 
           if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des inscriptions pour le poste ${position.idPoste}`);
@@ -82,7 +82,7 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
 
     const fetchAllPositions = async () => {
       try {
-        const positionsResponse = await fetch(`http://localhost:3000/position-module`);
+        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes');
