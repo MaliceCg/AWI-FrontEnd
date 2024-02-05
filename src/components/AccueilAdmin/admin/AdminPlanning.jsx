@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/planning.module.css';
+import Loader from './Loader';
 
 const AdminPlanning = ({idFestival}) => {
     const [festivalInfo, setFestivalInfo] = useState(null);
@@ -7,6 +8,7 @@ const AdminPlanning = ({idFestival}) => {
     const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
     const [selectedSlot, setSelectedSlot] = useState(null);
     const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [loading, setLoading] = useState(true)
 
     // Créer un dictionnaire pour stocker les inscriptions
     let inscriptions = {};
@@ -17,12 +19,28 @@ const AdminPlanning = ({idFestival}) => {
         setSelectedSlot({ day, slot });
         setPopupBgColor(popupBgColor); // Mettre à jour l'état avec la couleur de fond du popup
       };
+      useEffect(() => {
+        const fetchData = async () => {
+          setLoading(true);
+    
+          try {
+            await fetchFestivalInfo();
+            await fetchPositions();
+            await fetchAllPositions();
+          } catch (error) {
+            console.error(error);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, [idFestival]);
 
-    useEffect(() => {
         const fetchFestivalInfo = async () => {
         try {
             // Envoyer une requête GET au backend pour récupérer les informations du festival
-            const response = await fetch(`http://localhost:3000/festival-module/${idFestival}`);
+            const response = await fetch(`https://awi-api-2.onrender.com/festival-module/${idFestival}`);
 
             if (!response.ok) {
             throw new Error('Erreur lors de la récupération des informations du festival');
@@ -39,7 +57,7 @@ const AdminPlanning = ({idFestival}) => {
         const fetchPositions = async () => {
         try {
             // Récupérer tous les postes pour le festival spécifique
-            const positionsResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+            const positionsResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
 
             if (!positionsResponse.ok) {
             throw new Error('Erreur lors de la récupération des postes du festival');
@@ -49,7 +67,7 @@ const AdminPlanning = ({idFestival}) => {
 
             // Récupérer les inscriptions de l'utilisateur pour chaque poste
             const userPromises = positionsData.map(async (position) => {
-            const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}`);
+            const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/position/${position.idPoste}`);
 
             if (!response.ok) {
                 throw new Error(`Erreur lors de la récupération des inscriptions pour le poste ${position.idPoste}`);
@@ -71,7 +89,7 @@ const AdminPlanning = ({idFestival}) => {
 
         const fetchAllPositions = async () => {
             try {
-                const positionsResponse = await fetch(`http://localhost:3000/position-module`);
+                const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
                 
                 if (!positionsResponse.ok) {
                     throw new Error('Erreur lors de la récupération des postes');
@@ -84,10 +102,7 @@ const AdminPlanning = ({idFestival}) => {
             }
         };
 
-        fetchFestivalInfo();
-        fetchPositions();
-        fetchAllPositions();
-    }, [idFestival]);
+       
 
 
     // Fonction pour calculer le nombre de jours entre deux dates
@@ -193,9 +208,15 @@ const AdminPlanning = ({idFestival}) => {
       return (
             <div className={styles.benevoleCalendar}>
             <h2 className={styles.titre}>Planning</h2>
+            {loading ? (
+            <div className={styles.loaderContainer}>
+        <Loader />
+        </div>
+      ) : (
             <div className={styles.Calendar}>
               {renderTimeSlots()}
             </div>
+            )}
             <div className={styles.calendarLegend}>
     
               <div className={styles.legendColor} style={{ backgroundColor: '#FD4F4F' }}></div>

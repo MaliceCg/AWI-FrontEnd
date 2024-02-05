@@ -6,6 +6,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 100000;
     background-color: #333; /* Ajoutez votre couleur de fond */
     border-top-left-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur gauche */
     border-top-right-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur droit */

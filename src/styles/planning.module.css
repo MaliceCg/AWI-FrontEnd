@@ -9,6 +9,16 @@
     border-radius: 30px;
     width: 95vw;    
 }
+.loaderContainer {
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 
 
 .dayTitle{
@@ -180,5 +190,10 @@
         margin: auto;
 
     }
+    .inscriptionCalendar {
+        width: 45vw;
+        margin-left:-10%;
+    }
+
     
 }

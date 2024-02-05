@@ -10,7 +10,16 @@
     width:100vw;
     
 }
-
+.loaderContainer {
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
 .title{
     font-weight: normal;
     margin-bottom: 10px;

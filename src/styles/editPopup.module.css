@@ -11,7 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999; /* Mettez un z-index élevé pour être au-dessus de tout */
+    z-index: 10000000; /* Mettez un z-index élevé pour être au-dessus de tout */
     color: white; /* Choisissez la couleur de texte appropriée */
   }
   .editPopupContent {

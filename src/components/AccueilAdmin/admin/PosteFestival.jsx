@@ -25,7 +25,7 @@ const PosteFestival = (props) => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
+                const response = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idPoste}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ const PosteFestival = (props) => {
                 capacite: editedPoste.capacite
             };
 
-            const responseUpdateZone = await fetch(`http://localhost:3000/volunteer-area-module/${idPoste}`, {
+            const responseUpdateZone = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idPoste}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const PosteFestival = (props) => {
             }
         }
 
-            const responseUpdatePoste = await fetch(`http://localhost:3000/position-module/${idPoste}`, {
+            const responseUpdatePoste = await fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ const PosteFestival = (props) => {
     };
 
     const deletePoste = () => {
-        fetch(`http://localhost:3000/employer-module/${idFestival}/${idPoste}`, {
+        fetch(`https://awi-api-2.onrender.com/employer-module/${idFestival}/${idPoste}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -197,7 +197,7 @@ const PosteFestival = (props) => {
             if (!response.ok) {
                 throw new Error('Erreur lors de la suppression de la relation employer');
             }
-            return fetch(`http://localhost:3000/position-module/${idPoste}`, {
+            return fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,

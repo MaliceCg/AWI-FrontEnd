@@ -71,7 +71,7 @@ const CreationFestival = () => {
         };
       
         try {
-          const response = await fetch('http://localhost:3000/festival-module', {
+          const response = await fetch('https://awi-api-2.onrender.com/festival-module', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ const CreationFestival = () => {
               ];
               
               for (const posteData of postesData) {
-                const posteResponse = await fetch('http://localhost:3000/position-module', {
+                const posteResponse = await fetch('https://awi-api-2.onrender.com/position-module', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const CreationFestival = () => {
                     idPoste: posteId,  // Associer la zone au poste créé
                   };
 
-        const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+        const zoneResponse = await fetch('https://awi-api-2.onrender.com/volunteer-area-module', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -161,7 +161,7 @@ const CreationFestival = () => {
                     idPoste: posteId,
                   };
       
-                  const employerResponse = await fetch('http://localhost:3000/employer-module', {
+                  const employerResponse = await fetch('https://awi-api-2.onrender.com/employer-module', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',

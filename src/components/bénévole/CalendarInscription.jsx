@@ -14,13 +14,16 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
   const [listInscriptionsByUser, setListInscriptionsByUser] = useState([]);
 
-  //const benevoleId = parseInt(localStorage.getItem('idBenevole'));
-  const benevoleId = 1;
+  const [reloadPage, setReloadPage] = useState(false);
+
+
+  const benevoleId = parseInt(localStorage.getItem('id'));
+  //const benevoleId = 1;
 
   useEffect(() => {
     const fetchInscriptions = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/zone/${idZone}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/zone/${idZone}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -33,7 +36,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const fetchInscriptionsByUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/volunteer/${benevoleId}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${benevoleId}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -46,7 +49,13 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     fetchInscriptions();
     fetchInscriptionsByUser();
-  }, [idZone, benevoleId]);
+  }, [idZone, benevoleId,reloadPage]);
+
+  useEffect(() => {
+    if (reloadPage) {
+      setReloadPage(false);
+    }
+  }, [reloadPage]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -72,8 +81,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
     selectedDate.setDate(selectedDate.getDate() + dayIndex);
 
     const body = {
-        //"idBenevole": parseInt(localStorage.getItem('idBenevole')),
-        "idBenevole": 1,
+        "idBenevole": parseInt(localStorage.getItem('id')),
+        //"idBenevole": 1,
         "idZoneBenevole": parseInt(idZone),
         "idPoste": poste.idPoste,
         "Creneau": slot,
@@ -83,7 +92,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const postInscription = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/inscription-module`, {
+            const response = await fetch(`https://awi-api-2.onrender.com/inscription-module`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,6 +103,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
                 throw new Error('Erreur lors de la création de l\'inscription');
             }
             const data = await response.json();
+            alert('Inscription réussie');
+            setReloadPage(true);
   
         } catch (error) {
             console.error(error);
@@ -102,7 +113,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     postInscription();
 
-    navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
+    //navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
   };
 
   const renderTimeSlots = () => {

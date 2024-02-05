@@ -1,38 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../styles/planning.module.css';
+import Loader from '../AccueilAdmin/admin/Loader';
 
 const Planning = ({idFestival, idBenevole}) => {
   const [festivalInfo, setFestivalInfo] = useState(null);
   const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
   const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+  const [loading, setLoading] = useState(true);
   
+
 
   if (!idBenevole) {
     idBenevole = parseInt(localStorage.getItem('id'));
   }
 
   useEffect(() => {
-    const fetchFestivalInfo = async () => {
+    const fetchData = async () => {
+      setLoading(true);
+
       try {
-        // Envoyer une requête GET au backend pour récupérer les informations du festival
-        const response = await fetch(`http://localhost:3000/festival-module/${idFestival}`);
-
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des informations du festival');
-        }
-
-        const data = await response.json();
-        setFestivalInfo(data); // Mettre à jour l'état avec les informations du festival
+        await fetchFestivalInfo();
+        await fetchPositions();
+        await fetchAllPositions();
       } catch (error) {
         console.error(error);
-        // Gérer les erreurs de requête ou de traitement des données
+      } finally {
+        setLoading(false);
       }
     };
+
+    fetchData();
+  }, [idFestival]);
+  
+  const fetchFestivalInfo = async () => {
+    try {
+      const response = await fetch(`https://awi-api-2.onrender.com/festival-module/${idFestival}`);
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des informations du festival');
+      }
+
+      const data = await response.json();
+      setFestivalInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
     const fetchPositions = async () => {
       try {
         // Récupérer tous les postes pour le festival spécifique
-        const positionsResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes du festival');
@@ -42,7 +61,7 @@ const Planning = ({idFestival, idBenevole}) => {
 
         // Récupérer les inscriptions de l'utilisateur pour chaque poste
         const userPromises = positionsData.map(async (position) => {
-          const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
+          const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
 
           if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des inscriptions pour le poste ${position.idPoste}`);
@@ -63,7 +82,7 @@ const Planning = ({idFestival, idBenevole}) => {
 
     const fetchAllPositions = async () => {
       try {
-        const positionsResponse = await fetch(`http://localhost:3000/position-module`);
+        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes');
@@ -76,10 +95,6 @@ const Planning = ({idFestival, idBenevole}) => {
       }
     };
 
-    fetchFestivalInfo();
-    fetchPositions();
-    fetchAllPositions();
-  }, [idFestival]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -124,10 +139,10 @@ const Planning = ({idFestival, idBenevole}) => {
                         backgroundColor = '#117F45';
                         break;
                     case 'animation jeux':
-                        backgroundColor = '#33C481';
+                        backgroundColor = '#105C9F';
                         break;
                     case 'cuisine':
-                        backgroundColor = '#105C9F';
+                        backgroundColor = '#33C481';
                         break;
                     default:
                         backgroundColor = '#F4B740';
@@ -185,9 +200,15 @@ const Planning = ({idFestival, idBenevole}) => {
 
         <div className={styles.benevoleCalendar}>
           <h2 className={styles.titre}>Planning</h2>
+          {loading ? (
+            <div className={styles.loaderContainer}>
+        <Loader />
+        </div>
+      ) : (
           <div className={styles.Calendar}>
           {renderTimeSlots()}
           </div>
+          )}
         <div className={styles.calendarLegend}>
 
           <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
@@ -196,10 +217,10 @@ const Planning = ({idFestival, idBenevole}) => {
           <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
           <p>Buvette</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
           <p>Animation jeux</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+          <div className={styles.legendColor} style={{ backgroundColor: ' #33C481' }}></div>
           <p>Cuisine</p>
 
           <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
