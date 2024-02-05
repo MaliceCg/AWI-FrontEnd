@@ -279,7 +279,7 @@ const ImportCSV = ({ idFestival }) => {
   return (
     <div>
       {loading && <div className={styles.loading}>Chargement, merci de patienter quelques minutes...</div>}
-      {loading && <Loader />} {/* Affichez le loader si loading est true */}
+      {loading &&<div className={styles.loadingContainer}><Loader /></div>} {/* Affichez le loader si loading est true */}
       <div id="fileInputContainer">
         <input className={styles.importButton} type="file" id="csvFileInput" onChange={handleFileChange} accept=".csv" />
       </div>

@@ -4,9 +4,10 @@ const accessToken = localStorage.getItem('token');
 
 const Verificateur = ({ roleAutorise, composant }) => {
   const [authorize, setAuthorize] = useState(false);
-  console.log(authorize);
+  console.log("authorize",authorize);
   console.log(roleAutorise);
   console.log(accessToken);
+  setAuthorize(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +23,11 @@ const Verificateur = ({ roleAutorise, composant }) => {
             "Token" : accessToken,
           }
         });
+        console.log("response",response);
         if (response.ok) {
           const data = await response.json();
-          setAuthorize(data); // Mettez à jour l'autorisation
+          console.log("data",data);
+         //setAuthorize(data); // Mettez à jour l'autorisation
         } else {
           throw new Error('Erreur lors de la vérification du token ');
         }

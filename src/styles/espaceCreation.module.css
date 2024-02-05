@@ -8,6 +8,16 @@
 
     /* Autres styles nécessaires pour le positionnement et la mise en page */
   }
+  .loaderContainer {
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
 
 .creationFestival{
   margin: 20px;
