@@ -203,10 +203,10 @@ const Planning = ({idFestival}) => {
           <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
           <p>Buvette</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
           <p>Animation jeux</p>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+          <div className={styles.legendColor} style={{ backgroundColor: ' #33C481' }}></div>
           <p>Cuisine</p>
 
           <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
