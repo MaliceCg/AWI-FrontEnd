@@ -20,7 +20,7 @@ const Verificateur = ({ roleAutorise, composant }) => {
         if (response.ok) {
           const data = await response.json();
           console.log("data",data);
-         //setAuthorize(data); // Mettez à jour l'autorisation
+         setAuthorize(data); // Mettez à jour l'autorisation
         } else {
           throw new Error('Erreur lors de la vérification du token ');
         }
@@ -30,6 +30,10 @@ const Verificateur = ({ roleAutorise, composant }) => {
     };
     fetchData();
   }, [roleAutorise]);
+  console.log(roleAutoriseSplit.includes(authorize));
+  console.log("authorize",authorize);
+  console.log(roleAutoriseSplit);
+
   if (roleAutoriseSplit.includes(authorize))  {
     composant = composant;
   }else{
