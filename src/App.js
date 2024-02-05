@@ -38,28 +38,28 @@ function App() {
         <Route path="/" element={<PremierePage />} />
         <Route path="/accueil" element={<PageAccueil />} />
         <Route path="/compte/:idFestival" element={<Compte />} />
-        <Route path="/benevole-dashboard/:idFestival" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleDashboard />} />} />
+        <Route path="/benevole-dashboard/:idFestival" element={<BenevoleDashboard />} />
         <Route path="/benevole-activites/:idFestival" element={<BenevoleActivites /> } />
-        <Route path="/benevole-inscription/:idFestival" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleInscription />}  />} />
+        <Route path="/benevole-inscription/:idFestival" element={<BenevoleInscription />} />
 
-        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleInscriptionZone />} />} />
-        <Route path="/benevole-inscription-creneaux/:idFestival/:idZone" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleInscriptionCreneau />} />} />
+        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<BenevoleInscriptionZone />} />
+        <Route path="/benevole-inscription-creneaux/:idFestival/:idZone" element={<BenevoleInscriptionCreneau />} />
 
-        <Route path="/benevole-notification/:idFestival" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleNotification />} />}/>
-        <Route path="/benevole-planning/:idFestival" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevolePlanning />}  />} />
+        <Route path="/benevole-notification/:idFestival" element={<BenevoleNotification />}/>
+        <Route path="/benevole-planning/:idFestival" element={<BenevolePlanning />}/>
         
-        <Route path="/liste-benevole/:idFestival" element={<Verificateur roleAutorise="Accueil,Admin" composant={<ListeBenevole />}  />}/>
-        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<Verificateur roleAutorise="User,Accueil,Referent,Admin" composant={<BenevoleInscriptionZone />}  />} />
-        <Route path="/liste-benevole-zone/:idFestival/:idPoste" element={<Verificateur roleAutorise="Referent,Admin" composant={<ListeBenevoleZone />}  />} />
+        <Route path="/liste-benevole/:idFestival" element={<ListeBenevole />}/>
+        <Route path="/benevole-animation-jeux/:idFestival/:idPoste" element={<BenevoleInscriptionZone />} />
+        <Route path="/liste-benevole-zone/:idFestival/:idPoste" element={<ListeBenevoleZone />} />
 
-        <Route path="/admin-dashboard/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminDashboard />}  />} />
-        <Route path="/espace-creation/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<EspaceCreation />}  />} />
-        <Route path="/admin-creation-festival/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<FestivalCreation />}  />} />
-        <Route path="/admin-notifications/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminNotifications />}  />}/>
-        <Route path="/admin-planning/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminPlanning />} />}/>
-        <Route path="/festivals" element={<Verificateur roleAutorise="Admin" composant={<AdminFestivals />}  />}/>
-        <Route path="/send-notif/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminSendNotif />}  />}/>
-        <Route path="/admin-liste-benevole/:idFestival" element={<Verificateur roleAutorise="Admin" composant={<AdminListeBenevole />} />}/>
+        <Route path="/admin-dashboard/:idFestival" element={<AdminDashboard />} />
+        <Route path="/espace-creation/:idFestival" element={<EspaceCreation />} />
+        <Route path="/admin-creation-festival/:idFestival" element={<FestivalCreation />} />
+        <Route path="/admin-notifications/:idFestival" element={<AdminNotifications />} />
+        <Route path="/admin-planning/:idFestival" element={<AdminPlanning />} />
+        <Route path="/festivals" element={<AdminFestivals />} />
+        <Route path="/send-notif/:idFestival" element={<AdminSendNotif />} />
+        <Route path="/admin-liste-benevole/:idFestival" element={<AdminListeBenevole />} />
       </Routes>
     </Router>
   );
