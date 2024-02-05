@@ -64,6 +64,8 @@ font-size: 20px;
     padding: 10px;
     font-size: 1.4em;
     font-weight: bold;
+    border: 1px solid #838383;
+    border-radius: 15px;
 }
 
 .nomBenevole{
@@ -76,4 +78,33 @@ font-size: 20px;
 
 .iconsBenevole > *:not(:last-child) {
     margin-right: 15px; /* Ajoute une marge à droite sur tous les éléments sauf le dernier */
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 30px;
+}
+
+.popupHeader {
+    display: flex;
+    justify-content: flex-end;
+}
+  
+.closeButtonPopup {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
 }

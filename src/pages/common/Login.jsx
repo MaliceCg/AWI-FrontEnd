@@ -5,7 +5,6 @@ import logo from '../../img/logo.svg';
 import '../../styles/insconnex.css';
 
 
-
 const Login = () => {
 
   const navigate = useNavigate(); // Initialisez la fonction navigate

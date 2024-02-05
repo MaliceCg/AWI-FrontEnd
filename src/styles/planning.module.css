@@ -30,8 +30,8 @@
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     font-size: larger;
     background-color : #fff;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -137,6 +137,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     border-radius: 30px;
+}
+
+.popupHeader {
+    display: flex;
+    justify-content: flex-end;
+}
+  
+.closeButtonPopupAttributionPoste {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
 }
 
 .closeButtonPopup {

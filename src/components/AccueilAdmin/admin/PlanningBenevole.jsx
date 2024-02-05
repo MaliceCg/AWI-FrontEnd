@@ -1,57 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../../styles/planning.module.css';
-import Loader from '../AccueilAdmin/admin/Loader';
+import styles from '../../../styles/planning.module.css';
+import AttributionPoste from './AttributionPoste';
 
-const Planning = ({idFestival, idBenevole}) => {
-  const [festivalInfo, setFestivalInfo] = useState(null);
-  const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
-  const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
-  const [loading, setLoading] = useState(true);
-  
+const PlanningBenevole = ({idFestival, idBenevole}) => {
+    const [festivalInfo, setFestivalInfo] = useState(null);
+    const [festivalPositions, setFestivalPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [AllPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
+    const [openAttributionPosition, setOpenAttributionPosition] = useState(false);
+    const [selectedCreneau, setSelectedCreneau] = useState(null);
+    const [selectedJour, setSelectedJour] = useState(null);
+    
 
+    if (!idBenevole) {
+        idBenevole = parseInt(localStorage.getItem('id'));
+    }
 
-  if (!idBenevole) {
-    idBenevole = parseInt(localStorage.getItem('id'));
-  }
+    const handleFlexible = (creneau, jour) => {
+        setOpenAttributionPosition(true); 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+        //get dateDebut and add jour
+        let dateDebut = new Date(festivalInfo.DateDebut);
+        dateDebut.setDate(dateDebut.getDate() + jour - 1);
 
-      try {
-        await fetchFestivalInfo();
-        await fetchPositions();
-        await fetchAllPositions();
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
+        setSelectedCreneau(creneau);
+        setSelectedJour(dateDebut.toLocaleDateString());
     };
 
-    fetchData();
-  }, [idFestival]);
-  
-  const fetchFestivalInfo = async () => {
-    try {
-      const response = await fetch(`https://awi-api-2.onrender.com/festival-module/${idFestival}`);
+    const onClose = () => {
+        setOpenAttributionPosition(false);
+    };
 
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des informations du festival');
+  useEffect(() => {
+    const fetchFestivalInfo = async () => {
+      try {
+        // Envoyer une requête GET au backend pour récupérer les informations du festival
+        const response = await fetch(`http://localhost:3000/festival-module/${idFestival}`);
+
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des informations du festival');
+        }
+
+        const data = await response.json();
+        setFestivalInfo(data); // Mettre à jour l'état avec les informations du festival
+      } catch (error) {
+        console.error(error);
+        // Gérer les erreurs de requête ou de traitement des données
       }
-
-      const data = await response.json();
-      setFestivalInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+    };
 
     const fetchPositions = async () => {
       try {
         // Récupérer tous les postes pour le festival spécifique
-        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
+        const positionsResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes du festival');
@@ -61,7 +61,7 @@ const Planning = ({idFestival, idBenevole}) => {
 
         // Récupérer les inscriptions de l'utilisateur pour chaque poste
         const userPromises = positionsData.map(async (position) => {
-          const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
+          const response = await fetch(`http://localhost:3000/inscription-module/position/${position.idPoste}/volunteer/${idBenevole}`);
 
           if (!response.ok) {
             throw new Error(`Erreur lors de la récupération des inscriptions pour le poste ${position.idPoste}`);
@@ -82,7 +82,7 @@ const Planning = ({idFestival, idBenevole}) => {
 
     const fetchAllPositions = async () => {
       try {
-        const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
+        const positionsResponse = await fetch(`http://localhost:3000/position-module`);
 
         if (!positionsResponse.ok) {
           throw new Error('Erreur lors de la récupération des postes');
@@ -95,6 +95,10 @@ const Planning = ({idFestival, idBenevole}) => {
       }
     };
 
+    fetchFestivalInfo();
+    fetchPositions();
+    fetchAllPositions();
+  }, [idFestival]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -121,6 +125,7 @@ const Planning = ({idFestival, idBenevole}) => {
           
             {timeSlots.map((slot, index) => {
               let isUserRegistered = false;
+              let isUserFlexible = false;
               let dynamicStyle = {};
   
               for (const position of festivalPositions) {
@@ -139,10 +144,10 @@ const Planning = ({idFestival, idBenevole}) => {
                         backgroundColor = '#117F45';
                         break;
                     case 'animation jeux':
-                        backgroundColor = '#105C9F';
+                        backgroundColor = '#33C481';
                         break;
                     case 'cuisine':
-                        backgroundColor = '#33C481';
+                        backgroundColor = '#105C9F';
                         break;
                     default:
                         backgroundColor = '#F4B740';
@@ -155,23 +160,24 @@ const Planning = ({idFestival, idBenevole}) => {
 
                 for (const inscription of position.userInscriptions) {
 
-                  if(inscription.idZoneBenevole === null){
-                    backgroundColor = '#f06767';
-
-                    dynamicStyle = {
-                      backgroundColor: backgroundColor,
-                    };
-                  }
-
                   const inscriptionDate = new Date(inscription.Jour);  
                   if (
                     inscriptionDate.getDate() === dateDebut.getDate() + i &&
                     slot === inscription.Creneau 
                   ) {
                     isUserRegistered = true;
+                    if(isUserRegistered && inscription.idZoneBenevole === null){
+                        backgroundColor = '#f06767';
+                        isUserFlexible = true;
+    
+                        dynamicStyle = {
+                          backgroundColor: backgroundColor,
+                        };
+                    }
                     break;
                   }
                 }
+
   
                 if (isUserRegistered) {
                   break;
@@ -181,7 +187,7 @@ const Planning = ({idFestival, idBenevole}) => {
               const slotClassName = isUserRegistered ? `${styles.cellCalendar} ${styles.inscription} ` : styles.cellCalendar;
   
               return (
-                <li className={slotClassName} style={isUserRegistered ? dynamicStyle : null} key={index}>
+                <li className={slotClassName} style={isUserRegistered ? dynamicStyle : null} onClick={() => isUserFlexible && handleFlexible(slot, i + 1)} key={index}>
                   {slot}
                 </li>
               );
@@ -198,37 +204,52 @@ const Planning = ({idFestival, idBenevole}) => {
 
   return (
 
+    <div>
         <div className={styles.benevoleCalendar}>
-          <h2 className={styles.titre}>Planning</h2>
-          {loading ? (
-            <div className={styles.loaderContainer}>
-        <Loader />
+            <h2 className={styles.titre}>Planning</h2>
+            <div className={styles.Calendar}>
+            {renderTimeSlots()}
+            </div>
+            
+            <div className={styles.calendarLegend}>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
+                <p>Accueil</p>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
+                <p>Buvette</p>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#33C481' }}></div>
+                <p>Animation jeux</p>
+            </div>
+
+            <div className={styles.calendarLegend}>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
+                <p>Cuisine</p>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#f06767' }}></div>
+                <p>Flexible</p>
+
+                <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
+                <p>Autre</p>
+
+            </div>
         </div>
-      ) : (
-          <div className={styles.Calendar}>
-          {renderTimeSlots()}
-          </div>
-          )}
-        <div className={styles.calendarLegend}>
 
-          <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>
-          <p>Accueil</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#117F45' }}></div>
-          <p>Buvette</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#105C9F' }}></div>
-          <p>Animation jeux</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: ' #33C481' }}></div>
-          <p>Cuisine</p>
-
-          <div className={styles.legendColor} style={{ backgroundColor: '#F4B740' }}></div>
-          <p>Autre</p>
-
-        </div>
+        {/* Conditionally render the Popup component */}
+        {openAttributionPosition && (
+            <div className={styles.popup}>
+                <div className={styles.popupHeader}>
+                    <button className={styles.closeButtonPopupAttributionPoste} onClick={onClose}>
+                        &#10006; {/* Unicode character for 'X' */}
+                    </button>
+                </div>
+                <AttributionPoste idFestival={idFestival} idBenevole={idBenevole} creneau={selectedCreneau} jour={selectedJour} />
+            </div>
+        )}
     </div>
   );
 };
 
-export default Planning;
+export default PlanningBenevole;

@@ -43,7 +43,7 @@ const AdminListeBenevole = () => {
         <div className={styles.benevoleContainer}>
           <h1 className={styles.benevoleTitle}>Liste des bénévoles</h1>
           {listBenevoles.map((benevole, index) => (
-            <ListBenevoles benevole={benevole} key={index} />
+            <ListBenevoles idFestival={idFestival} benevole={benevole} key={index} />
           ))}
         </div>
       </div>
