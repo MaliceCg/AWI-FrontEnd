@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import Loader from "../components/AccueilAdmin/admin/Loader";
 import Unauthorized from "../pages/common/Unauthorized";
+import styles from '../styles/Verificateur.module.css';
 const accessToken = localStorage.getItem('token');
 
 const Verificateur = ({ roleAutorise, composant }) => {
   const [authorize, setAuthorize] = useState("");
   const roleAutoriseSplit = roleAutorise.split(',');
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,10 +20,12 @@ const Verificateur = ({ roleAutorise, composant }) => {
             'Authorization': `Bearer ${accessToken}`,
           },
         });
-        console.log("response",response);
+
+       
         if (response.ok) {
           const data = await response.json();
-          console.log("data",data);
+          
+  
          setAuthorize(data); // Mettez à jour l'autorisation
         } else {
           throw new Error('Erreur lors de la vérification du token ');
@@ -27,19 +33,19 @@ const Verificateur = ({ roleAutorise, composant }) => {
       } catch (error) {
         console.log("error" + error);
       }
+      finally {
+        setLoading(false); // Mettez à jour l'état de chargement une fois que la requête est terminée
+      }
     };
     fetchData();
   }, [roleAutorise]);
-  console.log(roleAutoriseSplit.includes(authorize));
-  console.log("authorize",authorize);
-  console.log(roleAutoriseSplit);
-
-  if (roleAutoriseSplit.includes(authorize))  {
-    composant = composant;
-  }else{
-    composant = <Unauthorized />;
+  if (loading) {
+    // Affichez le composant Loader pendant le chargement
+    return <div className={styles.loaderContainer}> <Loader /> </div>;
+  } else {
+    // Affichez la page autorisée ou Unauthorized en fonction de l'autorisation
+    return roleAutoriseSplit.includes(authorize) ? composant : <Unauthorized />;
   }
-  return composant;
 };
 
 export default Verificateur;

@@ -134,10 +134,10 @@ const Planning = ({idFestival}) => {
                         backgroundColor = '#117F45';
                         break;
                     case 'animation jeux':
-                        backgroundColor = '#33C481';
+                        backgroundColor = '#105C9F';
                         break;
                     case 'cuisine':
-                        backgroundColor = '#105C9F';
+                        backgroundColor = '#33C481';
                         break;
                     default:
                         backgroundColor = '#F4B740';

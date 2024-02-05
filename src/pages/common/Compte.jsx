@@ -221,11 +221,12 @@ const suppression = async () => {
                             onChange={handleInputChange}
                         />
                         <label className={styles.label}>Nom</label>
-                        <textarea className={styles.editText}
+                        <input className={styles.editInput}
+                            type="text"
                             name="Nom"
                             value={editedInfo.Nom}
                             onChange={handleInputChange}
-                        ></textarea>
+                        ></input>
                         <label className={styles.label}>Prénom </label>
                         <input className={styles.editInput}
                             type="text"
