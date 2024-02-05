@@ -34,7 +34,7 @@ const AdminDashboard = () => {
                 <button className={styles.ListeBenevole}> Gérer les benevoles</button>
               </Link>
             </div>
-            <div className={styles.benevolePlanning}>
+            <div className={styles.adminPlanning}>
               <AdminPlanning idFestival={selectedFestival}/>
             </div>
            
