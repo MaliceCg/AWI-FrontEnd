@@ -81,8 +81,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
     selectedDate.setDate(selectedDate.getDate() + dayIndex);
 
     const body = {
-        //"idBenevole": parseInt(localStorage.getItem('idBenevole')),
-        "idBenevole": 1,
+        "idBenevole": parseInt(localStorage.getItem('idBenevole')),
+        //"idBenevole": 1,
         "idZoneBenevole": parseInt(idZone),
         "idPoste": poste.idPoste,
         "Creneau": slot,
