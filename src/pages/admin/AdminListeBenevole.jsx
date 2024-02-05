@@ -18,7 +18,7 @@ const AdminListeBenevole = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/authentication-module');
+        const response = await fetch('https://awi-api-2.onrender.com/authentication-module');
         if (response.ok) {
           const data = await response.json();
           setListBenevoles(data); // Mettre à jour l'état avec les données récupérées

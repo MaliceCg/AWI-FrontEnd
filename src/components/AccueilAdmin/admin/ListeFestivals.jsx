@@ -9,7 +9,7 @@ const ListeFestivals = ({ linkPath }) => {
   useEffect(() => {
     const fetchFestivals = async () => {
       try {
-        const response = await fetch('http://localhost:3000/festival-module');
+        const response = await fetch('https://awi-api-2.onrender.com/festival-module');
         if (response.ok) {
           const data = await response.json();
           setListFestivals(data); // Mettre à jour l'état avec les données récupérées

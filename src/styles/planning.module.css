@@ -1,66 +1,48 @@
-.adminDashboard {
-    margin-top:60px;
-    text-align: center;
+.benevoleCalendar{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: larger;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 30px;
+    width: 95vw;    
 }
-.btnMode {
-    margin : auto;
-    background-color: #3B3B3B;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
-}
-.creationButton {
-  background-color: transparent;
-  border: 2px solid #838383;
-  font-size: larger;
-  border-radius: 5px;
-  padding: 5px;
-  color: #838383;
-  cursor: pointer;
-  margin : 5px;
-  text-align: center;
-}
-.creationButton:hover{
-  background-color: #838383;
-  color:#e2e2e2
-}.adminDashboard {
-    margin-top:60px;
-    text-align: center;
+.loaderContainer {
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.btnMode {
-    margin : auto;
-    background-color: #3B3B3B;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
+
+.dayTitle{
+    font-size: 20px;
 }
 
-.dashboardContainer{
+
+.inscriptionCalendar{
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 60px;
-    overflow-y: auto;
-}
-
-.benevoleCalendar{
-    display: flex;
     justify-content: center;
     font-size: larger;
-    background-color: white;
-    margin: 10px;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 30px;
+    width: 90vw;  
 }
 
-.dayLabel{
-    font-size: smaller;
+.Calendar {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
 }
 
 .columnCalendar{
@@ -112,25 +94,15 @@
     right: 0;
     margin-left: auto;
     margin-right: auto;
-  }
-
-.btnMode {
-    margin : auto;
-    background-color: #3B3B3B;
-    color: #fff;
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    transition: all 0.3s ease-in-out;
 }
+
 
 .calendarLegend{
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: small;
-    margin-top: 20px;
+    margin-bottom: 10px;
     color: #838383;
 }
 
@@ -140,6 +112,13 @@
     margin-right: 2px;
     margin-left: 8px;
     border-radius: 50%;
+}
+.titre {
+    font-size: 20px;
+    text-align: center;
+    color: #838383;
+    margin: 20px 0;
+    font-weight: bold;
 }
 
 .popup {
@@ -184,4 +163,24 @@
 
 .popupListe{
     margin: 8px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .benevoleCalendar {
+        width: auto;
+        margin-top: 20px;
+        margin-left: 40px;
+    }
+    .Calendar {
+        display: flex;
+        margin: auto;
+
+    }
+    .inscriptionCalendar {
+        width: 45vw;
+        margin-left:-10%;
+    }
+
+    
 }

@@ -3,12 +3,12 @@ import styles from '../../styles/notif.module.css';
 
 const LastNotif = ({ idFestival }) => {
   const [listNotif, setListNotif] = useState([]);
-  console.log('idFestival = ', idFestival);
+
 
   useEffect(() => {
     const fetchNotif = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/notif-module/${idFestival}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/notif-module/${idFestival}`);
         if (response.ok) {
           const data = await response.json();
           

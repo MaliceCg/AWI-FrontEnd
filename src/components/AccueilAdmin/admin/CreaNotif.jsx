@@ -3,11 +3,11 @@ import styles from "../../../styles/creaNotif.module.css";
 
 const CreaNotif = ({idFestival}) => {
   const accessToken = localStorage.getItem("token");
-  console.log(accessToken);
+
   const [notificationType, setNotificationType] = useState("");
   const [notificationText, setNotificationText] = useState("");
   const [dateEnvoi, setDateEnvoi] = useState(new Date()); // Initialiser avec la date actuelle
-  console.log(idFestival);
+
   useEffect(() => {
     // Mettre à jour la date de l'envoi lors du montage du composant
     setDateEnvoi(new Date());
@@ -29,10 +29,7 @@ const CreaNotif = ({idFestival}) => {
       alert("Veuillez remplir tous les champs");
       return;
     }
-    console.log(idFestival);
-    console.log(idFestival.idFestival);
-    console.log(parseInt(idFestival.idFestival, 10));
-    console.log(dateEnvoi);
+
 
     // Créer un objet avec les données à envoyer au backend
     const notificationData = {
@@ -40,12 +37,11 @@ const CreaNotif = ({idFestival}) => {
       TexteNotification: notificationText,
       idFestival: parseInt(idFestival, 10)
     };
-    console.log("toIsoString",dateEnvoi.toISOString());
-    console.log(notificationData);
+
 
     try {
       // Effectuer la requête POST vers le backend
-      const response = await fetch("http://localhost:3000/notif-module", {
+      const response = await fetch("https://awi-api-2.onrender.com/notif-module", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,9 +49,11 @@ const CreaNotif = ({idFestival}) => {
         },
         body: JSON.stringify(notificationData),
       });
-console.log(response);
+
       if (response.ok) {
         alert("Notification envoyée avec succès !");
+        //redirige vers la page /admin-notification
+        window.location.href = `/admin-notifications/${idFestival}`;
       } else {
         alert("Erreur lors de l'envoi de la notification");
       }

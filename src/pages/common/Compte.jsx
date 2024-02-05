@@ -10,7 +10,7 @@ import styles from "../../styles/editPopup.module.css";
 
 const Compte = () => {
   const idBenevole = localStorage.getItem('id');
-  console.log('ID du bénévole:', idBenevole);
+
   const isAdmin = localStorage.getItem('role') === 'Admin';
   
   const [userData, setUserData] = useState();
@@ -23,9 +23,8 @@ const Compte = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}`);
       const data = await response.json();
-      console.log("data:", data);
       setUserData(data);
 
       // Initialize editedInfo here after userData is updated
@@ -53,7 +52,6 @@ const Compte = () => {
     fetchUserData();
   }, [idBenevole]);
 
-console.log("userData",userData);
 const [editedInfo, setEditedInfo] = useState({
   Pseudo: userData?.Pseudo || '', // Utilisation de l'opérateur de coalescence nullish
   Prenom: userData?.Prenom || '',
@@ -77,14 +75,14 @@ setEditPopupOpen(false);
 };
 const updateInfo = async () => {
 try {
-  const response = await fetch(`http://localhost:3000/authentication-module/${idBenevole}/update-account`, {
+  const response = await fetch(`https://awi-api-2.onrender.com/authentication-module/${idBenevole}/update-account`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(editedInfo),
   });
-  console.log("editedInfo",editedInfo);
+
 
   if (!response.ok) {
     throw new Error('Erreur lors de la modification des données utilisateur');
@@ -107,7 +105,61 @@ setEditedInfo({
     ...editedInfo,
     [name]: value,
 });
+
 };
+
+// deconnexion 
+const deconnexion = () => {
+  localStorage.clear();
+  window.location.href = '/';
+}
+
+const suppression = async () => {
+  // Créer une boîte de dialogue personnalisée pour la confirmation et la saisie du mot de passe
+  const userConfirmation = prompt("Êtes-vous sûr de vouloir supprimer votre compte ?\nEntrez votre mot de passe pour confirmer :");
+
+  if (userConfirmation !== null) {
+    try {
+      const idBenevole = localStorage.getItem('id');
+      const token = localStorage.getItem('token');
+
+      // Suppression de toutes les inscriptions associées à l'idBenevole
+      const deleteInscriptionsResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/delete/${idBenevole}`, {
+        method: 'DELETE',
+      });
+
+      if (!deleteInscriptionsResponse.ok) {
+        throw new Error('Erreur lors de la suppression des inscriptions');
+      }
+
+      // Suppression du compte
+      const deleteAccountResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/delete-account`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ Password: userConfirmation }), // Envoyer le mot de passe dans le corps de la requête
+      });
+
+      if (!deleteAccountResponse.ok) {
+        throw new Error('Erreur lors de la suppression du compte');
+      }
+
+      alert('Votre compte a été supprimé avec succès !');
+      localStorage.clear();
+      window.location.href = '/';
+    } catch (error) {
+      console.error(error);
+      alert('Une erreur s\'est produite lors de la suppression du compte.');
+    }
+  } else {
+    alert('Votre compte n\'a pas été supprimé');
+  }
+};
+
+
+
 
   return (
     <div className='CompteInfo'>
@@ -154,8 +206,8 @@ setEditedInfo({
             </div>
         )}
 
-        <button onClick={() => console.log('Déconnexion')}>Me Déconnecter</button>
-        <p id="supp"onClick={() => console.log('Supprimer mon Compte')}>Supprimer mon Compte</p>
+        <button onClick={deconnexion}>Me Déconnecter</button>
+        <button id="supp" onClick={suppression}>Supprimer mon Compte</button>
 
         {isEditPopupOpen && userData && (
                 <div className={styles.editPopup}>
@@ -169,11 +221,12 @@ setEditedInfo({
                             onChange={handleInputChange}
                         />
                         <label className={styles.label}>Nom</label>
-                        <textarea className={styles.editText}
+                        <input className={styles.editInput}
+                            type="text"
                             name="Nom"
                             value={editedInfo.Nom}
                             onChange={handleInputChange}
-                        ></textarea>
+                        ></input>
                         <label className={styles.label}>Prénom </label>
                         <input className={styles.editInput}
                             type="text"

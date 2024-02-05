@@ -1,9 +1,8 @@
-import React from "react";
-import styles from "../../styles/benevoleDashboard.module.css";
-import { useNavigate } from 'react-router-dom';
-import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
-import { useState, useEffect } from 'react';
+import LinearProgress from '@mui/material/LinearProgress';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import styles from "../../styles/planning.module.css";
 
 const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
@@ -15,13 +14,16 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
   const [listInscriptionsByUser, setListInscriptionsByUser] = useState([]);
 
-  //const benevoleId = parseInt(localStorage.getItem('idBenevole'));
-  const benevoleId = 1;
+  const [reloadPage, setReloadPage] = useState(false);
+
+
+  const benevoleId = parseInt(localStorage.getItem('id'));
+  //const benevoleId = 1;
 
   useEffect(() => {
     const fetchInscriptions = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/zone/${idZone}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/zone/${idZone}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -34,7 +36,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const fetchInscriptionsByUser = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/inscription-module/volunteer/${benevoleId}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${benevoleId}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données');
         }
@@ -47,7 +49,13 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     fetchInscriptions();
     fetchInscriptionsByUser();
-  }, [idZone, benevoleId]);
+  }, [idZone, benevoleId,reloadPage]);
+
+  useEffect(() => {
+    if (reloadPage) {
+      setReloadPage(false);
+    }
+  }, [reloadPage]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -73,8 +81,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
     selectedDate.setDate(selectedDate.getDate() + dayIndex);
 
     const body = {
-        //"idBenevole": parseInt(localStorage.getItem('idBenevole')),
-        "idBenevole": 1,
+        "idBenevole": parseInt(localStorage.getItem('id')),
+        //"idBenevole": 1,
         "idZoneBenevole": parseInt(idZone),
         "idPoste": poste.idPoste,
         "Creneau": slot,
@@ -84,7 +92,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     const postInscription = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/inscription-module`, {
+            const response = await fetch(`https://awi-api-2.onrender.com/inscription-module`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +103,9 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
                 throw new Error('Erreur lors de la création de l\'inscription');
             }
             const data = await response.json();
-            console.log(data);
+            alert('Inscription réussie');
+            setReloadPage(true);
+  
         } catch (error) {
             console.error(error);
         }
@@ -103,7 +113,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
     postInscription();
 
-    navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
+    //navigate(`/benevole-dashboard/${festivalInfo.idFestival}`);
   };
 
   const renderTimeSlots = () => {
@@ -117,11 +127,11 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
     const days = [];
 
     for (let i = 0; i <= daysDifference; i++) {
-      const timeSlots = ['9-11', '11-14', '14-17', '17-20', '20-22'];
+      const timeSlots = ['09-11', '11-14', '14-17', '17-20', '20-22'];
 
       days.push(
         <div className={styles.columnCalendar} key={i}>
-          <h3>Jour {i + 1}</h3>
+          <h3 className={styles.dayTitle}>Jour {i + 1}</h3>
           <ul className={styles.cellColumnCalendar}>
             {timeSlots.map((slot, index) => {  
 
@@ -172,9 +182,11 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
 
   return (
     <div>
-        <div className={styles.benevoleCalendar}>
+        <div className={styles.inscriptionCalendar}>
+          <h2 className={styles.titre}>Planning</h2>
+          <div className={styles.Calendar}>
           {renderTimeSlots()}
-        </div>
+          </div>
 
         {showAlert && (
         <div className={styles.bottomAlertContainer}>
@@ -183,6 +195,7 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
           </Alert>
         </div>
         )}
+        </div>
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Login = () => {
   ];
 
   const handleLoginSubmit = async (formData) => {
-    const apiURL ="http://localhost:3000/authentication-module/signin";
+    const apiURL ="https://awi-api-2.onrender.com/authentication-module/signin";
     const idusers = formData.email;
     const password = formData.password;
 
@@ -28,17 +28,16 @@ const Login = () => {
         },
         body: JSON.stringify({ "Email": idusers, "Password": password })
       });
-      console.log('response :', response);
+
 
       if (response.ok) {
         const userData = await response.json();
-        console.log('userData :', userData);
-        console.log('userData.token :', userData.data.token);
+       
         localStorage.setItem('token', userData.data.token);
-        console.log('token :', userData.data.token);
+        
         localStorage.setItem('role', userData.data.role);
         localStorage.setItem('id', userData.data.id);
-        console.log('role :', userData.data.role);
+        
         localStorage.setItem('pseudo', userData.data.pseudo);
         
         if (userData.data.role === "Admin"){
@@ -48,9 +47,11 @@ const Login = () => {
 
       } else {
         console.error('Échec de la connexion');
+        alert('Échec de la connexion');
       }
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);
+      alert(error.message);
     }
   };
 

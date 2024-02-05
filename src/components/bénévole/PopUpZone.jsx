@@ -8,7 +8,7 @@ const PopUpZone = ({ title, onClose, onChoose, idZone }) => {
 
     const fetchIdPoste = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/volunteer-area-module/${idZone}`);
+            const response = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idZone}`);
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des données');
             }
@@ -22,11 +22,11 @@ const PopUpZone = ({ title, onClose, onChoose, idZone }) => {
     };
 
     const fetchInfoReferent = async (postId) => {
-        const referentsResponse = await fetch(`http://localhost:3000/referent-module/position/${postId}`);
+        const referentsResponse = await fetch(`https://awi-api-2.onrender.com/referent-module/position/${postId}`);
         const referentsData = await referentsResponse.json();
 
         const referentsDetails = await Promise.all(referentsData.map(async (referent) => {
-            const referentResponse = await fetch(`http://localhost:3000/authentication-module/${referent.idBenevole}`);
+            const referentResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/${referent.idBenevole}`);
             const referentData = await referentResponse.json();
             return {
                 idReferent: referent.idBenevole,
@@ -45,7 +45,7 @@ const PopUpZone = ({ title, onClose, onChoose, idZone }) => {
                 fetchInfoReferent(postId);
 
                 try {
-                    const response = await fetch(`http://localhost:3000/game-module/zoneBenevole/${idZone}`);
+                    const response = await fetch(`https://awi-api-2.onrender.com/game-module/zoneBenevole/${idZone}`);
                     if (!response.ok) {
                         throw new Error('Erreur lors de la récupération des données');
                     }

@@ -21,21 +21,21 @@ const Register = () => {
       return;
     }
 
-    console.log('formData :', formData);
+
     try {
       // Envoi de la requête au serveur
-      const response = await fetch('http://localhost:3000/authentication-module/signup', {
+      const response = await fetch('https://awi-api-2.onrender.com/authentication-module/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-console.log('response :', response);
+
       // Vérification de la réussite de la requête
       if (response.ok) {
         const result = await response.json();
-        console.log('Inscription réussie :', result);
+
         // Ajoutez ici la gestion de l'inscription réussie
         navigate('/login');
       } else {

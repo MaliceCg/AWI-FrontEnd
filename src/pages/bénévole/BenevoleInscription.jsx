@@ -7,7 +7,7 @@ import style from '../../styles/inscription.module.css';
 
 const BenevoleInscription = () => {
   const { idFestival } = useParams();
-  console.log('idFestival : ', idFestival);
+
   const [selectedFestival, setSelectedFestival] = useState(idFestival);
 
   const handleFestivalChange = (newFestivalId) => {
@@ -21,11 +21,11 @@ const BenevoleInscription = () => {
   useEffect(() => {
     const fetchPostes = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+        const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
         if (response.ok) {
           const datas = await response.json();
           const postePromises = datas.map(async (data) => {
-            const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
+            const reponsePoste = await fetch(`https://awi-api-2.onrender.com/position-module/${data.idPoste}`);
             if (reponsePoste.ok) {
               return reponsePoste.json();
             } else {
@@ -46,7 +46,7 @@ const BenevoleInscription = () => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
   }, [idFestival]);
 
-  console.log('postes : ', postes);
+
 
   const handlePosteClick = (idPoste, nomPoste) => {
     if (nomPoste === 'Animation Jeux') {

@@ -10,7 +10,16 @@
     width:100vw;
     
 }
-
+.loaderContainer {
+    position: relative;
+    width: 30vw;
+    height: 30vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
 .title{
     font-weight: normal;
     margin-bottom: 10px;
@@ -158,11 +167,15 @@ margin:20px;
     font-size: 20px;
 }
 .planning {
-margin-left:-12%;
-margin-top:10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
+    .flexibleText {
+        margin-left: 20%;
+    }
 .zoneContainer{
     display: flex;
     flex-direction: row;

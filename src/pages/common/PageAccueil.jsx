@@ -1,4 +1,5 @@
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Backdrop from '@mui/material/Backdrop';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from '../../components/common/FormInfo';
@@ -6,13 +7,14 @@ import nofestival from '../../img/noFestival.svg';
 import styles from '../../styles/accueil.module.css';
 
 function PageAccueil() {
-  const [showPopup, setShowPopup] = useState(false);
+  const showPopup = false;
+  //const [showPopup, setShowPopup] = useState(false);
   const [listFestivals, setListFestivals] = useState([]);
 
   useEffect(() => {
     const hasShownPopup = localStorage.getItem('hasShownPopup');
     if (!hasShownPopup) {
-      setShowPopup(true);
+      //setShowPopup(true);
       localStorage.setItem('hasShownPopup', 'true');
     }
   }, []);
@@ -22,7 +24,7 @@ function PageAccueil() {
   useEffect(() => {
     const fetchFestivals = async () => {
       try {
-        const response = await fetch('http://localhost:3000/festival-module');
+        const response = await fetch('https://awi-api-2.onrender.com/festival-module');
         if (response.ok) {
           const data = await response.json();
           setListFestivals(data); // Mettre à jour l'état avec les données récupérées
@@ -43,45 +45,54 @@ function PageAccueil() {
   };
 
   const handleFillLater = () => {
-    console.log('Remplir plus tard');
-    setShowPopup(false);
+
+    //setShowPopup(false);
   };
 
   const handleConfirm = (formData) => {
-    console.log('Données du formulaire soumises :', formData);
-    setShowPopup(false);
+
+    //setShowPopup(false);
     // Ajoutez ici toute autre logique nécessaire après la confirmation
   };
 
   return (
     <div>
-
       {showPopup && (
-        <Form
-          fields={[
-            { type: 'text', name: 'name', label: 'Nom' },
-            { type: 'text', name: 'shirtSize', label: 'Taille de t-shirt' },
-            { type: 'text', name: 'dietaryRestrictions', label: 'Régime alimentaire' },
-            { type: 'text', name: 'address', label: 'Adresse' },
-          ]}
-          buttonText="Confirmer"
-          onSubmit={handleConfirm}
-          clickableText="Remplir plus tard"
-          clickableHref="/accueil"
-          onClose={handleFillLater}
-        />
+        <>
+          <Backdrop
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={showPopup}
+            onClick={handleFillLater}
+          >
+            {/* Blurred background */}
+          </Backdrop>
+          <div className={styles.formAremplir}>
+            <Form
+              fields={[
+                { type: 'text', name: 'name', label: 'Nom' },
+                { type: 'text', name: 'shirtSize', label: 'Taille de t-shirt' },
+                { type: 'text', name: 'dietaryRestrictions', label: 'Régime alimentaire' },
+                { type: 'text', name: 'address', label: 'Adresse' },
+              ]}
+              buttonText="Confirmer"
+              onSubmit={handleConfirm}
+              clickableText="Remplir plus tard"
+              clickableHref="/accueil"
+              onClose={handleFillLater}
+            />
+          </div>
+        </>
       )}
 
-      {(
-        <div>
-          {listFestivals.length === 0 ? (
-            <div className={styles.DivNoFestival}>
-              <img src={nofestival} alt="no festival" className={styles.nofestival} />
-              <h3>Il n’y a pas de festival prévu pour le moment,</h3>
-              <h1>Reviens plus tard</h1>
-            </div>
-          ) : (
-            <div className={styles.festivalContainer}>
+      <div>
+        {listFestivals.length === 0 ? (
+          <div className={styles.DivNoFestival}>
+            <img src={nofestival} alt="no festival" className={styles.nofestival} />
+            <h3>Il n’y a pas de festival prévu pour le moment,</h3>
+            <h1>Reviens plus tard</h1>
+          </div>
+        ) : (
+          <div className={styles.festivalContainer}>
             <h1>Tu peux choisir ton Festival </h1>
             {listFestivals.map((festival, index) => (
               <div key={index}>
@@ -97,11 +108,11 @@ function PageAccueil() {
               </div>
             ))}
           </div>
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
+
 
 export default PageAccueil;

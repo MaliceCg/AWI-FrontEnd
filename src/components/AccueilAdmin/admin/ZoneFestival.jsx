@@ -1,18 +1,17 @@
-import React from "react";
-import styles from "../../../styles/inscription.module.css";
 import LinearProgress from '@mui/material/LinearProgress';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import styles from "../../../styles/inscription.module.css";
 
 const ZoneFestival = ({ zone, onClick }) => {
 
-    //get inscriptions by idZone via http://localhost:3000/inscription-module/zone/idZone
+
 
     const [listInscriptions, setListInscriptions] = useState([]);
 
     useEffect(() => {
         const fetchInscriptions = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/inscription-module/zone/${zone.idZone}`);
+                const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/zone/${zone.idZone}`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération des données');
                 }

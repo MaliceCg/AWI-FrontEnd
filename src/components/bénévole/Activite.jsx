@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import inscription from "../../img/icons/inscription.svg";
 import styles from "../../styles/activites.module.css";
+import Loader from "../AccueilAdmin/admin/Loader";
 
 const Activite = ({ idFestival, displayInline }) => {
 const [activites, setActivites] = useState([]);
@@ -9,18 +10,21 @@ const [postes, setPostes] = useState([]);  // Nouvel état pour stocker la liste
 const [selectedPoste, setSelectedPoste] = useState(""); // Nouvel état pour stocker le poste sélectionné
 const [hasActivities, setHasActivities] = useState(false);
 const userId = localStorage.getItem("id");
+const [loading, setLoading] = useState(true);
 
 //On recupere les postes du festival
 const fetchPostes = async () => {
   try {
-    const PostesResponse = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+    console.log("fetching postes");
+    const PostesResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
     const Postesdata = await PostesResponse.json();
-    console.log("Postesdata",Postesdata);
 
+    console.log(Postesdata);
     const poste = Postesdata.map(async (poste) => {
       const idPoste = poste.idPoste;
-      const nomPoste = await fetch(`http://localhost:3000/position-module/${idPoste}`);
+      const nomPoste = await fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`);
       const nomPosteData = await nomPoste.json();
+      console.log(nomPosteData);
       return {
         idPoste: idPoste,
         nomPoste: nomPosteData.nomPoste,
@@ -29,6 +33,7 @@ const fetchPostes = async () => {
     });
     
     const PostData = await Promise.all(poste);
+    console.log(PostData);
     setPostes(PostData);
   } catch (error) {
     console.error(error);
@@ -37,47 +42,55 @@ const fetchPostes = async () => {
 const fetchActivites = async () => {
 
   try {
+    console.log("fetching activites");
     // Récupérez les inscriptions de l'utilisateur
-    const inscriptionResponse = await fetch(`http://localhost:3000/inscription-module/volunteer/${userId}`);
+    const inscriptionResponse = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${userId}`);
     const inscriptionData = await inscriptionResponse.json();
-    console.log("inscription data", inscriptionData);
+console.log(inscriptionData);
 
     // Utilisez les données des inscriptions pour récupérer les informations des postes
     const activitesPromises = inscriptionData.map(async (inscription) => {
-      console.log("inscription", inscription);
+console.log(inscription);
       const postId = inscription.idPoste;
-      const employerResponse = await fetch(`http://localhost:3000/employer-module/position/${postId}`);
+      const employerResponse = await fetch(`https://awi-api-2.onrender.com/employer-module/position/${postId}`);
       const employerData = await employerResponse.json();
+      console.log(employerData);
+      console.log(idFestival);
+console.log(employerData[0].idFestival); // Affichez la valeur de idFestival dans l'élément unique
+console.log(employerData[0].idFestival === idFestival);
 
-      if (employerData.some(data => data.idFestival == idFestival)) {
-        console.log("idFestival", idFestival);
-        console.log("employerData.idFestival", employerData.idFestival);
+      console.log(employerData.map(data => data.idFestival));
+
+      if (employerData.some(data => data.idFestival === parseInt(idFestival,10))) {
+
 
         // Récupérez les données du poste
-        const posteResponse = await fetch(`http://localhost:3000/position-module/${postId}`);
+        const posteResponse = await fetch(`https://awi-api-2.onrender.com/position-module/${postId}`);
         const posteData = await posteResponse.json();
-        console.log(posteData);
+
 
         // Récupérez le nom de la zone bénévole
-        const zoneResponse = await fetch(`http://localhost:3000/volunteer-area-module/${inscription.idZoneBenevole}`);
+        const zoneResponse = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${inscription.idZoneBenevole}`);
         const zoneData = await zoneResponse.json();
-        console.log(zoneData);
+  
 
         // Récupérez les référents du poste
-        const referentsResponse = await fetch(`http://localhost:3000/referent-module/position/${postId}`);
+        const referentsResponse = await fetch(`https://awi-api-2.onrender.com/referent-module/position/${postId}`);
         const referentsData = await referentsResponse.json();
-        console.log(referentsData);
+
 
         // Pour chaque référent, récupérez son prénom à partir de son ID
         const referentsDetails = await Promise.all(referentsData.map(async (referent) => {
-          console.log(referent);
-          const referentResponse = await fetch(`http://localhost:3000/authentication-module/${referent.idBenevole}`);
+  
+          const referentResponse = await fetch(`https://awi-api-2.onrender.com/authentication-module/${referent.idBenevole}`);
           const referentData = await referentResponse.json();
           return {
             idReferent: referent.idBenevole,
             prenomReferent: referentData.Pseudo, // Assurez-vous que votre API renvoie le prénom correctement
           };
         }));
+        console.log(referentsDetails);
+        console.log(inscription);
 
         // Retournez un objet avec les données d'inscription, de poste, de zone et de référents combinées
         return {
@@ -100,13 +113,23 @@ const fetchActivites = async () => {
 };
 
 
-  useEffect(() => {
+useEffect(() => {
+  const fetchData = async () => {
+    setLoading(true); // Set loading to true before fetching data
 
+    try {
+      // Fetch postes and activites data
+      await fetchPostes();
+      await fetchActivites();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false); // Set loading to false after data is fetched or in case of an error
+    }
+  };
 
-      fetchPostes();
-      fetchActivites();
-  
-    }, [idFestival, userId]);
+  fetchData();
+}, [idFestival, userId]);
   
     const handlePosteChange = (event) => {
       setSelectedPoste(event.target.value);
@@ -114,7 +137,7 @@ const fetchActivites = async () => {
     const dynamicStyle = (nomPoste) => {
       let backgroundColor = '';
     
-      console.log("Nom du poste", nomPoste);
+
     
       if (nomPoste && typeof nomPoste === 'string') {
         switch (nomPoste.toLowerCase()) {
@@ -149,7 +172,7 @@ const filteredActivites = selectedPoste
 
 const handleUnsubscribe = async (inscriptionId, idZoneBenevole, Creneau, Jour) => {
   try {
-    const response = await fetch(`http://localhost:3000/inscription-module/delete`, {
+    const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/delete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -191,7 +214,11 @@ return (
       ))}
     </select>
 
-    {hasActivities ? (
+    {loading ? (
+      <div className={styles.loaderContainer}>
+        <Loader />
+        </div> // Display Loader component while data is being fetched
+      ) : hasActivities ? (
       // Affichez les activités s'il y en a
       <ul className={styles.liste} style={displayInline ? { display: "flex", margin: "0",padding: "0" } : {}}>
         {filteredActivites.map((activite, index) => (

@@ -13,7 +13,7 @@ const AdminNotifications = () => {
   const handleFestivalChange = (newFestivalId) => {
     setSelectedFestival(newFestivalId);
   };
-  console.log(selectedFestival);
+
   return (
     <div>
         <Header currentPage="notifications" idFestival={selectedFestival} onFestivalChange={handleFestivalChange} />

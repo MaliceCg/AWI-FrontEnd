@@ -1,12 +1,11 @@
 import AddIcon from '@mui/icons-material/Add';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ImportCsv from '../../components/AccueilAdmin/admin/ImportCsv';
 import PosteFestival from '../../components/AccueilAdmin/admin/PosteFestival';
 import Header from '../../components/common/Header';
 import NavbarAdmin from '../../components/common/NavbarAdmin';
 import styles from '../../styles/espaceCreation.module.css';
-
 
 const EspaceCreation = () => {
 
@@ -18,15 +17,17 @@ const EspaceCreation = () => {
     setSelectedFestival(newFestivalId);
   };
 
+  
+  
   /////////////////////Recupere les postes du festival////////////////////////
   const [postes, setPostes] = useState([]);
   const fetchPostes = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/employer-module/festival/${idFestival}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
       if (response.ok) {
         const datas = await response.json();
         const postePromises = datas.map(async (data) => {
-          const reponsePoste = await fetch(`http://localhost:3000/position-module/${data.idPoste}`);
+          const reponsePoste = await fetch(`https://awi-api-2.onrender.com/position-module/${data.idPoste}`);
           if (reponsePoste.ok) {
             const posteData = await reponsePoste.json();
             
@@ -34,8 +35,8 @@ const EspaceCreation = () => {
             if (posteData.nomPoste === "Animation Jeux") {
               return posteData;
             } else {
-              console.log(posteData.nomPoste);
-              const reponseZone = await fetch(`http://localhost:3000/volunteer-area-module/${data.idPoste}`);
+     
+              const reponseZone = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${data.idPoste}`);
               if (reponseZone.ok) {
                 const zoneData = await reponseZone.json();
                 return {
@@ -86,6 +87,40 @@ const EspaceCreation = () => {
   };
 
   const [isAddPostePopupOpen, setAddPostePopupOpen] = useState(false);
+
+  const [shouldClosePopup, setShouldClosePopup] = useState(false);
+
+  // Référence à la popup pour vérifier si un clic est en dehors d'elle
+  const popupRef = useRef(null);
+  // Effet pour ajouter l'écouteur d'événements lors de l'ouverture de la popup
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        // Clic en dehors de la popup, fermer la popup
+        setShouldClosePopup(true);
+      }
+    };
+
+    if (isAddPostePopupOpen) {
+      // Ajouter l'écouteur d'événements lorsque la popup est ouverte
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Retirer l'écouteur d'événements lorsque la popup est fermée
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAddPostePopupOpen]);
+
+  // Effet pour fermer la popup lorsque shouldClosePopup est vrai
+  useEffect(() => {
+    if (shouldClosePopup) {
+      closeAddPostePopup();
+      setShouldClosePopup(false);
+    }
+  }, [shouldClosePopup]);
+
+  
   const [newPoste, setNewPoste] = useState({
     nomPoste: "",
     description: "",
@@ -94,9 +129,8 @@ const EspaceCreation = () => {
   });
 
 const addPoste = async () => {
-console.log("newPoste : ", newPoste);
-console.log(JSON.stringify(newPoste));
-    const response = await fetch('http://localhost:3000/position-module', {
+
+    const response = await fetch('https://awi-api-2.onrender.com/position-module', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -107,10 +141,10 @@ console.log(JSON.stringify(newPoste));
 
     if (response.ok) {
       const posteResponseData = await response.json(); // Convertir la réponse en JSON
-      console.log(posteResponseData);
+
       const posteId = posteResponseData.idPoste; // Récupérer l'ID du poste créé
-      console.log(posteId);
-      console.log(idFestival);
+
+
       const zoneData = {
         idZoneBenevole : posteId,
         nomZoneBenevole: newPoste.nomZoneBenevole,
@@ -119,7 +153,7 @@ console.log(JSON.stringify(newPoste));
         idPoste: posteId,  // Associer la zone au poste créé
       };
 
-      const zoneResponse = await fetch('http://localhost:3000/volunteer-area-module', {
+      const zoneResponse = await fetch('https://awi-api-2.onrender.com/volunteer-area-module', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
@@ -138,8 +172,8 @@ console.log(JSON.stringify(newPoste));
         idFestival: parseInt(idFestival, 10),
         idPoste: posteId,
       };
-      console.log(employerData);
-      const employerResponse = await fetch('http://localhost:3000/employer-module', {
+
+      const employerResponse = await fetch('https://awi-api-2.onrender.com/employer-module', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -158,7 +192,7 @@ console.log(JSON.stringify(newPoste));
       }
         }
         else {
-          console.log(response);
+
           console.error(`Erreur lors de la création du poste ${newPoste.nomPoste}.`);
         }
       }
@@ -199,7 +233,7 @@ const handleNewPosteInputChange = (e) => {
 
             {isAddPostePopupOpen && (
               <div className={styles.editPopup}>
-              <div className={styles.editPopupContent}>
+              <div ref={popupRef} className={styles.editPopupContent}>
                 <h1 className={styles.titre}>Ajouter un poste :</h1>
                 <label className={styles.label} >Nom du poste</label>
                 <input className={styles.editInput}
@@ -209,7 +243,7 @@ const handleNewPosteInputChange = (e) => {
                   onChange={handleNewPosteInputChange}
                 />
                 <label className={styles.label}>Description</label>
-                <textarea
+                <textarea className={styles.editInput}
                   name="description"
                   value={newPoste.description}
                   onChange={handleNewPosteInputChange}
@@ -228,8 +262,10 @@ const handleNewPosteInputChange = (e) => {
                   value={newPoste.nomZoneBenevole}
                   onChange={handleNewPosteInputChange}
                 />
+                <div className={styles.boutonAjout}>
                 <button className={styles.btn2} onClick={addPoste}>Ajouter</button>
                 <button className={styles.btn2} onClick={closeAddPostePopup}>Annuler</button>
+                </div>
               </div>
             </div>
             )}

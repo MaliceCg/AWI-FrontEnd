@@ -4,6 +4,27 @@
     margin-top: 60px;
     /* Autres styles nécessaires pour le positionnement et la mise en page */
 }
+.editInput {
+font-size: 20px;
+  padding: 5px;
+  border: 0.5px solid #838383;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.btn {
+    background: transparent;
+    border: 2px solid #838383;
+    font-size: 16px;
+    border-radius: 5px;
+    padding: 4px;
+    color: #838383;
+    cursor: pointer;
+    margin-top: -10px;
+    margin: 5px;
+    text-align: center;
+    
+}
+
 
 @media (min-width: 768px) {
     .navbar {
