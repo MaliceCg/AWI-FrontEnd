@@ -17,8 +17,8 @@ const CalendarInscription = ({festivalInfo, poste, idZone}) => {
   const [reloadPage, setReloadPage] = useState(false);
 
 
-  //const benevoleId = parseInt(localStorage.getItem('idBenevole'));
-  const benevoleId = 1;
+  const benevoleId = parseInt(localStorage.getItem('idBenevole'));
+  //const benevoleId = 1;
 
   useEffect(() => {
     const fetchInscriptions = async () => {
