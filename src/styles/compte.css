@@ -1,7 +1,7 @@
 .CompteInfo {
 
     background-color: #DDD;
-    height:110vh;
+    height:auto;
 }
 .Infosutilisateur{
 padding-top: 5px;
@@ -54,6 +54,7 @@ box-shadow: 0px 0px 5px 0px #00000040;
     text-decoration: underline;
     font-size: 20px;
     color: #838383;
+    margin-bottom: 20px;
 }
 .CompteInfo .IconButton {
     margin-top: -15%;
