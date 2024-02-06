@@ -116,3 +116,14 @@ button {
 .planning {
     margin-left:-4%;
 }
+
+.flexibleContainer {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left:-50%;
+}
+.flexibleContainer input {
+    margin-right: 10px;
+    margin-top: -10px;
+}
