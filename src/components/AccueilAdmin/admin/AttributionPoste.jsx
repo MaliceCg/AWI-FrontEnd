@@ -9,7 +9,7 @@ console.log(idBenevole);
     const handlePosteClick = async (poste) => {
         const updatePromises = inscriptions.map(async (inscription) => {
             if (inscription.idPoste !== poste.idPoste) {
-                await fetch(`http://localhost:3000/inscription-module/delete`, {
+                await fetch(`https://awi-api-2.onrender.com/inscription-module/delete`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ console.log(idBenevole);
             } else {
                 if(poste.nomPoste === "Animation jeux"){
                     //get all zones via this : http://localhost:3000/volunteer-area-module/:idFestival/:idPoste
-                    const response = await fetch(`http://localhost:3000/volunteer-area-module/${idFestival}/${poste.idPoste}`);
+                    const response = await fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idFestival}/${poste.idPoste}`);
                     if (!response.ok) {
                         throw new Error('Erreur lors de la récupération des zones');
                     }
@@ -34,7 +34,7 @@ console.log(idBenevole);
                     //pick a random zone
                     const randomZone = zonesData[Math.floor(Math.random() * zonesData.length)];
             
-                    await fetch(`http://localhost:3000/inscription-module/update`, {
+                    await fetch(`https://awi-api-2.onrender.com/inscription-module/update`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ console.log(idBenevole);
                     });
 
                 } else {
-                    await fetch(`http://localhost:3000/inscription-module/update`, {
+                    await fetch(`https://awi-api-2.onrender.com/inscription-module/update`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ console.log(idBenevole);
             console.error('Erreur lors des mises à jour :', error);
         }
 
-        window.location.href = `http://localhost:3006/admin-liste-benevole/1`;
+        window.location.href = `https://awi-api-2.onrender.com/admin-liste-benevole/1`;
     };
     
 
@@ -90,7 +90,7 @@ console.log(idBenevole);
                 let date = jour.split('/'); 
                 date = date[2] + '-' + date[1] + '-' + date[0];
                 console.log(date);
-                const response = await fetch(`http://localhost:3000/inscription-module/volunteer/${idBenevole}/jour/${date}/creneau/${creneau}`);
+                const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${idBenevole}/jour/${date}/creneau/${creneau}`);
 
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération des inscriptions');
@@ -106,7 +106,7 @@ console.log(idBenevole);
 
         const fetchAllPositions = async () => {
             try {
-                const positionsResponse = await fetch(`http://localhost:3000/position-module`);
+                const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
 
                 if (!positionsResponse.ok) {
                     throw new Error('Erreur lors de la récupération des postes');
