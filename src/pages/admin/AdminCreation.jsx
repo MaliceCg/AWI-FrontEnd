@@ -23,7 +23,7 @@ const EspaceCreation = () => {
   const [postes, setPostes] = useState([]);
   const fetchPostes = async () => {
     try {
-      const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${idFestival}`);
+      const response = await fetch(`https://awi-api-2.onrender.com/employer-module/festival/${selectedFestival}`);
       if (response.ok) {
         const datas = await response.json();
         const postePromises = datas.map(async (data) => {
@@ -136,7 +136,11 @@ const addPoste = async () => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
               },
-      body: JSON.stringify(newPoste),
+      body: JSON.stringify({
+        nomPoste : newPoste.nomPoste,
+        description: newPoste.description,
+        capacite : newPoste.capacite
+      }),
       });
 
     if (response.ok) {
@@ -149,9 +153,10 @@ const addPoste = async () => {
         idZoneBenevole : posteId,
         nomZoneBenevole: newPoste.nomZoneBenevole,
         capacite:posteResponseData.capacite,  // Ajoutez la capacité que vous souhaitez
-        idFestival: idFestival,  // Associer la zone au festival créé
+        idFestival: parseInt(selectedFestival,10),  // Associer la zone au festival créé
         idPoste: posteId,  // Associer la zone au poste créé
       };
+      console.log("zoneData",zoneData);
 
       const zoneResponse = await fetch('https://awi-api-2.onrender.com/volunteer-area-module', {
       method: 'POST',
@@ -169,7 +174,7 @@ const addPoste = async () => {
       }
       // Lier le poste au festival dans la table employer
       const employerData = {
-        idFestival: parseInt(idFestival, 10),
+        idFestival: parseInt(selectedFestival, 10),
         idPoste: posteId,
       };
 
@@ -217,7 +222,7 @@ const handleNewPosteInputChange = (e) => {
         <NavbarAdmin idFestival={selectedFestival}/>
         </div>
         <div className={styles.componentContainer}>
-          <ImportCsv idFestival={idFestival} />
+          <ImportCsv idFestival={selectedFestival} />
 
           <div className={styles.posteContainer}>
             <h3>Postes existants pour ce Festival : </h3>

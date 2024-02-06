@@ -18,6 +18,7 @@ const InscriptionPoste = ({ poste, onClick}) => {
       backgroundColor = '#105C9F';
       break;
     default:
+      backgroundColor = '#F4B740';
       break;
   }
 

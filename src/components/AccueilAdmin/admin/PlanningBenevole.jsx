@@ -263,10 +263,10 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
             <div className={styles.popup}>
                 <div className={styles.popupHeader}>
                     <button className={styles.closeButtonPopupAttributionPoste} onClick={onClose}>
-                        &#10006; {/* Unicode character for 'X' */}
+                        &#10006;
                     </button>
                 </div>
-                <AttributionPoste idFestival={idFestival} idBenevole={idBenevole} creneau={selectedCreneau} jour={selectedJour} />
+                <AttributionPoste idFestival={idFestival} idBenevole={idBenevole} creneau={selectedCreneau} jour={selectedJour} onClose={onClose} fetchPosition={fetchPositions} />
             </div>
         )}
     </div>

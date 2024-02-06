@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import style from '../../../styles/attributionPoste.module.css';
-
-const AttributionPoste = ({ idFestival, idBenevole, creneau, jour }) => {
+const AttributionPoste = ({ idFestival, idBenevole, creneau, jour, onClose, fetchPosition }) => {
 console.log(idBenevole);
     const [inscriptions, setInscriptions] = useState([])
     const [allPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
 
+    const fetchInscriptions = async () => {
+        try {
+
+            //change jour format to dd/mm/yyyy to yyyy-mm-dd
+            let date = jour.split('/'); 
+            date = date[2] + '-' + date[1] + '-' + date[0];
+            console.log(date);
+            const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${idBenevole}/jour/${date}/creneau/${creneau}`);
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des inscriptions');
+            }
+
+            const inscriptionsData = await response.json();
+            setInscriptions(inscriptionsData);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     const handlePosteClick = async (poste) => {
         const updatePromises = inscriptions.map(async (inscription) => {
             if (inscription.idPoste !== poste.idPoste) {
@@ -74,50 +94,32 @@ console.log(idBenevole);
             await Promise.all(updatePromises);
             // Toutes les requêtes ont réussi
             console.log('Mises à jour terminées avec succès.');
+            fetchInscriptions();
+            fetchPosition();
+            onClose();
+
         } catch (error) {
             console.error('Erreur lors des mises à jour :', error);
         }
 
-        window.location.href = `https://awi-api-2.onrender.com/admin-liste-benevole/1`;
+       
     };
-    
+    const fetchAllPositions = async () => {
+        try {
+            const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
+
+            if (!positionsResponse.ok) {
+                throw new Error('Erreur lors de la récupération des postes');
+            }
+
+            const positionsData = await positionsResponse.json();
+            setAllPositions(positionsData);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        const fetchInscriptions = async () => {
-            try {
-
-                //change jour format to dd/mm/yyyy to yyyy-mm-dd
-                let date = jour.split('/'); 
-                date = date[2] + '-' + date[1] + '-' + date[0];
-                console.log(date);
-                const response = await fetch(`https://awi-api-2.onrender.com/inscription-module/volunteer/${idBenevole}/jour/${date}/creneau/${creneau}`);
-
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la récupération des inscriptions');
-                }
-
-                const inscriptionsData = await response.json();
-                setInscriptions(inscriptionsData);
-
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        const fetchAllPositions = async () => {
-            try {
-                const positionsResponse = await fetch(`https://awi-api-2.onrender.com/position-module`);
-
-                if (!positionsResponse.ok) {
-                    throw new Error('Erreur lors de la récupération des postes');
-                }
-
-                const positionsData = await positionsResponse.json();
-                setAllPositions(positionsData);
-            } catch (error) {
-                console.error(error);
-            }
-        };
 
 
         fetchInscriptions();

@@ -188,32 +188,48 @@ const PosteFestival = (props) => {
     };
 
     const deletePoste = () => {
-        fetch(`https://awi-api-2.onrender.com/employer-module/${idFestival}/${idPoste}`, {
+        // Supprimer la relation de zone bénévole
+        fetch(`https://awi-api-2.onrender.com/volunteer-area-module/${idPoste}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
-        }).then(response => {
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la suppression de la relation zone bénévole');
+            }
+            // Supprimer le poste
+            return fetch(`https://awi-api-2.onrender.com/employer-module/${idFestival}/${idPoste}`, {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        })
+        .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur lors de la suppression de la relation employer');
             }
+            // Supprimer le poste
             return fetch(`https://awi-api-2.onrender.com/position-module/${idPoste}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
             });
-        }).then(response => {
+        })
+        .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur lors de la suppression du poste');
             }
-        }).catch(error => {
+            alert('Le poste a bien été supprimé');
+            props.fetchPostes();
+            closeConfirmationDialog();
+        })
+        .catch(error => {
             alert(error.message);
         });
-
-        alert('Le poste a bien été supprimé');
-        props.fetchPostes();
-        closeConfirmationDialog();
     };
 
     return (
