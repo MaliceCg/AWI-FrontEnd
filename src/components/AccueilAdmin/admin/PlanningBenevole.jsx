@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/planning.module.css';
 import AttributionPoste from './AttributionPoste';
+import Loader from './Loader';
 
 const PlanningBenevole = ({idFestival, idBenevole}) => {
     const [festivalInfo, setFestivalInfo] = useState(null);
@@ -9,6 +10,7 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
     const [openAttributionPosition, setOpenAttributionPosition] = useState(false);
     const [selectedCreneau, setSelectedCreneau] = useState(null);
     const [selectedJour, setSelectedJour] = useState(null);
+    const [loading, setLoading] = useState(true)
     
 
     if (!idBenevole) {
@@ -30,7 +32,25 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
         setOpenAttributionPosition(false);
     };
 
-  useEffect(() => {
+    useEffect(() => {
+      const fetchData = async () => {
+        setLoading(true);
+  
+        try {
+          await fetchFestivalInfo();
+          await fetchPositions();
+          await fetchAllPositions();
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchData();
+    }, [idFestival]);
+
+
     const fetchFestivalInfo = async () => {
       try {
         // Envoyer une requête GET au backend pour récupérer les informations du festival
@@ -95,10 +115,6 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
       }
     };
 
-    fetchFestivalInfo();
-    fetchPositions();
-    fetchAllPositions();
-  }, [idFestival]);
 
 
   // Fonction pour calculer le nombre de jours entre deux dates
@@ -207,10 +223,15 @@ const PlanningBenevole = ({idFestival, idBenevole}) => {
     <div>
         <div className={styles.benevoleCalendar}>
             <h2 className={styles.titre}>Planning</h2>
+            {loading ? (
+            <div className={styles.loaderContainer}>
+        <Loader />
+        </div>
+      ) : (
             <div className={styles.Calendar}>
             {renderTimeSlots()}
             </div>
-            
+      )}
             <div className={styles.calendarLegend}>
 
                 <div className={styles.legendColor} style={{ backgroundColor: '#3CCBF4' }}></div>

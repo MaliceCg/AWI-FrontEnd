@@ -281,9 +281,9 @@ const suppression = async () => {
                             value={editedInfo.StatutHebergement}
                             onChange={handleInputChange}
                           >
-                            <option value="en recherche">En Recherche</option>
-                            <option value="proposition">Proposition</option>
-                            <option value="rien">Rien</option>
+                            <option value="En Recherche de logement">En Recherche de logement</option>
+                            <option value="Proposition de logement">Proposition de logement</option>
+                            <option value="Pas besoin de logement">Pas besoin de logement</option>
                           </select>
                         <label className={styles.label}>Taille T-Shirt</label>
                         <select className={styles.editInput}

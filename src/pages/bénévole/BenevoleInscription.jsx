@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import FlexibleSelection from '../../components/bénévole/FlexibleSelection';
 import InscriptionPoste from '../../components/bénévole/InscriptionPoste';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
@@ -7,7 +8,7 @@ import style from '../../styles/inscription.module.css';
 
 const BenevoleInscription = () => {
   const { idFestival } = useParams();
-
+  const [showModal, setShowModal] = useState(false);
   const [selectedFestival, setSelectedFestival] = useState(idFestival);
 
   const handleFestivalChange = (newFestivalId) => {
@@ -17,7 +18,13 @@ const BenevoleInscription = () => {
   const [postes, setPostes] = useState([]);
 
   const navigate = useNavigate();
+  const openModal = () => {
+    setShowModal(true);
+  };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
   useEffect(() => {
     const fetchPostes = async () => {
       try {
@@ -71,8 +78,15 @@ const BenevoleInscription = () => {
               ))}
           </div>
 
-          <p className={style.flexibleText}>Je suis flexible sur les postes</p>
+          <p className={style.flexibleText} onClick={openModal}>Je suis flexible sur les postes</p>
         </div>
+        {showModal && (
+        <div className={style.modal}>
+          <div className={style.modalContent}>
+          <FlexibleSelection postes={postes} idFestival={idFestival} onSelectionChange={(selectedPostes) => console.log(selectedPostes)} onClose={closeModal}/>
+          </div>
+        </div>
+      )}
         <Navbar idFestival={selectedFestival}/>
     </div>
   );

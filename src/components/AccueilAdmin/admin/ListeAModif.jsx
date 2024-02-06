@@ -83,7 +83,16 @@ const ListBenevoles = ({ idFestival, benevole, index }) => {
             </button>
           </div>
           <p>Planning du bénévole :  {benevole.Pseudo}</p>
+          <h3>{benevole.Nom}</h3>
+          <h3>{benevole.Prenom}</h3>
+          <h3>{benevole.Email}</h3>
+          <h3>{benevole.TailletTShirt}</h3>
+          <h3>{benevole.Regime}</h3>
+          <h3>{benevole.StatutHebergement}</h3>
+          <h3>{benevole.JeuPrefere}</h3>
+          <div className={styles.planning}>
           <PlanningBenevole idFestival={idFestival} idBenevole={benevole.idBenevole} />
+          </div>
         </div>
       )}
     </div>

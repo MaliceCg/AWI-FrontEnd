@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from '../../../styles/attributionPoste.module.css';
 
 const AttributionPoste = ({ idFestival, idBenevole, creneau, jour }) => {
-
+console.log(idBenevole);
     const [inscriptions, setInscriptions] = useState([])
     const [allPositions, setAllPositions] = useState([]); // État pour stocker les postes de l'utilisateur
 
@@ -89,7 +89,7 @@ const AttributionPoste = ({ idFestival, idBenevole, creneau, jour }) => {
                 //change jour format to dd/mm/yyyy to yyyy-mm-dd
                 let date = jour.split('/'); 
                 date = date[2] + '-' + date[1] + '-' + date[0];
-
+                console.log(date);
                 const response = await fetch(`http://localhost:3000/inscription-module/volunteer/${idBenevole}/jour/${date}/creneau/${creneau}`);
 
                 if (!response.ok) {

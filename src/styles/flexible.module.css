@@ -1,0 +1,69 @@
+.title {
+  text-align: center;
+  display:flex;
+  flex-direction: row;
+}
+.modal {
+  position: relative;
+   margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: larger;
+    background-color : #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 30px;
+    width: 95vw;
+    height: auto;
+    padding:20px;
+    overflow-x: auto;
+    
+}
+
+.titre {
+  font-size: 24px;
+}
+.popupCloseButton {
+    background: none;
+    border: none;
+    font-size: 58px;
+    cursor: pointer;
+}
+.liste {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 35%;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.label {
+  font-size: 16px;
+}
+
+.btn {
+    margin-left:15%;
+    width: 60%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #838383;
+    outline: none;
+    background-color: #d9d9d900;
+    font-size: 20px;
+    color: #838383;
+}
+
+.btn:hover {
+  background-color: #838383;
+  color: #FFFF;
+}
+
+.planningcontainer {
+  margin-top: 20px;
+  display: flex;
+  margin-left:-2.5%;
+}
