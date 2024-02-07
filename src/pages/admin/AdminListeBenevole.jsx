@@ -44,7 +44,7 @@ const AdminListeBenevole = () => {
         const response = await fetch(`https://awi-api-2.onrender.com/inscription-module`);
         if (response.ok) {
           const data = await response.json();
-          
+          console.log("inscription",data);
           setInscriptions(data);
         } else {
           throw new Error('Erreur lors de la récupération des données');

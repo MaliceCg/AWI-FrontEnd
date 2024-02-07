@@ -74,6 +74,7 @@ button {
 
 .nomBenevole{
     font-weight: normal;
+    width:60vw;
 }
 
 .nomBenevole > *:not(:last-child) {
