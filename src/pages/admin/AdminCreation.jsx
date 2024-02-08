@@ -67,7 +67,7 @@ const EspaceCreation = () => {
 
   useEffect(() => {
     fetchPostes(); // Appel de la fonction fetch lors du premier rendu
-  }, [idFestival]);
+  }, [selectedFestival]);
 
 //////////////////////Gere la pop up d'ajout de poste////////////////////////
   const openAddPostePopup = () => {
