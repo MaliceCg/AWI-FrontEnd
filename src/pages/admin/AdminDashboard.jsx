@@ -18,7 +18,7 @@ const AdminDashboard = () => {
         <div className={styles.dashboardContainer}>
           <div className={styles.dashboardButtons}>
               <Link to={`/benevole-dashboard/${idFestival}`}>
-                <button className={styles.btnMode}>Passez en mode bénévole</button>
+                <button className={styles.btnMode}>Passez en mode Bénévole</button>
               </Link>
               <Link to={`/liste-benevole/${idFestival}`}>
             <button className={styles.btnMode}>Passez en mode Accueil</button>

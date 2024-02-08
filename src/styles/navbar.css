@@ -2,6 +2,8 @@
 .navbar {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: space-between;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -10,7 +12,29 @@
     background-color: #333; /* Ajoutez votre couleur de fond */
     border-top-left-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur gauche */
     border-top-right-radius: 10px; /* Ajoutez la valeur appropriée pour le coin supérieur droit */
+    padding-top: 8px;
   }
+
+.titleNavbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Couleur du texte */
+    font-size: smaller;
+    text-decoration: none;
+    font-weight: lighter;
+    text-decoration: none;
+  }
+
+.iconBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff; /* Couleur du texte */
+    margin-bottom: 10px;
+  }
+  
   
   .mobile-nav {
     display: flex;
