@@ -33,19 +33,34 @@ useEffect(() => {
       {/* Version mobile */}
       <div className="mobile-nav">
         <Link to={`/benevole-notification/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-notification/${idFestival}` ? 'active' : ''}`}>
-          <img src={NotifIcon} alt="notifications" />
+          <div className="iconBox">
+            <img src={NotifIcon} alt="notifications" />
+            <h2 className="titleNavbar">Notification</h2>
+          </div>
         </Link>
         <Link to={`/benevole-planning/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-planning/${idFestival}` ? 'active' : ''}`}>
-          <img src={PlanningIcon} alt="planning" />
+          <div className="iconBox">
+            <img src={PlanningIcon} alt="planning" />
+            <p className="titleNavbar">Planning</p>
+          </div>
         </Link>
         <Link to={`/benevole-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-dashboard/${idFestival}` ? 'active' : ''}`}>
-          <img src={HomeIcon} alt="accueil" />
+          <div className="iconBox">
+            <img src={HomeIcon} alt="accueil" />
+            <h2 className="titleNavbar">Accueil</h2>
+          </div>
         </Link>
         <Link to={`/benevole-activites/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-activites/${idFestival}` ? 'active' : ''}`}>
-          <img src={ActivitesIcon} alt="activites" />
+          <div className="iconBox">
+            <img src={ActivitesIcon} alt="activites" />
+            <h2 className="titleNavbar">Activités</h2>
+          </div>
         </Link>
         <Link to={`/benevole-inscription/${idFestival}`} className={`mobile-icon ${location.pathname === `/benevole-inscription/${idFestival}` ? 'active' : ''}`}>
-          <img src={InscriptionIcon} alt="inscription" />
+          <div className="iconBox">
+            <img src={InscriptionIcon} alt="inscription" />
+            <h2 className="titleNavbar">S'inscrire</h2>
+          </div>
         </Link>
       </div>
 

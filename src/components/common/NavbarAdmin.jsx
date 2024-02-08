@@ -33,19 +33,34 @@ useEffect(() => {
       {/* Version mobile */}
       <div className="mobile-nav">
         <Link to={`/admin-notifications/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-notifications/${idFestival}` ? 'active' : ''}`}>
-          <img src={SendIcon} alt="notifications" />
+          <div className="iconBox">
+            <img src={SendIcon} alt="notifications" />
+            <h2 className="titleNavbar">Notifications</h2>
+          </div>
         </Link>
         <Link to={`/admin-planning/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-planning/${idFestival}` ? 'active' : ''}`}>
-          <img src={PlanningIcon} alt="planning" />
+          <div className="iconBox">
+            <img src={PlanningIcon} alt="planning" />
+            <h2 className="titleNavbar">Planning</h2>
+          </div>
         </Link>
         <Link to={`/admin-dashboard/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-dashboard/${idFestival}` ? 'active' : ''}`}>
-          <img src={HomeIcon} alt="accueil" />
+          <div className="iconBox">
+            <img src={HomeIcon} alt="accueil" />
+            <h2 className="titleNavbar">Accueil</h2>
+          </div>
         </Link>
         <Link to={`/admin-liste-benevole/${idFestival}`} className={`mobile-icon ${location.pathname === `/admin-liste-benevole/${idFestival}` ? 'active' : ''}`}>
-          <img src={ActivitesIcon} alt="liste admins" />
+          <div className="iconBox">
+            <img src={ActivitesIcon} alt="liste admins" />
+            <h2 className="titleNavbar">Bénévoles</h2>
+          </div>
         </Link>
         <Link to={`/espace-creation/${idFestival}`} className={`mobile-icon ${location.pathname === `/espace-creation/${idFestival}` ? 'active' : ''}`}>
-          <img src={CreationIcon} alt="espace creation" />
+          <div className="iconBox">
+            <img src={CreationIcon} alt="espace creation" />
+            <h2 className="titleNavbar">Création</h2>
+          </div>
         </Link>
       </div>
 

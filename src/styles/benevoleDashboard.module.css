@@ -20,7 +20,10 @@
 .dashboardButtons {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 10px;
 }
 .btnMode {
     margin : auto;
@@ -61,6 +64,7 @@
 
   }
 
+  
 
 @media screen and (min-width: 768px) {
 
