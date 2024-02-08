@@ -51,9 +51,9 @@ const ListBenevoles = ({ idFestival, benevole, index }) => {
 
   return (
     <div>
-      <div className={styles.benevoleBox} key={index} onClick={handleBenevoleClick}>
+      <div className={styles.benevoleBox} key={index} >
         <div>
-          <div className={styles.nomBenevole}>
+          <div className={styles.nomBenevole} onClick={handleBenevoleClick}>
             {benevole.Pseudo}
           </div>
           {!isEditing ? (
