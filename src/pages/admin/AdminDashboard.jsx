@@ -30,7 +30,7 @@ const AdminDashboard = () => {
               </Link>
             </div>
             <div className={styles.benevoleListe}>
-              <Link to={`/liste-benevole/${idFestival}`}>
+              <Link to={`/admin-liste-benevole/${idFestival}`}>
                 <button className={styles.ListeBenevole}> Gérer les benevoles</button>
               </Link>
             </div>
