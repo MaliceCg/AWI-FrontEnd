@@ -107,6 +107,7 @@ console.log(employerData[0].idFestival === idFestival);
     const activitesData = await Promise.all(activitesPromises);
     setActivites(activitesData);
     setHasActivities(activitesData.some((activite) => activite !== null));
+  
   } catch (error) {
     console.error(error);
   }
@@ -121,6 +122,7 @@ useEffect(() => {
       // Fetch postes and activites data
       await fetchPostes();
       await fetchActivites();
+      console.log(activites);
     } catch (error) {
       console.error(error);
     } finally {
